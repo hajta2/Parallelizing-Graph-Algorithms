@@ -31,7 +31,7 @@ public:
         neighbourMatrix=tmp;
     }
 
-    Graph(int vertices){
+    explicit Graph(int vertices){
         std::random_device rd;
         std::mt19937_64 gen(rd());
         std::uniform_int_distribution<int> dis2(0,vertices*vertices);

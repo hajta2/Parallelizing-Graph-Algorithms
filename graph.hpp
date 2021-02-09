@@ -15,7 +15,7 @@ private:
     const int NOVertices;
     std::vector<int> weightedFlow;
 
-
+//a szomszedsagi es a sulyvektor szorzata
     void getWeightedFlow(){
         std::vector<int> res(NOVertices);
 
@@ -30,6 +30,10 @@ private:
     }
 
 public:
+    //a konstruktorok letrehozzak a grafokat veletlenszeruen
+    //ket fajta konstrukotr van:
+    // egyiknel az eleket es a csucsok szamat lehet megadni
+    // a masiknal a csucsok szamat
     Graph(int edges, int vertices) : NOVertices(vertices) {
         std::random_device rd;
         std::mt19937_64 gen(rd());
@@ -87,7 +91,7 @@ public:
         weights = tmp2;
 
     }
-
+    //idomeres a szomszedsagi matrix es a sulyvektor szorzasara
     int measure(){
         auto start = std::chrono::high_resolution_clock::now();
         getWeightedFlow();

@@ -1,12 +1,12 @@
 #ifndef PARALLELIZING_GRAPH_ALGORITHMS_GRAPHCOMPRESSED_HPP
 #define PARALLELIZING_GRAPH_ALGORITHMS_GRAPHCOMPRESSED_HPP
 
-#include "graphDense.hpp"
+#include "abstractGraph.hpp"
 
 class GraphCompressed : public AbstractGraph {
 private:
     struct value{
-        int row, val;
+        int col, val;
     };
     std::vector<value> neighbourMatrix;
     std::vector<int> rowStart;
@@ -21,7 +21,7 @@ private:
             int end;
             end = i == NOVertices - 1 ? neighbourMatrix.size() - 1 : rowStart[i + 1] - rowStart[i];
             for(int j = start; j < end; ++j){
-                res[i] += neighbourMatrix[start].val*weights[neighbourMatrix[start].row];
+                res[i] += neighbourMatrix[start].val*weights[neighbourMatrix[start].col];
             }
         }
     }

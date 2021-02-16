@@ -9,9 +9,7 @@
 
 class AbstractGraph {
 public:
-    virtual void print() = 0;
     virtual void getWeightedFlow() = 0;
-
     double measure() {
         std::vector<double> res;
         for (int i = 0; i < 10; ++i) {
@@ -23,8 +21,9 @@ public:
         }
         double sum = 0;
         for (int re : res) { sum += re; }
-        return sum/res.size();
+        return sum / res.size();
     }
+    virtual double getDensity() = 0;
 };
 
 #endif//PARALLELIZING_GRAPH_ALGORITHMS_ABSTRACTGRAPH_HPP

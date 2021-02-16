@@ -4,11 +4,12 @@
 #include "abstractGraph.hpp"
 
 
-class Graph : public AbstractGraph {
+class GraphDense : public AbstractGraph {
 private:
     std::vector<int> weights;
     std::vector<int> neighbourMatrix;
     const int NOVertices;
+    double density;
 
     void getWeightedFlow() override {
         std::vector<int> res(NOVertices);
@@ -23,7 +24,7 @@ private:
     }
 
 public:
-    Graph(int edges, int vertices) : NOVertices(vertices) {
+    GraphDense(int edges, int vertices) : NOVertices(vertices) {
         std::random_device rd;
         std::mt19937_64 gen(rd());
         std::uniform_int_distribution<int> dis(0, vertices - 1);
@@ -50,7 +51,7 @@ public:
         weights = tmpWeights;
     }
 
-    explicit Graph(int vertices) : NOVertices(vertices) {
+    explicit GraphDense(int vertices) : NOVertices(vertices) {
         std::random_device rd;
         std::mt19937_64 gen(rd());
         std::uniform_int_distribution<int> dis(0, vertices - 1);
@@ -77,17 +78,13 @@ public:
             tmpWeights[i] = dis(gen);
         }
 
+        density = (double) edges / ((vertices * (vertices - 1)));
         neighbourMatrix = tmpMatrix;
         weights = tmpWeights;
     }
 
-    void print() override {
-        for (int i = 0; i < NOVertices; ++i) {
-            for (int j = 0; j < NOVertices; ++j) {
-                std::cout << neighbourMatrix[i * NOVertices + j] << " ";
-            }
-            std::cout << std::endl;
-        }
+    double getDensity() override {
+        return density;
     }
 };
 

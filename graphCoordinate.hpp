@@ -8,6 +8,7 @@ private:
     struct value {
         int col, row, val;
     };
+    //col,row,val structs in the neighbourmatrix
     std::vector<value> neighbourMatrix;
     std::vector<int> weights;
     const int NOVertices;
@@ -82,7 +83,7 @@ public:
             tmpWeights[i] = dis(gen);
         }
         weights = tmpWeights;
-
+        //compressing the neighbourmatrix
         for (int i = 0; i < NOVertices; ++i) {
             for (int j = 0; j < NOVertices; ++j) {
                 if (tmpMatrix[i * NOVertices + j] != 0) {

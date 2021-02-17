@@ -8,6 +8,8 @@ private:
     struct value {
         int col, val;
     };
+    //columns and values in the neighbourmatrix
+    //the starting indices of the rows in the rowstart matrix
     std::vector<value> neighbourMatrix;
     std::vector<int> rowStart;
     std::vector<int> weights;
@@ -20,6 +22,7 @@ private:
         for (int i = 0; i < NOVertices; ++i) {
             int start = rowStart[i];
             int end;
+            //check if it is the last index
             end = i == NOVertices - 1 ? (int)neighbourMatrix.size() - 1 : rowStart[i + 1] - rowStart[i];
             for (int j = start; j < end; ++j) {
                 res[i] += neighbourMatrix[start].val * weights[neighbourMatrix[start].col];
@@ -89,7 +92,7 @@ public:
             tmpWeights[i] = dis(gen);
         }
         weights = tmpWeights;
-
+        //converting the dense neighbourmatrix to compressed
         for (int i = 0; i < NOVertices; ++i) {
             for (int j = 0; j < NOVertices; ++j) {
                 if (tmpMatrix[i * NOVertices + j] != 0) {

@@ -18,9 +18,9 @@ int main() {
                << "\nDensity of the graphs:\ndense: " << graphDense.getDensity()
                << "\ncoordinate: " << graphCompressed.getDensity()
                << "\ncompressed: " << graphCompressed.getDensity()
-               << "\nRuntimes:\ndense: " << graphDense.measure() << " ms\n"
-               << "coordinate " << graphCoordinate.measure() << " ms\n"
-               << "compressed " << graphCompressed.measure() << " ms\n\n";
+               << "\nRuntimes:\ndense: " << graphDense.measure() << " microseconds\n"
+               << "coordinate " << graphCoordinate.measure() << " microseconds\n"
+               << "compressed " << graphCompressed.measure() << " microseconds\n\n";
     }
 
     myfile.close();

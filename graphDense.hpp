@@ -24,16 +24,18 @@ private:
     }
 
 public:
-    explicit GraphDense(GraphCoordinate graph) : NOVertices(graph.getNOVertices()){
+    explicit GraphDense(GraphCoordinate& graph) : NOVertices(graph.getNOVertices()){
         std::vector<value> matrix = graph.getNeighbourMatrix();
         weights = graph.getWeights();
         std::vector<int> tmpNeigbourMatrix(NOVertices * NOVertices);
         int actualRow = 0;
         for (value v : matrix){
             if(actualRow != v.row) actualRow++;
-            tmpNeigbourMatrix[v.row*actualRow+v.col] = v.val;
+            tmpNeigbourMatrix[v.row*NOVertices+v.col] = v.val;
         }
+        neighbourMatrix=tmpNeigbourMatrix;
     }
+
 };
 
 #endif//PARALLELIZING_GRAPH_ALGORITHMS_GRAPHDENSE_HPP

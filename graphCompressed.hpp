@@ -20,7 +20,7 @@ private:
             int start = rowStart[i];
             int end;
             //check if it is the last index
-            end = i == NOVertices - 1 ? (int)neighbourMatrixCol.size() - 1 : rowStart[i + 1] - rowStart[i];
+            end = (i == NOVertices - 1) ? (int)(neighbourMatrixCol.size() - 1) : (rowStart[i + 1] - rowStart[i]);
             for (int j = start; j < end; ++j) {
                 res[i] += neighbourMatrixValue[start] * weights[neighbourMatrixCol[start]];
             }
@@ -28,20 +28,21 @@ private:
     }
 
 public:
-    explicit GraphCompressed(GraphCoordinate graph) : NOVertices(graph.getNOVertices()){
+    explicit GraphCompressed(GraphCoordinate& graph) : NOVertices(graph.getNOVertices()){
        std::vector<value> matrix = graph.getNeighbourMatrix();
        weights = graph.getWeights();
        int actualRow = 0;
        rowStart.push_back(0);
        for(value v : matrix){
-           if(v.col != actualRow){
+           if(v.row != actualRow){
                actualRow++;
-               rowStart.push_back(matrix.size());
+               rowStart.push_back(neighbourMatrixCol.size());
            }
            neighbourMatrixCol.push_back(v.col);
            neighbourMatrixValue.push_back(v.val);
        }
     }
+
 };
 
 

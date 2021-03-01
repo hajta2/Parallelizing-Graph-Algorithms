@@ -10,20 +10,16 @@ int main() {
     std::ofstream myfile;
     myfile.open("runtime.txt");
 
-    for (int i = 1; i < 12; ++i) {
-        GraphDense graphDense(pow(2, i));
-        GraphCoordinate graphCoordinate(pow(2, i));
-        GraphCompressed graphCompressed(pow(2, i));
+    for (int i = 10; i < 12; ++i) {
+        GraphCoordinate graphCoordinate(pow(2, i), 0.4);
+        GraphDense graphDense(graphCoordinate);
+        GraphCompressed graphCompressed(graphCoordinate);
         myfile << "Vertices:" << pow(2, i)
-               << "\nDensity of the graphs:\ndense: " << graphDense.getDensity()
-               << "\ncoordinate: " << graphCompressed.getDensity()
-               << "\ncompressed: " << graphCompressed.getDensity()
                << "\nRuntimes:\ndense: " << graphDense.measure() << " microseconds\n"
                << "coordinate " << graphCoordinate.measure() << " microseconds\n"
                << "compressed " << graphCompressed.measure() << " microseconds\n\n";
     }
 
     myfile.close();
-
     return 0;
 }

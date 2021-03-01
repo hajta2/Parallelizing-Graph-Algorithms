@@ -6,7 +6,7 @@
 #include "abstractGraph.hpp"
 
 struct value {
-    int col, row, val;
+    int row, col, val;
 };
 
 class GraphCoordinate : public AbstractGraph {
@@ -32,7 +32,7 @@ public:
         std::vector<int> tmpMatrix(vertices*vertices);
         std::vector<int> tmpWeights(vertices);
 
-        int edges = std::floor(density * (float)(vertices * (vertices - 1)));
+        int edges = std::floor(density * (float)(vertices * vertices));
 
         int from;
         int to;

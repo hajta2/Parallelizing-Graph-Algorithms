@@ -6,21 +6,22 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include "mkl_spblas.h"
 
 class AbstractGraph {
 public:
     virtual void getWeightedFlow() = 0;
     double measure() {
-        std::vector<double> res;
+        std::vector<float> res;
         for (int i = 0; i < 10; ++i) {
             auto start = std::chrono::high_resolution_clock::now();
             getWeightedFlow();
             auto stop = std::chrono::high_resolution_clock::now();
-            auto duration = duration_cast<std::chrono::microseconds>(stop - start);
-            res.push_back(duration.count());
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+            res.push_back((float)duration.count());
         }
         double sum = 0;
-        for (int re : res) { sum += re; }
+        for (float re : res) { sum += re; }
         return sum / res.size();
     }
     //virtual double getDensity() = 0;

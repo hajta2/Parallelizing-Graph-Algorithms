@@ -1,13 +1,12 @@
 #ifndef PARALLELIZING_GRAPH_ALGORITHMS_GRAPHDENSE_HPP
 #define PARALLELIZING_GRAPH_ALGORITHMS_GRAPHDENSE_HPP
 
-#include "abstractGraph.hpp"
-#include "graphCompressed.hpp"
+#include "graphCOO.hpp"
 
 
 class GraphDense : public AbstractGraph {
 private:
-    std::vector<int> weights;
+    std::vector<float> weights;
     std::vector<int> neighbourMatrix;
     const int NOVertices;
 
@@ -24,7 +23,7 @@ private:
     }
 
 public:
-    explicit GraphDense(GraphCoordinate& graph) : NOVertices(graph.getNOVertices()){
+    explicit GraphDense(GraphCOO& graph) : NOVertices(graph.getNOVertices()){
         std::vector<value> matrix = graph.getNeighbourMatrix();
         weights = graph.getWeights();
         std::vector<int> tmpNeigbourMatrix(NOVertices * NOVertices);

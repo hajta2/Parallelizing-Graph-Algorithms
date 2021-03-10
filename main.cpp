@@ -13,7 +13,7 @@ std::vector<value> pack_coo(const std::vector<int> &row, const std::vector<int> 
   std::vector<value> result;
   result.reserve(val.size());
   for (int i = 0; i < val.size(); ++i) {
-    result.push_back({row[i], col[i], val[i]});
+    result.push_back({row[i]-1, col[i]-1, val[i]});
   }
   std::sort(result.begin(), result.end(), [](const auto &lhs, const auto &rhs) {
     if (lhs.row != rhs.row) return lhs.row < rhs.row;
@@ -23,27 +23,7 @@ std::vector<value> pack_coo(const std::vector<int> &row, const std::vector<int> 
 }
 
 int main(int argc, const char *argv[]) {
-  std::cout << "Hello";
-  // std::ofstream myfile;
-  // myfile.open("runtime.txt");
-
-  /*for (int i = 10; i < 12; ++i) {
-      GraphCoordinate graphCoordinate(pow(2, i), 0.4);
-      GraphDense graphDense(graphCoordinate);
-      GraphCompressed graphCompressed(graphCoordinate);
-      myfile << "Vertices:" << pow(2, i)
-             << "\nRuntimes:\ndense: " << graphDense.measure() << "
-  microseconds\n"
-             << "coordinate " << graphCoordinate.measure() << " microseconds\n"
-             << "compressed " << graphCompressed.measure() << "
-  microseconds\n\n";
-  }*/
-
-  // GraphCOO graphCOO(pow(2, 8), 0.4);
-  // GraphCSR graphCSR(graphCOO);
-  // std::cout << graphCSR.measure();
-  // myfile.close();
-
+  
   int N_x = 0, N_y = 0;
   std::vector<int> row;
   std::vector<int> col;
@@ -55,27 +35,11 @@ int main(int argc, const char *argv[]) {
     }
   }
 
-  // read in the mtx format
-  // int NORow, NOCol, NOLines;
-  //
-  // std::ifstream file("gre_1107.mtx");
-  // //ignore comments
-  // while (file.peek() == '%') file.ignore(2048, '\n');
-  //
-  // file >> NORow >> NOCol >> NOLines;
-  //
-  // std::vector<value> tmpMatrix(NORow * NOCol);
-  // value v;
-  // for (int i = 0; i < NOLines; i++)
-  // {
-  //     file >> v.row >> v.col;
-  //     file >> v.val;
-  //     tmpMatrix.push_back(v);
-  // }
-  //
-  // GraphCOO graphCOO(NORow, tmpMatrix);
-  // GraphCSR graphCSR(graphCOO);
-  // std::cout << graphCSR.measure();
-  // file.close();
+  std::vector<value> matrix = pack_coo<double>(row,col,vals);
+  GraphCOO graphCOO(N_x, matrix);
+  GraphCSR graphCSR(graphCOO);
+  std::cout<< graphCOO.measure() << std::endl;
+  std::cout<< graphCSR.measure() << std::endl;
+  std::cout<< graphCSR.measureMKL() << std::endl;
   return 0;
 }

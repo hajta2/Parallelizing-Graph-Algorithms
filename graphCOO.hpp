@@ -25,7 +25,18 @@ private:
     }
 
 public:
-    GraphCOO(int vertices, std::vector<value> matrix) : NOVertices(vertices), neighbourMatrix(matrix) {}
+    GraphCOO(int vertices, std::vector<value> matrix) : NOVertices(vertices), neighbourMatrix(matrix) {
+        std::random_device rd;
+        std::mt19937_64 gen(rd());
+        std::uniform_int_distribution<int> dis(0, vertices - 1);
+        std::vector<float> tmpWeights(vertices);
+
+        for (int i = 0; i < vertices; ++i) {
+            tmpWeights[i] = dis(gen);
+        }
+
+        weights = tmpWeights;
+    }
 
     GraphCOO(int vertices, float density) : NOVertices(vertices){
         std::random_device rd;

@@ -15,7 +15,7 @@ private:
     sparse_matrix_t csrA;
 
 
-    void getWeightedFlow() override {
+    void getWeightedFlowMKL(){
         std::vector<float> res(NOVertices);
         descrA.type = SPARSE_MATRIX_TYPE_GENERAL;
         mkl_sparse_s_mv(SPARSE_OPERATION_NON_TRANSPOSE,
@@ -28,19 +28,19 @@ private:
         );
     }
 
-    /*void getWeightedFlow() override {
+    void getWeightedFlow() override {
         std::vector<int> res(NOVertices);
-         #pragma omp parallel for
-         for (int i = 0; i < NOVertices; ++i) {
-             int start = csrRowPtr[i];
-             int end;
+        //#pragma omp parallel for
+        for (int i = 0; i < NOVertices; ++i) {
+            int start = csrRowPtr[i];
+            int end;
             //check if it is the last index
-             end = (i == NOVertices - 1) ? (int)(csrColInd.size() - 1) : (csrRowPtr[i + 1] - csrRowPtr[i]);
-             for (int j = start; j < end; ++j) {
-                 res[i] += csrVal[start] * weights[csrColInd[start]];
-             }
-         }
-     }*/
+            end = (i == NOVertices - 1) ? (int)(csrColInd.size() - 1) : (csrRowPtr[i + 1] - csrRowPtr[i]);
+            for (int j = start; j < end; ++j) {
+                res[i] += csrVal[start] * weights[csrColInd[start]];
+            }
+        }
+    }
 
 public:
     explicit GraphCSR(GraphCOO& graph) : NOVertices(graph.getNOVertices()){
@@ -66,6 +66,20 @@ public:
            csrRowPtr.data() + 1,
            csrColInd.data(),
            csrVal.data());
+    }
+
+    double measureMKL() {
+        std::vector<float> res;
+        for (int i = 0; i < 10; ++i) {
+            auto start = std::chrono::high_resolution_clock::now();
+            getWeightedFlowMKL();
+            auto stop = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+            res.push_back((float)duration.count());
+        }
+        double sum = 0;
+        for (float re : res) { sum += re; }
+        return sum / res.size();
     }
 
 };

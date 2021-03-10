@@ -1,1 +1,0 @@
-/home/shared/software/intel/compilers_and_libraries_2019/linux/bin/intel64/icpc -fPIC  -mkl -shared -Wl,-soname,libMMIO.so -o libMMIO.so CMakeFiles/MMIO.dir/mmio.cpp.o 

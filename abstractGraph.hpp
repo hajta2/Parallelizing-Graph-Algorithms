@@ -24,7 +24,6 @@ public:
         for (float re : res) { sum += re; }
         return sum / res.size();
     }
-    //virtual double getDensity() = 0;
 };
 
 #endif//PARALLELIZING_GRAPH_ALGORITHMS_ABSTRACTGRAPH_HPP

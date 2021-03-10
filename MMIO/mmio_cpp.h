@@ -2,7 +2,7 @@
 #define MMIO_CPP_INCLUDED
 #include <cstdio>
 #include <vector>
-
+#include <cassert>
 #include "mmio.h"
 
 // Rreads and mtx file and copies the values to a vector. Duplicating the values

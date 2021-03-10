@@ -8,8 +8,8 @@
 #include "mmio_cpp.h"
 
 template <typename Float>
-std::vector<value> pack_coo(const std::vector<int> &row, const vector<int> &col,
-                            const vector<Float> &val) {
+std::vector<value> pack_coo(const std::vector<int> &row, const std::vector<int> &col,
+                            const std::vector<Float> &val) {
   std::vector<value> result;
   result.reserve(val.size());
   for (int i = 0; i < val.size(); ++i) {
@@ -23,6 +23,7 @@ std::vector<value> pack_coo(const std::vector<int> &row, const vector<int> &col,
 }
 
 int main(int argc, const char *argv[]) {
+  std::cout << "Hello";
   // std::ofstream myfile;
   // myfile.open("runtime.txt");
 

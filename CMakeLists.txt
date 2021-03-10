@@ -15,7 +15,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mkl")
 
 add_subdirectory(MMIO)
 
-add_executable(Parallelizing_Graph_Algorithms Parallelizing_Graph_Algorithms/main.cpp graphDense.hpp)
+add_executable(Parallelizing_Graph_Algorithms main.cpp)
 
 
-target_link_libraries(PGA OpenMP::OpenMP_CXX MMIO)
+target_link_libraries(Parallelizing_Graph_Algorithms OpenMP::OpenMP_CXX MMIO)

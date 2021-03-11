@@ -31,11 +31,9 @@ private:
     void getWeightedFlow() override {
         std::vector<int> res(NOVertices);
         //#pragma omp parallel for
-        for (int i = 0; i < NOVertices; ++i) {
+        for (int i = 0; i < NOVertices-1; ++i) {
             int start = csrRowPtr[i];
-            int end;
-            //check if it is the last index
-            end = (i == NOVertices - 1) ? (int)(csrColInd.size() - 1) : (csrRowPtr[i + 1] - csrRowPtr[i]);
+            int end = csrRowPtr[i + 1] - csrRowPtr[i];
             for (int j = start; j < end; ++j) {
                 res[i] += csrVal[start] * weights[csrColInd[start]];
             }
@@ -56,8 +54,7 @@ public:
            csrColInd.push_back(v.col);
            csrVal.push_back(v.val);
        }
-       int NOZeros = NOVertices * NOVertices - csrColInd.size();
-       csrRowPtr.push_back(NOZeros);
+       csrRowPtr.push_back(csrColInd.size());
        mkl_sparse_s_create_csr(&csrA, 
            SPARSE_INDEX_BASE_ZERO,
            NOVertices,

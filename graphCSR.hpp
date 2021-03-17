@@ -30,7 +30,7 @@ private:
 
     void getWeightedFlow() override {
         std::vector<int> res(NOVertices);
-        //#pragma omp parallel for
+        #pragma omp parallel for
         for (int i = 0; i < NOVertices-1; ++i) {
             int start = csrRowPtr[i];
             int end = csrRowPtr[i + 1] - csrRowPtr[i];

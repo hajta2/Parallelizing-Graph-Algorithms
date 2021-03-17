@@ -38,7 +38,42 @@ public:
         weights = tmpWeights;
     }
 
-    GraphCOO(int vertices, float density) : NOVertices(vertices){
+    GraphCOO(int vertices, float sparsity) : NOVertices(vertices){
+        std::random_device rd;
+        std::mt19937_64 gen(rd());
+        std::uniform_int_distribution<int> dis(0, vertices - 1);
+        std::uniform_real_distribution<float> disVal(0.0,1.0);
+
+        int edges = (int)std::floor(sparsity * (float)(vertices * vertices));
+        std::vector<float> tmpWeights(vertices);
+
+        for (int i = 0; i < edges; ++i) {
+            int row = dis(gen);
+            int col = dis(gen);
+            float weight = disVal(gen);
+            
+            value val = {row, col, weight};
+            neighbourMatrix.push_back(val);
+        }
+
+        std::sort(neighbourMatrix.begin(), neighbourMatrix.end(), [](const auto &lhs, const auto &rhs) {
+            if (lhs.row != rhs.row) return lhs.row < rhs.row;
+            return lhs.col < rhs.col;
+        });
+
+        auto iter = std::unique(neighbourMatrix.begin(), neighbourMatrix.end(), [](const auto &lhs, const auto &rhs) {
+            return lhs.row == rhs.row && lhs.col == rhs.col;
+        });
+
+        for (int i = 0; i < vertices; ++i) {
+            tmpWeights[i] = dis(gen);
+        }
+        weights = tmpWeights;
+
+        neighbourMatrix.erase(iter, neighbourMatrix.end()); 
+    }
+
+    /*GraphCOO(int vertices, float density) : NOVertices(vertices){
         std::random_device rd;
         std::mt19937_64 gen(rd());
         std::uniform_int_distribution<int> dis(0, vertices - 1);
@@ -73,7 +108,7 @@ public:
                 }
             }
         }
-    }
+    }*/
 
   
     std::vector<float> getWeights(){
@@ -87,6 +122,8 @@ public:
     [[nodiscard]] int getNOVertices() const{
         return NOVertices;
     }
+
+    
 };
 
 #endif//PARALLELIZING_GRAPH_ALGORITHMS_GRAPHCOORDINATE_HPP

@@ -33,9 +33,9 @@ private:
         #pragma omp parallel for
         for (int i = 0; i < NOVertices-1; ++i) {
             int start = csrRowPtr[i];
-            int end = csrRowPtr[i + 1] - csrRowPtr[i];
+            int end = csrRowPtr[i + 1];
             for (int j = start; j < end; ++j) {
-                res[i] += csrVal[start] * weights[csrColInd[start]];
+                res[i] += csrVal[j] * weights[csrColInd[j]];
             }
         }
     }
@@ -47,13 +47,14 @@ public:
        int actualRow = 0;
        csrRowPtr.push_back(0);
        for(value const &v : matrix){
-           if(v.row != actualRow){
+           while(v.row != actualRow){
                actualRow++;
                csrRowPtr.push_back(csrColInd.size());
            }
            csrColInd.push_back(v.col);
            csrVal.push_back(v.val);
        }
+       //NONonZeroElements
        csrRowPtr.push_back(csrColInd.size());
        mkl_sparse_s_create_csr(&csrA, 
            SPARSE_INDEX_BASE_ZERO,

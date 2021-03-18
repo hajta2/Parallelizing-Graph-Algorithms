@@ -43,32 +43,15 @@ int main(int argc, const char *argv[]) {
   } else{
     std::ofstream myfile;
     myfile.open("runtime.txt");
-    for(int i = 10; i <= 15; ++i){
-      GraphCOO graphCOO01(pow(2, i), 0.1);
-      GraphCSR graphCSR01(graphCOO01);
-      GraphCOO graphCOO02(pow(2, i), 0.2);
-      GraphCSR graphCSR02(graphCOO02);
-      GraphCOO graphCOO03(pow(2, i), 0.3);
-      GraphCSR graphCSR03(graphCOO03);
-      GraphCOO graphCOO04(pow(2, i), 0.4);
-      GraphCSR graphCSR04(graphCOO04);
-      myfile<< "Vertices: " << pow(2,i) << "\n"
-            << "Density: 10%\n" 
-            //<< "COO: " << graphCOO01.measure() << " microseconds\n"
-            << "CSR w/o MKL: " << graphCSR01.measure() << " microseconds\n" 
-            << "CSR w/ MKL: " << graphCSR01.measureMKL() << " microseconds\n" 
-            << "Density: 20%\n" 
-            //<< "COO: " << graphCOO02.measure() << " microseconds\n"
-            << "CSR w/o MKL: " << graphCSR02.measure() << " microseconds\n" 
-            << "CSR w/ MKL: " << graphCSR02.measureMKL() << " microseconds\n" 
-            << "Density: 30%\n" 
-           // << "COO: " << graphCOO03.measure() << " microseconds\n"
-            << "CSR w/o MKL: " << graphCSR03.measure() << " microseconds\n" 
-            << "CSR w/ MKL: " << graphCSR03.measureMKL() << " microseconds\n" 
-            << "Density: 40%\n" 
-           // << "COO: " << graphCOO04.measure() << " microseconds\n"
-            << "CSR w/o MKL: " << graphCSR04.measure() << " microseconds\n" 
-            << "CSR w/ MKL: " << graphCSR04.measureMKL() << " microseconds\n\n";
+    for(int i = 10; i <= 13; ++i){
+      for(float j = 1; j <= 5; j++){
+        GraphCOO graphCOO(pow(2, i), j/10);
+        GraphCSR graphCSR(graphCOO);
+        myfile<< "Vertices: " << pow(2,i) << "\n"
+              << "Density:"<< j/10 <<"%\n" 
+              << "CSR w/o MKL: " << graphCSR.measure() << " microseconds\n" 
+              << "CSR w/ MKL: " << graphCSR.measureMKL() << " microseconds\n";
+      }
     }
     myfile.close();
   }

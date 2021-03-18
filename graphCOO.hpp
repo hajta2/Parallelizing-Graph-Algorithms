@@ -44,7 +44,7 @@ public:
         std::uniform_int_distribution<int> dis(0, vertices - 1);
         std::uniform_real_distribution<float> disVal(0.0,1.0);
 
-        int edges = (int)std::floor(sparsity * (float)(vertices * vertices));
+        int edges = (int)std::floor(sparsity * vertices * vertices);
         std::vector<float> tmpWeights(vertices);
 
         for (int i = 0; i < edges; ++i) {
@@ -65,12 +65,13 @@ public:
             return lhs.row == rhs.row && lhs.col == rhs.col;
         });
 
+        neighbourMatrix.erase(iter, neighbourMatrix.end()); 
+
         for (int i = 0; i < vertices; ++i) {
             tmpWeights[i] = dis(gen);
         }
         weights = tmpWeights;
 
-        neighbourMatrix.erase(iter, neighbourMatrix.end()); 
     }
 
     /*GraphCOO(int vertices, float density) : NOVertices(vertices){

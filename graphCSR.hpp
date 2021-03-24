@@ -3,6 +3,8 @@
 
 #include "graphCOO.hpp"
 #include <omp.h>
+#include "VCL/vectorclass.h"
+#include <cassert>
 
 class GraphCSR : public AbstractGraph {
 private:
@@ -24,21 +26,43 @@ private:
             descrA,
             weights.data(),
             0.0f,
-            nullptr
+            res.data()
         );
     }
 
-    void getWeightedFlow() override {
-        std::vector<int> res(NOVertices);
-        #pragma omp parallel for
-        for (int i = 0; i < NOVertices-1; ++i) {
-            int start = csrRowPtr[i];
-            int end = csrRowPtr[i + 1];
-            for (int j = start; j < end; ++j) {
-                res[i] += csrVal[j] * weights[csrColInd[j]];
+    // void getWeightedFlow() override {
+    //     std::vector<int> res(NOVertices);
+    //     #pragma omp parallel for
+    //     for (int i = 0; i < NOVertices-1; ++i) {
+    //         int start = csrRowPtr[i];
+    //         int end = csrRowPtr[i + 1];
+    //         for (int j = start; j < end; ++j) {
+    //             res[i] += csrVal[j] * weights[csrColInd[j]];
+    //         }
+    //     }
+    // }
+
+        void getWeightedFlow() override {
+            std::vector<float> res(NOVertices);
+
+            for (int i = 0; i < NOVertices - 1; ++i) {
+                int start = csrRowPtr[i];
+                int end = csrRowPtr[i + 1];
+                assert(end - start == 16);
+                float list[16];
+                int idx = 0;
+                for (int j = start; j < end; ++j) {
+                    list[idx] = (csrVal[j]);
+                    idx++;
+                }
+                Vec16f row, weight;
+                row.load(list);
+                weight = weights[i];
+                Vec16f multiplication = row * weight;
+                res[i] = horizontal_add(multiplication);
+  
             }
         }
-    }
 
 public:
     explicit GraphCSR(GraphCOO& graph) : NOVertices(graph.getNOVertices()){

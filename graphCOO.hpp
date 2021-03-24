@@ -74,42 +74,40 @@ public:
 
     }
 
-    /*GraphCOO(int vertices, float density) : NOVertices(vertices){
+    GraphCOO (int vertices, int NOElementsInARow) : NOVertices(vertices) {
         std::random_device rd;
         std::mt19937_64 gen(rd());
         std::uniform_int_distribution<int> dis(0, vertices - 1);
+        std::uniform_real_distribution<float> disVal(0.0,1.0);
 
-        std::vector<int> tmpMatrix(vertices*vertices);
         std::vector<float> tmpWeights(vertices);
+        
+        for (int i = 0; i < vertices; ++i) {
+            std::vector<int> colIndices(NOElementsInARow);
+            for (int j = 0; j < NOElementsInARow; ++j) {
+                int col = dis(gen);
+                while (std::find(colIndices.begin(), colIndices.end(), col) != colIndices.end()) {
+                    col = dis(gen);
+                }
 
-        int edges = (int)std::floor(density * (float)(vertices * vertices));
-
-        int from;
-        int to;
-        for (int i = 0; i < edges; ++i) {
-            from = dis(gen);
-            to = dis(gen);
-            while (from == to || tmpMatrix[from * vertices + to] == 1) {
-                from = dis(gen);
-                to = dis(gen);
+                float weight = disVal(gen);
+                value val = {i, col, weight};
+                neighbourMatrix.push_back(val);
             }
-            tmpMatrix[from * vertices + to] = 1;
         }
+
+        std::sort(neighbourMatrix.begin(), neighbourMatrix.end(), [](const auto &lhs, const auto &rhs) {
+            if (lhs.row != rhs.row) return lhs.row < rhs.row;
+            return lhs.col < rhs.col;
+        });
 
         for (int i = 0; i < vertices; ++i) {
             tmpWeights[i] = dis(gen);
         }
         weights = tmpWeights;
 
-        for (int i = 0; i < NOVertices; ++i) {
-            for (int j = 0; j < NOVertices; ++j) {
-                if (tmpMatrix[i * NOVertices + j] != 0) {
-                    value v = {i, j, tmpMatrix[i * NOVertices + j]};
-                    neighbourMatrix.push_back(v);
-                }
-            }
-        }
-    }*/
+    }
+
 
   
     std::vector<float> getWeights(){

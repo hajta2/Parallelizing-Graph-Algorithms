@@ -1,0 +1,900 @@
+Vertices: 1024
+Density:0.1%
+CSR w/o MKL: 1722.9 microseconds
+CSR w/ MKL: 963.6 microseconds
+
+Vertices: 1024
+Density:0.2%
+CSR w/o MKL: 16.7 microseconds
+CSR w/ MKL: 8.2 microseconds
+
+Vertices: 1024
+Density:0.3%
+CSR w/o MKL: 15.5 microseconds
+CSR w/ MKL: 8.8 microseconds
+
+Vertices: 1024
+Density:0.4%
+CSR w/o MKL: 16.1 microseconds
+CSR w/ MKL: 8.8 microseconds
+
+Vertices: 1024
+Density:0.5%
+CSR w/o MKL: 17.1 microseconds
+CSR w/ MKL: 9 microseconds
+
+Vertices: 1024
+Density:0.6%
+CSR w/o MKL: 13.5 microseconds
+CSR w/ MKL: 6.7 microseconds
+
+Vertices: 1024
+Density:0.7%
+CSR w/o MKL: 13.1 microseconds
+CSR w/ MKL: 6.6 microseconds
+
+Vertices: 1024
+Density:0.8%
+CSR w/o MKL: 14.3 microseconds
+CSR w/ MKL: 6.8 microseconds
+
+Vertices: 1024
+Density:0.9%
+CSR w/o MKL: 13.3 microseconds
+CSR w/ MKL: 6.7 microseconds
+
+Vertices: 1024
+Density:1%
+CSR w/o MKL: 12 microseconds
+CSR w/ MKL: 6.1 microseconds
+
+Vertices: 1024
+Density:1.1%
+CSR w/o MKL: 12.4 microseconds
+CSR w/ MKL: 6.2 microseconds
+
+Vertices: 1024
+Density:1.2%
+CSR w/o MKL: 13 microseconds
+CSR w/ MKL: 7.8 microseconds
+
+Vertices: 1024
+Density:1.3%
+CSR w/o MKL: 12.8 microseconds
+CSR w/ MKL: 6 microseconds
+
+Vertices: 1024
+Density:1.4%
+CSR w/o MKL: 13 microseconds
+CSR w/ MKL: 6.5 microseconds
+
+Vertices: 1024
+Density:1.5%
+CSR w/o MKL: 12.9 microseconds
+CSR w/ MKL: 6.4 microseconds
+
+Vertices: 1024
+Density:1.6%
+CSR w/o MKL: 13.3 microseconds
+CSR w/ MKL: 6.1 microseconds
+
+Vertices: 1024
+Density:1.7%
+CSR w/o MKL: 14.3 microseconds
+CSR w/ MKL: 7 microseconds
+
+Vertices: 1024
+Density:1.8%
+CSR w/o MKL: 12.7 microseconds
+CSR w/ MKL: 6.8 microseconds
+
+Vertices: 1024
+Density:1.9%
+CSR w/o MKL: 14.1 microseconds
+CSR w/ MKL: 6.6 microseconds
+
+Vertices: 1024
+Density:2%
+CSR w/o MKL: 13.7 microseconds
+CSR w/ MKL: 6.1 microseconds
+
+Vertices: 1024
+Density:2.1%
+CSR w/o MKL: 13.2 microseconds
+CSR w/ MKL: 6.4 microseconds
+
+Vertices: 1024
+Density:2.2%
+CSR w/o MKL: 13.9 microseconds
+CSR w/ MKL: 6.1 microseconds
+
+Vertices: 1024
+Density:2.3%
+CSR w/o MKL: 13.9 microseconds
+CSR w/ MKL: 6.3 microseconds
+
+Vertices: 1024
+Density:2.4%
+CSR w/o MKL: 13.8 microseconds
+CSR w/ MKL: 5.6 microseconds
+
+Vertices: 1024
+Density:2.5%
+CSR w/o MKL: 13.8 microseconds
+CSR w/ MKL: 6.2 microseconds
+
+Vertices: 1024
+Density:2.6%
+CSR w/o MKL: 14.4 microseconds
+CSR w/ MKL: 6.5 microseconds
+
+Vertices: 1024
+Density:2.7%
+CSR w/o MKL: 14.3 microseconds
+CSR w/ MKL: 6.3 microseconds
+
+Vertices: 1024
+Density:2.8%
+CSR w/o MKL: 14.7 microseconds
+CSR w/ MKL: 6.2 microseconds
+
+Vertices: 1024
+Density:2.9%
+CSR w/o MKL: 15.6 microseconds
+CSR w/ MKL: 6.4 microseconds
+
+Vertices: 1024
+Density:3%
+CSR w/o MKL: 15.5 microseconds
+CSR w/ MKL: 6.3 microseconds
+
+Vertices: 2048
+Density:0.1%
+CSR w/o MKL: 9.3 microseconds
+CSR w/ MKL: 5.5 microseconds
+
+Vertices: 2048
+Density:0.2%
+CSR w/o MKL: 9.9 microseconds
+CSR w/ MKL: 5.5 microseconds
+
+Vertices: 2048
+Density:0.3%
+CSR w/o MKL: 10 microseconds
+CSR w/ MKL: 6.2 microseconds
+
+Vertices: 2048
+Density:0.4%
+CSR w/o MKL: 11.3 microseconds
+CSR w/ MKL: 6 microseconds
+
+Vertices: 2048
+Density:0.5%
+CSR w/o MKL: 12.4 microseconds
+CSR w/ MKL: 6.7 microseconds
+
+Vertices: 2048
+Density:0.6%
+CSR w/o MKL: 14 microseconds
+CSR w/ MKL: 6.2 microseconds
+
+Vertices: 2048
+Density:0.7%
+CSR w/o MKL: 14.3 microseconds
+CSR w/ MKL: 6.5 microseconds
+
+Vertices: 2048
+Density:0.8%
+CSR w/o MKL: 15.5 microseconds
+CSR w/ MKL: 6.6 microseconds
+
+Vertices: 2048
+Density:0.9%
+CSR w/o MKL: 15.6 microseconds
+CSR w/ MKL: 7 microseconds
+
+Vertices: 2048
+Density:1%
+CSR w/o MKL: 16.8 microseconds
+CSR w/ MKL: 7.4 microseconds
+
+Vertices: 2048
+Density:1.1%
+CSR w/o MKL: 18.2 microseconds
+CSR w/ MKL: 7.4 microseconds
+
+Vertices: 2048
+Density:1.2%
+CSR w/o MKL: 21.5 microseconds
+CSR w/ MKL: 7.4 microseconds
+
+Vertices: 2048
+Density:1.3%
+CSR w/o MKL: 20.5 microseconds
+CSR w/ MKL: 7.6 microseconds
+
+Vertices: 2048
+Density:1.4%
+CSR w/o MKL: 20.5 microseconds
+CSR w/ MKL: 7.6 microseconds
+
+Vertices: 2048
+Density:1.5%
+CSR w/o MKL: 22 microseconds
+CSR w/ MKL: 7.6 microseconds
+
+Vertices: 2048
+Density:1.6%
+CSR w/o MKL: 21.9 microseconds
+CSR w/ MKL: 8.3 microseconds
+
+Vertices: 2048
+Density:1.7%
+CSR w/o MKL: 24 microseconds
+CSR w/ MKL: 8.5 microseconds
+
+Vertices: 2048
+Density:1.8%
+CSR w/o MKL: 24 microseconds
+CSR w/ MKL: 9 microseconds
+
+Vertices: 2048
+Density:1.9%
+CSR w/o MKL: 25.1 microseconds
+CSR w/ MKL: 8.7 microseconds
+
+Vertices: 2048
+Density:2%
+CSR w/o MKL: 25.8 microseconds
+CSR w/ MKL: 8.8 microseconds
+
+Vertices: 2048
+Density:2.1%
+CSR w/o MKL: 27.4 microseconds
+CSR w/ MKL: 8.8 microseconds
+
+Vertices: 2048
+Density:2.2%
+CSR w/o MKL: 28.1 microseconds
+CSR w/ MKL: 9 microseconds
+
+Vertices: 2048
+Density:2.3%
+CSR w/o MKL: 29.2 microseconds
+CSR w/ MKL: 8.9 microseconds
+
+Vertices: 2048
+Density:2.4%
+CSR w/o MKL: 29.1 microseconds
+CSR w/ MKL: 9.6 microseconds
+
+Vertices: 2048
+Density:2.5%
+CSR w/o MKL: 30.1 microseconds
+CSR w/ MKL: 9.6 microseconds
+
+Vertices: 2048
+Density:2.6%
+CSR w/o MKL: 32.1 microseconds
+CSR w/ MKL: 9.6 microseconds
+
+Vertices: 2048
+Density:2.7%
+CSR w/o MKL: 32.9 microseconds
+CSR w/ MKL: 9.9 microseconds
+
+Vertices: 2048
+Density:2.8%
+CSR w/o MKL: 35 microseconds
+CSR w/ MKL: 9.9 microseconds
+
+Vertices: 2048
+Density:2.9%
+CSR w/o MKL: 34.5 microseconds
+CSR w/ MKL: 10 microseconds
+
+Vertices: 2048
+Density:3%
+CSR w/o MKL: 35.4 microseconds
+CSR w/ MKL: 10 microseconds
+
+Vertices: 4096
+Density:0.1%
+CSR w/o MKL: 13.4 microseconds
+CSR w/ MKL: 7.4 microseconds
+
+Vertices: 4096
+Density:0.2%
+CSR w/o MKL: 15.6 microseconds
+CSR w/ MKL: 8.7 microseconds
+
+Vertices: 4096
+Density:0.3%
+CSR w/o MKL: 18.3 microseconds
+CSR w/ MKL: 8.5 microseconds
+
+Vertices: 4096
+Density:0.4%
+CSR w/o MKL: 21.5 microseconds
+CSR w/ MKL: 9.7 microseconds
+
+Vertices: 4096
+Density:0.5%
+CSR w/o MKL: 26.3 microseconds
+CSR w/ MKL: 10.6 microseconds
+
+Vertices: 4096
+Density:0.6%
+CSR w/o MKL: 29 microseconds
+CSR w/ MKL: 10.8 microseconds
+
+Vertices: 4096
+Density:0.7%
+CSR w/o MKL: 33.6 microseconds
+CSR w/ MKL: 12 microseconds
+
+Vertices: 4096
+Density:0.8%
+CSR w/o MKL: 38.6 microseconds
+CSR w/ MKL: 12.9 microseconds
+
+Vertices: 4096
+Density:0.9%
+CSR w/o MKL: 40.9 microseconds
+CSR w/ MKL: 12.7 microseconds
+
+Vertices: 4096
+Density:1%
+CSR w/o MKL: 44.3 microseconds
+CSR w/ MKL: 13.9 microseconds
+
+Vertices: 4096
+Density:1.1%
+CSR w/o MKL: 48.4 microseconds
+CSR w/ MKL: 13.8 microseconds
+
+Vertices: 4096
+Density:1.2%
+CSR w/o MKL: 51.1 microseconds
+CSR w/ MKL: 15.4 microseconds
+
+Vertices: 4096
+Density:1.3%
+CSR w/o MKL: 55.1 microseconds
+CSR w/ MKL: 16.3 microseconds
+
+Vertices: 4096
+Density:1.4%
+CSR w/o MKL: 64 microseconds
+CSR w/ MKL: 16.4 microseconds
+
+Vertices: 4096
+Density:1.5%
+CSR w/o MKL: 62.9 microseconds
+CSR w/ MKL: 15.9 microseconds
+
+Vertices: 4096
+Density:1.6%
+CSR w/o MKL: 67.6 microseconds
+CSR w/ MKL: 16.2 microseconds
+
+Vertices: 4096
+Density:1.7%
+CSR w/o MKL: 70.5 microseconds
+CSR w/ MKL: 18.5 microseconds
+
+Vertices: 4096
+Density:1.8%
+CSR w/o MKL: 75.2 microseconds
+CSR w/ MKL: 19.5 microseconds
+
+Vertices: 4096
+Density:1.9%
+CSR w/o MKL: 77.9 microseconds
+CSR w/ MKL: 19.1 microseconds
+
+Vertices: 4096
+Density:2%
+CSR w/o MKL: 82.3 microseconds
+CSR w/ MKL: 20 microseconds
+
+Vertices: 4096
+Density:2.1%
+CSR w/o MKL: 85.9 microseconds
+CSR w/ MKL: 20.3 microseconds
+
+Vertices: 4096
+Density:2.2%
+CSR w/o MKL: 89.8 microseconds
+CSR w/ MKL: 20.7 microseconds
+
+Vertices: 4096
+Density:2.3%
+CSR w/o MKL: 92.3 microseconds
+CSR w/ MKL: 22.4 microseconds
+
+Vertices: 4096
+Density:2.4%
+CSR w/o MKL: 97.9 microseconds
+CSR w/ MKL: 23.3 microseconds
+
+Vertices: 4096
+Density:2.5%
+CSR w/o MKL: 101 microseconds
+CSR w/ MKL: 23.4 microseconds
+
+Vertices: 4096
+Density:2.6%
+CSR w/o MKL: 119.7 microseconds
+CSR w/ MKL: 27.5 microseconds
+
+Vertices: 4096
+Density:2.7%
+CSR w/o MKL: 107.4 microseconds
+CSR w/ MKL: 24.7 microseconds
+
+Vertices: 4096
+Density:2.8%
+CSR w/o MKL: 112.1 microseconds
+CSR w/ MKL: 25.4 microseconds
+
+Vertices: 4096
+Density:2.9%
+CSR w/o MKL: 115.5 microseconds
+CSR w/ MKL: 25.2 microseconds
+
+Vertices: 4096
+Density:3%
+CSR w/o MKL: 120.4 microseconds
+CSR w/ MKL: 26.4 microseconds
+
+Vertices: 8192
+Density:0.1%
+CSR w/o MKL: 24.9 microseconds
+CSR w/ MKL: 13.6 microseconds
+
+Vertices: 8192
+Density:0.2%
+CSR w/o MKL: 35.8 microseconds
+CSR w/ MKL: 15.9 microseconds
+
+Vertices: 8192
+Density:0.3%
+CSR w/o MKL: 51.1 microseconds
+CSR w/ MKL: 19.1 microseconds
+
+Vertices: 8192
+Density:0.4%
+CSR w/o MKL: 65.3 microseconds
+CSR w/ MKL: 23.8 microseconds
+
+Vertices: 8192
+Density:0.5%
+CSR w/o MKL: 82.1 microseconds
+CSR w/ MKL: 25.9 microseconds
+
+Vertices: 8192
+Density:0.6%
+CSR w/o MKL: 96.5 microseconds
+CSR w/ MKL: 26.9 microseconds
+
+Vertices: 8192
+Density:0.7%
+CSR w/o MKL: 112.6 microseconds
+CSR w/ MKL: 29.7 microseconds
+
+Vertices: 8192
+Density:0.8%
+CSR w/o MKL: 127.9 microseconds
+CSR w/ MKL: 33.1 microseconds
+
+Vertices: 8192
+Density:0.9%
+CSR w/o MKL: 141.8 microseconds
+CSR w/ MKL: 35.1 microseconds
+
+Vertices: 8192
+Density:1%
+CSR w/o MKL: 155.8 microseconds
+CSR w/ MKL: 37.8 microseconds
+
+Vertices: 8192
+Density:1.1%
+CSR w/o MKL: 171 microseconds
+CSR w/ MKL: 40.2 microseconds
+
+Vertices: 8192
+Density:1.2%
+CSR w/o MKL: 204.9 microseconds
+CSR w/ MKL: 44.2 microseconds
+
+Vertices: 8192
+Density:1.3%
+CSR w/o MKL: 586.2 microseconds
+CSR w/ MKL: 63 microseconds
+
+Vertices: 8192
+Density:1.4%
+CSR w/o MKL: 626.5 microseconds
+CSR w/ MKL: 86.9 microseconds
+
+Vertices: 8192
+Density:1.5%
+CSR w/o MKL: 670.2 microseconds
+CSR w/ MKL: 61.6 microseconds
+
+Vertices: 8192
+Density:1.6%
+CSR w/o MKL: 711.9 microseconds
+CSR w/ MKL: 77.6 microseconds
+
+Vertices: 8192
+Density:1.7%
+CSR w/o MKL: 748.8 microseconds
+CSR w/ MKL: 65.4 microseconds
+
+Vertices: 8192
+Density:1.8%
+CSR w/o MKL: 799.7 microseconds
+CSR w/ MKL: 79.4 microseconds
+
+Vertices: 8192
+Density:1.9%
+CSR w/o MKL: 843.6 microseconds
+CSR w/ MKL: 114.3 microseconds
+
+Vertices: 8192
+Density:2%
+CSR w/o MKL: 881.8 microseconds
+CSR w/ MKL: 95.1 microseconds
+
+Vertices: 8192
+Density:2.1%
+CSR w/o MKL: 921.8 microseconds
+CSR w/ MKL: 156.6 microseconds
+
+Vertices: 8192
+Density:2.2%
+CSR w/o MKL: 970.6 microseconds
+CSR w/ MKL: 138.7 microseconds
+
+Vertices: 8192
+Density:2.3%
+CSR w/o MKL: 1004.4 microseconds
+CSR w/ MKL: 109.1 microseconds
+
+Vertices: 8192
+Density:2.4%
+CSR w/o MKL: 1049.6 microseconds
+CSR w/ MKL: 98.7 microseconds
+
+Vertices: 8192
+Density:2.5%
+CSR w/o MKL: 1091.6 microseconds
+CSR w/ MKL: 180.7 microseconds
+
+Vertices: 8192
+Density:2.6%
+CSR w/o MKL: 1129.9 microseconds
+CSR w/ MKL: 145.8 microseconds
+
+Vertices: 8192
+Density:2.7%
+CSR w/o MKL: 1173.9 microseconds
+CSR w/ MKL: 123.5 microseconds
+
+Vertices: 8192
+Density:2.8%
+CSR w/o MKL: 1175.5 microseconds
+CSR w/ MKL: 103 microseconds
+
+Vertices: 8192
+Density:2.9%
+CSR w/o MKL: 1244.2 microseconds
+CSR w/ MKL: 131.6 microseconds
+
+Vertices: 8192
+Density:3%
+CSR w/o MKL: 1260.3 microseconds
+CSR w/ MKL: 129.7 microseconds
+
+Vertices: 16384
+Density:0.1%
+CSR w/o MKL: 69.3 microseconds
+CSR w/ MKL: 30.2 microseconds
+
+Vertices: 16384
+Density:0.2%
+CSR w/o MKL: 129.1 microseconds
+CSR w/ MKL: 43.1 microseconds
+
+Vertices: 16384
+Density:0.3%
+CSR w/o MKL: 498 microseconds
+CSR w/ MKL: 58.9 microseconds
+
+Vertices: 16384
+Density:0.4%
+CSR w/o MKL: 709.3 microseconds
+CSR w/ MKL: 98.5 microseconds
+
+Vertices: 16384
+Density:0.5%
+CSR w/o MKL: 878.7 microseconds
+CSR w/ MKL: 134.1 microseconds
+
+Vertices: 16384
+Density:0.6%
+CSR w/o MKL: 1053.3 microseconds
+CSR w/ MKL: 115 microseconds
+
+Vertices: 16384
+Density:0.7%
+CSR w/o MKL: 1183.7 microseconds
+CSR w/ MKL: 112.2 microseconds
+
+Vertices: 16384
+Density:0.8%
+CSR w/o MKL: 1397 microseconds
+CSR w/ MKL: 170.5 microseconds
+
+Vertices: 16384
+Density:0.9%
+CSR w/o MKL: 1441 microseconds
+CSR w/ MKL: 193.9 microseconds
+
+Vertices: 16384
+Density:1%
+CSR w/o MKL: 1720.2 microseconds
+CSR w/ MKL: 164 microseconds
+
+Vertices: 16384
+Density:1.1%
+CSR w/o MKL: 1772.2 microseconds
+CSR w/ MKL: 204.9 microseconds
+
+Vertices: 16384
+Density:1.2%
+CSR w/o MKL: 1852.2 microseconds
+CSR w/ MKL: 301.3 microseconds
+
+Vertices: 16384
+Density:1.3%
+CSR w/o MKL: 2083 microseconds
+CSR w/ MKL: 316.8 microseconds
+
+Vertices: 16384
+Density:1.4%
+CSR w/o MKL: 2218.7 microseconds
+CSR w/ MKL: 271.1 microseconds
+
+Vertices: 16384
+Density:1.5%
+CSR w/o MKL: 2217.6 microseconds
+CSR w/ MKL: 296.8 microseconds
+
+Vertices: 16384
+Density:1.6%
+CSR w/o MKL: 2386.4 microseconds
+CSR w/ MKL: 321.3 microseconds
+
+Vertices: 16384
+Density:1.7%
+CSR w/o MKL: 2516.7 microseconds
+CSR w/ MKL: 352 microseconds
+
+Vertices: 16384
+Density:1.8%
+CSR w/o MKL: 2532.6 microseconds
+CSR w/ MKL: 373.8 microseconds
+
+Vertices: 16384
+Density:1.9%
+CSR w/o MKL: 2582.7 microseconds
+CSR w/ MKL: 402.5 microseconds
+
+Vertices: 16384
+Density:2%
+CSR w/o MKL: 2494 microseconds
+CSR w/ MKL: 434.2 microseconds
+
+Vertices: 16384
+Density:2.1%
+CSR w/o MKL: 2887.1 microseconds
+CSR w/ MKL: 446.3 microseconds
+
+Vertices: 16384
+Density:2.2%
+CSR w/o MKL: 2946 microseconds
+CSR w/ MKL: 468.6 microseconds
+
+Vertices: 16384
+Density:2.3%
+CSR w/o MKL: 2860.2 microseconds
+CSR w/ MKL: 500.4 microseconds
+
+Vertices: 16384
+Density:2.4%
+CSR w/o MKL: 2895.8 microseconds
+CSR w/ MKL: 540.3 microseconds
+
+Vertices: 16384
+Density:2.5%
+CSR w/o MKL: 3209.3 microseconds
+CSR w/ MKL: 554 microseconds
+
+Vertices: 16384
+Density:2.6%
+CSR w/o MKL: 3102.4 microseconds
+CSR w/ MKL: 567.6 microseconds
+
+Vertices: 16384
+Density:2.7%
+CSR w/o MKL: 3292.2 microseconds
+CSR w/ MKL: 623.5 microseconds
+
+Vertices: 16384
+Density:2.8%
+CSR w/o MKL: 3256.3 microseconds
+CSR w/ MKL: 639.1 microseconds
+
+Vertices: 16384
+Density:2.9%
+CSR w/o MKL: 3369.5 microseconds
+CSR w/ MKL: 673.7 microseconds
+
+Vertices: 16384
+Density:3%
+CSR w/o MKL: 3396.8 microseconds
+CSR w/ MKL: 704.2 microseconds
+
+Vertices: 32768
+Density:0.1%
+CSR w/o MKL: 705.6 microseconds
+CSR w/ MKL: 128 microseconds
+
+Vertices: 32768
+Density:0.2%
+CSR w/o MKL: 1336.3 microseconds
+CSR w/ MKL: 230.3 microseconds
+
+Vertices: 32768
+Density:0.3%
+CSR w/o MKL: 1961.5 microseconds
+CSR w/ MKL: 247.2 microseconds
+
+Vertices: 32768
+Density:0.4%
+CSR w/o MKL: 2230 microseconds
+CSR w/ MKL: 390.9 microseconds
+
+Vertices: 32768
+Density:0.5%
+CSR w/o MKL: 2553.9 microseconds
+CSR w/ MKL: 484.1 microseconds
+
+Vertices: 32768
+Density:0.6%
+CSR w/o MKL: 3115.8 microseconds
+CSR w/ MKL: 563 microseconds
+
+Vertices: 32768
+Density:0.7%
+CSR w/o MKL: 3400.7 microseconds
+CSR w/ MKL: 672.1 microseconds
+
+Vertices: 32768
+Density:0.8%
+CSR w/o MKL: 3510.5 microseconds
+CSR w/ MKL: 795.5 microseconds
+
+Vertices: 32768
+Density:0.9%
+CSR w/o MKL: 3766.9 microseconds
+CSR w/ MKL: 889.1 microseconds
+
+Vertices: 32768
+Density:1%
+CSR w/o MKL: 4069.4 microseconds
+CSR w/ MKL: 1018.5 microseconds
+
+Vertices: 32768
+Density:1.1%
+CSR w/o MKL: 4340.1 microseconds
+CSR w/ MKL: 1114 microseconds
+
+Vertices: 32768
+Density:1.2%
+CSR w/o MKL: 4508.5 microseconds
+CSR w/ MKL: 1218.3 microseconds
+
+Vertices: 32768
+Density:1.3%
+CSR w/o MKL: 4438.8 microseconds
+CSR w/ MKL: 1302.5 microseconds
+
+Vertices: 32768
+Density:1.4%
+CSR w/o MKL: 4976.4 microseconds
+CSR w/ MKL: 1394.7 microseconds
+
+Vertices: 32768
+Density:1.5%
+CSR w/o MKL: 4864.5 microseconds
+CSR w/ MKL: 1484.6 microseconds
+
+Vertices: 32768
+Density:1.6%
+CSR w/o MKL: 5261.8 microseconds
+CSR w/ MKL: 1603.1 microseconds
+
+Vertices: 32768
+Density:1.7%
+CSR w/o MKL: 5629.6 microseconds
+CSR w/ MKL: 1697.8 microseconds
+
+Vertices: 32768
+Density:1.8%
+CSR w/o MKL: 5602.2 microseconds
+CSR w/ MKL: 1794.3 microseconds
+
+Vertices: 32768
+Density:1.9%
+CSR w/o MKL: 6054.2 microseconds
+CSR w/ MKL: 1880.6 microseconds
+
+Vertices: 32768
+Density:2%
+CSR w/o MKL: 6235.5 microseconds
+CSR w/ MKL: 1956.8 microseconds
+
+Vertices: 32768
+Density:2.1%
+CSR w/o MKL: 6428.7 microseconds
+CSR w/ MKL: 2047.4 microseconds
+
+Vertices: 32768
+Density:2.2%
+CSR w/o MKL: 6556.3 microseconds
+CSR w/ MKL: 2176.4 microseconds
+
+Vertices: 32768
+Density:2.3%
+CSR w/o MKL: 6578.7 microseconds
+CSR w/ MKL: 2232.7 microseconds
+
+Vertices: 32768
+Density:2.4%
+CSR w/o MKL: 6960.5 microseconds
+CSR w/ MKL: 2370.8 microseconds
+
+Vertices: 32768
+Density:2.5%
+CSR w/o MKL: 7170.8 microseconds
+CSR w/ MKL: 2398.9 microseconds
+
+Vertices: 32768
+Density:2.6%
+CSR w/o MKL: 7476.9 microseconds
+CSR w/ MKL: 2550.3 microseconds
+
+Vertices: 32768
+Density:2.7%
+CSR w/o MKL: 7730.7 microseconds
+CSR w/ MKL: 2615.5 microseconds
+
+Vertices: 32768
+Density:2.8%
+CSR w/o MKL: 7851.5 microseconds
+CSR w/ MKL: 2673.4 microseconds
+
+Vertices: 32768
+Density:2.9%
+CSR w/o MKL: 7764.2 microseconds
+CSR w/ MKL: 2773 microseconds
+
+Vertices: 32768
+Density:3%
+CSR w/o MKL: 8242.7 microseconds
+CSR w/ MKL: 2861.8 microseconds
+

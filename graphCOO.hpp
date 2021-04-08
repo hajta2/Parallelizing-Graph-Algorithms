@@ -10,6 +10,8 @@ struct value {
     float val;
 };
 
+const ELEMENTS_IN_A_ROW = 16;
+
 class GraphCOO : public AbstractGraph {
 private:
     std::vector<value> neighbourMatrix;
@@ -74,7 +76,7 @@ public:
 
     }
 
-    GraphCOO (int vertices, int NOElementsInARow) : NOVertices(vertices) {
+    GraphCOO (int vertices) : NOVertices(vertices) {
         std::random_device rd;
         std::mt19937_64 gen(rd());
         std::uniform_int_distribution<int> dis(0, vertices - 1);
@@ -83,8 +85,8 @@ public:
         std::vector<float> tmpWeights(vertices);
         
         for (int i = 0; i < vertices; ++i) {
-            std::vector<int> colIndices(NOElementsInARow);
-            for (int j = 0; j < NOElementsInARow; ++j) {
+            std::vector<int> colIndices(ELEMENTS_IN_A_ROW);
+            for (int j = 0; j < ELEMENTS_IN_A_ROW; ++j) {
                 int col = dis(gen);
                 while (std::find(colIndices.begin(), colIndices.end(), col) != colIndices.end()) {
                     col = dis(gen);

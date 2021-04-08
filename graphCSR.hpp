@@ -57,12 +57,12 @@ private:
             int start = csrRowPtr[i];
             int end = csrRowPtr[i + 1];
             //every row size should be 16
-            assert(end - start == 16);
+            assert(end - start == ELEMENTS_IN_A_ROW);
             //init the vectors
             Vec16f row, weight, multiplication;
             //creating the subarray
-            float list[16];
-            float weightList[16];
+            float list[ELEMENTS_IN_A_ROW];
+            float weightList[ELEMENTS_IN_A_ROW];
             int idx = 0;
             for (int j = start; j < end; ++j) {
                 list[idx] = (csrVal[j]);
@@ -85,15 +85,15 @@ private:
         
         float res[NOVertices];
         
-        for (int i = 0; i < NOVertices; i+=16) {
+        for (int i = 0; i < NOVertices; i+=ELEMENTS_IN_A_ROW) {
             Vec16f multiplication = 0;
-            for(int j = 0; j < 16; ++j) {
+            for(int j = 0; j < ELEMENTS_IN_A_ROW; ++j) {
             Vec16f col, weight;
-            float list[16];
-            float weightList[16];
-            for (int k = 0; k < 16; ++k) {
-                list[k] = csrVal[i * 16 + j + k * 16];
-                weightList[k] = weights[csrColInd[i * 16 + j + k * 16]];
+            float list[ELEMENTS_IN_A_ROW];
+            float weightList[ELEMENTS_IN_A_ROW];
+            for (int k = 0; k < ELEMENTS_IN_A_ROW; ++k) {
+                list[k] = csrVal[i * ELEMENTS_IN_A_ROW + j + k * ELEMENTS_IN_A_ROW];
+                weightList[k] = weights[csrColInd[i * ELEMENTS_IN_A_ROW + j + k * ELEMENTS_IN_A_ROW]];
             }
             col.load(list);
             weight.load(weightList);

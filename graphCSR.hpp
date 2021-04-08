@@ -12,6 +12,7 @@ private:
     std::vector<int> csrColInd;
     std::vector<int> csrRowPtr;
     std::vector<float> weights;
+    std::vector<float> flow;
     const int NOVertices;
     struct matrix_descr descrA;
     sparse_matrix_t csrA;
@@ -20,7 +21,7 @@ private:
     void getWeightedFlowMKL(){
         std::vector<float> res(NOVertices);
         descrA.type = SPARSE_MATRIX_TYPE_GENERAL;
-        mkl_sparse_s_mv(SPARSE_OPERATION_NON_TRANSPOSE,
+        MKL_INT result = mkl_sparse_s_mv(SPARSE_OPERATION_NON_TRANSPOSE,
             1.0f,
             csrA,
             descrA,
@@ -28,41 +29,80 @@ private:
             0.0f,
             res.data()
         );
+        assert(result == SPARSE_STATUS_SUCCESS);
     }
+    //Calculating the matrix-vector multiplication w/ OMP 
+    /*
+    void getWeightedFlow() override {
 
-    // void getWeightedFlow() override {
-    //     std::vector<int> res(NOVertices);
-    //     #pragma omp parallel for
-    //     for (int i = 0; i < NOVertices-1; ++i) {
-    //         int start = csrRowPtr[i];
-    //         int end = csrRowPtr[i + 1];
-    //         for (int j = start; j < end; ++j) {
-    //             res[i] += csrVal[j] * weights[csrColInd[j]];
-    //         }
-    //     }
-    // }
-
-        void getWeightedFlow() override {
-            std::vector<float> res(NOVertices);
-
-            for (int i = 0; i < NOVertices - 1; ++i) {
-                int start = csrRowPtr[i];
-                int end = csrRowPtr[i + 1];
-                assert(end - start == 16);
-                float list[16];
-                int idx = 0;
-                for (int j = start; j < end; ++j) {
-                    list[idx] = (csrVal[j]);
-                    idx++;
-                }
-                Vec16f row, weight;
-                row.load(list);
-                weight = weights[i];
-                Vec16f multiplication = row * weight;
-                res[i] = horizontal_add(multiplication);
-  
+        std::vector<int> res(NOVertices);
+        #pragma omp parallel for
+        for (int i = 0; i < NOVertices-1; ++i) {
+            int start = csrRowPtr[i];
+            int end = csrRowPtr[i + 1];
+            for (int j = start; j < end; ++j) {
+                res[i] += csrVal[j] * weights[csrColInd[j]];
             }
         }
+    }*/
+    /*
+    //Calculating the matrix-vector multiplication w/ 
+    //vector class library (the matrix has 16 elements in a row)
+    //making vector from the row and the  from the rows
+    void getWeightedFlow() override {
+
+        std::vector<float> res(NOVertices);
+
+        for (int i = 0; i < NOVertices - 1; ++i) {
+            int start = csrRowPtr[i];
+            int end = csrRowPtr[i + 1];
+            //every row size should be 16
+            assert(end - start == 16);
+            //init the vectors
+            Vec16f row, weight, multiplication;
+            //creating the subarray
+            float list[16];
+            float weightList[16];
+            int idx = 0;
+            for (int j = start; j < end; ++j) {
+                list[idx] = (csrVal[j]);
+                weightList[idx] = weights[csrColInd[j]];
+                idx++;
+            }
+            //loading the subarray into the vector
+            row.load(list);
+            weight.load(weightList);
+
+            multiplication = row * weight;
+            //sum of the elements in the multi
+            res[i] = horizontal_add(multiplication);
+        }
+
+        flow = res;
+    }
+    */
+    void getWeightedFlow() override {
+        
+        float res[NOVertices];
+        
+        for (int i = 0; i < NOVertices; i += 16) {
+            Vec16f multiplication = 0;
+            for(int j = 0; j < 16; ++j) {
+            Vec16f col, weight;
+            float list[16];
+            float weightList[16];
+            for (int k = 0; k < 16; ++k) {
+                list[k] = csrVal[NOVertices + j + k * 16];
+                weightList[k] = weights[csrColInd[NOVertices + j + k * 16]];
+            }
+            col.load(list);
+            weight.load(weightList);
+            multiplication = col * weight + multiplication;
+            multiplication.store(res + i);
+            }
+        }
+
+    }
 
 public:
     explicit GraphCSR(GraphCOO& graph) : NOVertices(graph.getNOVertices()){
@@ -102,6 +142,14 @@ public:
         double sum = 0;
         for (float re : res) { sum += re; }
         return sum / res.size();
+    }
+
+    double bandWidth() {
+
+        double time = this -> measure();
+        double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
+
+        return (8 * bytes / 1000) / time;
     }
 
 };

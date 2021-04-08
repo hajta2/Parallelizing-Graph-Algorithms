@@ -6,7 +6,7 @@
 #include "graphDense.hpp"
 #include "mkl.h"
 #include "mmio_cpp.h"
-#include "VCL/vectorclass.h"
+
 
 template <typename Float>
     std::vector<value> pack_coo(const std::vector<int> &row, const std::vector<int> &col,
@@ -69,11 +69,12 @@ int main(int argc, const char *argv[]) {
   //   }
   //   myfile.close();
   // }
-  GraphCOO coo(pow(2,16), 16);
+  GraphCOO coo(std::pow(2,16), 16);
   GraphCSR csr(coo);
 
-  std::cout << csr.measure() << std::endl;
-  std::cout << csr.measureMKL() << std::endl;
+  std::cout << csr.measure() << "\n";
+  std::cout << csr.measureMKL() << "\n";
+  std::cout << csr.bandWidth() << "\n";
 
   return 0;
 }

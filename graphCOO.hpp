@@ -10,7 +10,7 @@ struct value {
     float val;
 };
 
-const ELEMENTS_IN_A_ROW = 16;
+const int ELEMENTS_IN_A_ROW = 4;
 
 class GraphCOO : public AbstractGraph {
 private:
@@ -133,7 +133,11 @@ public:
             }
             std::cout << neighbourMatrix[i].col << " " << neighbourMatrix[i].val << " ";
         }
-        std::cout << "\n";
+        std::cout << "\nWeights: ";
+        for(int i = 0; i < weights.size(); ++i) {
+            std::cout<< weights[i] << " ";
+        }
+        std::cout<<"\n";
     }
 
     

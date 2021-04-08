@@ -98,10 +98,9 @@ private:
             col.load(list);
             weight.load(weightList);
             multiplication = col * weight + multiplication;
-            multiplication.store(res + i);
             }
+            multiplication.store(res + i);
         }
-
     }
 
 public:

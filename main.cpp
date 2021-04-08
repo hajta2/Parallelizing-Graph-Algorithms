@@ -57,9 +57,10 @@ int main(int argc, const char *argv[]) {
   //   }
   //   myfile.close();
   // }
-  GraphCOO coo(32);
+  GraphCOO coo(8);
   GraphCSR csr(coo);
 
+    coo.print();
  
   std::cout<<csr.measure()<<"\n";
 //   std::cout << csr.measureMKL() << "\n";

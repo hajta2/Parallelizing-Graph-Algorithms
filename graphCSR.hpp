@@ -85,15 +85,15 @@ private:
         
         float res[NOVertices];
         
-        for (int i = 0; i < NOVertices; i += 16) {
+        for (int i = 0; i < NOVertices; i+=16) {
             Vec16f multiplication = 0;
             for(int j = 0; j < 16; ++j) {
             Vec16f col, weight;
             float list[16];
             float weightList[16];
             for (int k = 0; k < 16; ++k) {
-                list[k] = csrVal[NOVertices + j + k * 16];
-                weightList[k] = weights[csrColInd[NOVertices + j + k * 16]];
+                list[k] = csrVal[i * 16 + j + k * 16];
+                weightList[k] = weights[csrColInd[i * 16 + j + k * 16]];
             }
             col.load(list);
             weight.load(weightList);

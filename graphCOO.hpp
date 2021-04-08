@@ -89,10 +89,10 @@ public:
                 while (std::find(colIndices.begin(), colIndices.end(), col) != colIndices.end()) {
                     col = dis(gen);
                 }
-
                 float weight = disVal(gen);
                 value val = {i, col, weight};
                 neighbourMatrix.push_back(val);
+                colIndices.push_back(col);
             }
         }
 
@@ -120,6 +120,18 @@ public:
 
     [[nodiscard]] int getNOVertices() const{
         return NOVertices;
+    }
+
+    void print() {
+        int row = 0;
+        for(int i = 0; i < neighbourMatrix.size(); ++i) {
+            if(neighbourMatrix[i].row != row) {
+                std::cout << "\n";
+                row = neighbourMatrix[i].row;
+            }
+            std::cout << neighbourMatrix[i].col << " " << neighbourMatrix[i].val << " ";
+        }
+        std::cout << "\n";
     }
 
     

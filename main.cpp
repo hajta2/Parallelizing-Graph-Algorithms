@@ -69,12 +69,13 @@ int main(int argc, const char *argv[]) {
   //   }
   //   myfile.close();
   // }
-  GraphCOO coo(std::pow(2,16), 16);
+  GraphCOO coo(32, 16);
   GraphCSR csr(coo);
 
-  std::cout << csr.measure() << "\n";
-  std::cout << csr.measureMKL() << "\n";
-  std::cout << csr.bandWidth() << "\n";
+ 
+  std::cout<<csr.measure()<<"\n";
+//   std::cout << csr.measureMKL() << "\n";
+//   std::cout << csr.bandWidth() << "\n";
 
   return 0;
 }

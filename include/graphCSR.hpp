@@ -6,6 +6,7 @@
 #include "VCL2/vectorclass.h"
 #include <cassert>
 
+
 class GraphCSR : public AbstractGraph {
 private:
     std::vector<float> csrVal;
@@ -82,8 +83,7 @@ private:
     
     void getWeightedFlow() override {
         
-        float res[NOVertices];
-        
+        std::vector<float> res(NOVertices);
         for (int i = 0; i < NOVertices; i+=VECTOR_SIZE) {
             Vec16f multiplication = 0;
             for(int j = 0; j < VECTOR_SIZE; ++j) {
@@ -98,8 +98,10 @@ private:
             weight.load(weightList);
             multiplication = col * weight + multiplication;
             }
-            multiplication.store(res + i);
+            multiplication.store(res.data() + i);
         }
+
+        flow = res;
     }
 
 public:

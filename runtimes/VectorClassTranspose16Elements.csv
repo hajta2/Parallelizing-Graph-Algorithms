@@ -1,0 +1,24 @@
+Vertices: 1024
+CSR w/o MKL: 26.5 microseconds
+CSR w/ MKL: 1053.1 microseconds
+
+Vertices: 2048
+CSR w/o MKL: 62.3 microseconds
+CSR w/ MKL: 242.2 microseconds
+
+Vertices: 4096
+CSR w/o MKL: 110.9 microseconds
+CSR w/ MKL: 35 microseconds
+
+Vertices: 8192
+CSR w/o MKL: 196.2 microseconds
+CSR w/ MKL: 45.8 microseconds
+
+Vertices: 16384
+CSR w/o MKL: 345.1 microseconds
+CSR w/ MKL: 64.1 microseconds
+
+Vertices: 32768
+CSR w/o MKL: 749.1 microseconds
+CSR w/ MKL: 130.1 microseconds
+

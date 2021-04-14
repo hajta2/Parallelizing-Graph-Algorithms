@@ -1,0 +1,50 @@
+Vertices: 1024
+Density:10%
+CSR w/o MKL: 2500.4 microseconds
+CSR w/ MKL: 4223.8 microseconds
+
+Vertices: 1024
+Density:20%
+CSR w/o MKL: 773.8 microseconds
+CSR w/ MKL: 22.9 microseconds
+
+Vertices: 1024
+Density:30%
+CSR w/o MKL: 108.7 microseconds
+CSR w/ MKL: 25.8 microseconds
+
+Vertices: 1024
+Density:40%
+CSR w/o MKL: 122.2 microseconds
+CSR w/ MKL: 31.7 microseconds
+
+Vertices: 1024
+Density:50%
+CSR w/o MKL: 136.4 microseconds
+CSR w/ MKL: 35.1 microseconds
+
+Vertices: 2048
+Density:10%
+CSR w/o MKL: 73.4 microseconds
+CSR w/ MKL: 33.7 microseconds
+
+Vertices: 2048
+Density:20%
+CSR w/o MKL: 145.7 microseconds
+CSR w/ MKL: 61 microseconds
+
+Vertices: 2048
+Density:30%
+CSR w/o MKL: 312.2 microseconds
+CSR w/ MKL: 111.2 microseconds
+
+Vertices: 2048
+Density:40%
+CSR w/o MKL: 392.4 microseconds
+CSR w/ MKL: 138.8 microseconds
+
+Vertices: 2048
+Density:50%
+CSR w/o MKL: 460.6 microseconds
+CSR w/ MKL: 160.5 microseconds
+

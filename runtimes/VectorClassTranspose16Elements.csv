@@ -1,12 +1,7 @@
 Vertices, CSR w/o MKL, CSR w/ MKL 
-1024, 25.5, 1020.7
-Vertices, CSR w/o MKL, CSR w/ MKL 
-2048, 55.4, 228.7
-Vertices, CSR w/o MKL, CSR w/ MKL 
-4096, 100.3, 34.3
-Vertices, CSR w/o MKL, CSR w/ MKL 
-8192, 178.1, 44.4
-Vertices, CSR w/o MKL, CSR w/ MKL 
-16384, 319.4, 68.2
-Vertices, CSR w/o MKL, CSR w/ MKL 
-32768, 790.2, 124.8
+1024, 24.5, 1044.4
+2048, 59.2, 224.3
+4096, 111, 35.1
+8192, 253.3, 51.5
+16384, 396.5, 68.8
+32768, 871.3, 137.5

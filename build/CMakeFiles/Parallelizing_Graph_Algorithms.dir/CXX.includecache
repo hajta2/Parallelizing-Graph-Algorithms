@@ -23,6 +23,8 @@ mkl_spblas.h
 ../include/graphCOO.hpp
 cmath
 -
+algorithm
+-
 abstractGraph.hpp
 ../include/abstractGraph.hpp
 

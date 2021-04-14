@@ -2,6 +2,7 @@
 #define PARALLELIZING_GRAPH_ALGORITHMS_GRAPHCOORDINATE_HPP
 
 #include <cmath>
+#include <algorithm>
 
 #include "abstractGraph.hpp"
 

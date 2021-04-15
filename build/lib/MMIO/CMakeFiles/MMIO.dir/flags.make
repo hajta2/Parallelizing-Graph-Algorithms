@@ -6,5 +6,5 @@ CXX_DEFINES = -DMMIO_EXPORTS
 
 CXX_INCLUDES = -I/home/hajta2/Parallelizing-Graph-Algorithms/lib/MMIO
 
-CXX_FLAGS =   -m64  -I/home/shared/software/intel/compilers_and_libraries/linux/mkl/include -L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64 -Wl,--no-as-needed -lmkl_intel_lp64 -lmkl_gnu_thread -lmkl_core -lgomp -lpthread -lm -ldl -O3 -DNDEBUG -fPIC -std=gnu++1z
+CXX_FLAGS =   -m64  -I/home/shared/software/intel/compilers_and_libraries/linux/mkl/include -L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64 -Wl,--no-as-needed -lmkl_intel_lp64 -lmkl_gnu_thread -lmkl_core -lgomp -lpthread -lm -ldl -g -fPIC -std=gnu++1z
 

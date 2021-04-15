@@ -9,7 +9,17 @@
 enum Type {
     OPENMP,
     CONST_VCL16_ROW,
-    CONST_VCL16_TRANSPOSE
+    CONST_VCL16_TRANSPOSE,
+    VCL_16_ROW,
+    VCL_16_TRANSPOSE
+};
+
+std::string enumString[] = {
+    "OPENMP", 
+    "CONST_VCL16_ROW", 
+    "CONST_VCL16_TRANSPOSE",
+    "VCL_16_ROW",
+    "VCL_16_TRANSPOSE"
 };
 
 
@@ -43,7 +53,7 @@ private:
     void getWeightedFlow() override {
         //Calculating the matrix-vector multiplication w/ OMP 
         if (type == OPENMP){
-            std::vector<int> res(NOVertices);
+            std::vector<float> res(NOVertices);
             #pragma omp parallel for
             for (int i = 0; i < NOVertices-1; ++i) {
                 int start = csrRowPtr[i];
@@ -98,7 +108,37 @@ private:
                 multiplication.store(res.data() + i);
             }
             flow = res;
-        }
+        } else if (type == VCL_16_ROW) {
+            std::vector<float> res(NOVertices);
+            for(int i = 0; i < NOVertices - 1; ++i) {
+                int start = csrRowPtr[i];
+                int end = csrRowPtr[i + 1];
+                //Number of elements in the row
+                int dataSize = end - start;
+                //rounding down to the nearest lower multiple of VECTOR_SIZE
+                int regularPart = dataSize & (-VECTOR_SIZE);
+                //initalize the vectors and the data
+                Vec16f row, weight, multiplication;
+
+                for(int i = 0; i < regularPart; i += VECTOR_SIZE) {
+                    float list[VECTOR_SIZE];
+                    float weightList[VECTOR_SIZE];
+                    for(int j = 0; j < VECTOR_SIZE; ++j) {
+                        list[j] = (csrVal[start + i + j]);
+                        weightList[j] = weights[csrColInd[start + i + j]];
+                    }
+                    row.load(list);
+                    weight.load(weightList);
+                    multiplication = row * weight;
+                }
+
+                for(int i = regularPart - 1; i < dataSize; ++i) {
+                    res[i] += csrVal[start + i] * weights[csrColInd[start + i]];
+                }
+                //add the multiplication to res[i]
+                res[i] += horizontal_add(multiplication);
+            }
+        } 
     }
 
 public:

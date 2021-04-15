@@ -42,22 +42,34 @@ int main(int argc, const char *argv[]) {
     std::cout<< graphCSR.measure() << std::endl;
     std::cout<< graphCSR.measureMKL() << std::endl;
   } else{
+    Type t = VCL_16_ROW;
     std::ofstream myfile;
-    myfile.open("../runtimes/VectorClassTranspose16Elements.csv");
-    myfile << "Vertices, CSR w/o MKL, CSR w/ MKL \n";
-    //myfile << "Vertices, Density, CSR w/o MKL, CSR w/ MKL \n";
-    for(int i = 10; i <= 15; ++i){
-      //for(float j = 1; j <= 30; j++){
+    myfile.open("../runtimes/"+enumString[t]+".csv");
+    if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {
+      myfile << "Vertices, CSR w/o MKL, CSR w/ MKL \n";
+      for(int i = 10; i <= 15; ++i){
         GraphCOO graphCOO(std::pow(2, i)); 
-        GraphCSR graphCSR(graphCOO, CONST_VCL16_TRANSPOSE);
+        GraphCSR graphCSR(graphCOO, t);
         myfile<< std::pow(2,i) << ", "
-              //<< j/10 << ", " 
               << graphCSR.measure() << ", "
               << graphCSR.measureMKL() << "\n";
-      //}
+      }
+    } else {
+        myfile << "Vertices, Density, CSR w/o MKL, CSR w/ MKL \n";
+        for(int i = 10; i <= 15; ++i){
+          for(float j = 1; j <= 30; j++){
+            GraphCOO graphCOO(std::pow(2, i)); 
+            GraphCSR graphCSR(graphCOO, t);
+            myfile<< std::pow(2,i) << ", "
+                  << j/10 << ", " 
+                  << graphCSR.measure() << ", "
+                  << graphCSR.measureMKL() << "\n";
+          }
+        }
     }
     myfile.close();
   }
+
 //   GraphCOO coo(std::pow(2,15));
 //   GraphCSR csr(coo);
 

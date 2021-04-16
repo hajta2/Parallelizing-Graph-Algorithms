@@ -156,11 +156,11 @@ private:
                     float list[VECTOR_SIZE];
                     float weightList[VECTOR_SIZE];
                     for (int k = 0; k < VECTOR_SIZE; ++k) {
-                        if( i + k > NOVertices) {
+                        if( i + k > NOVertices - 1) {
                             list[k] = 0;
                             weightList[k] = 0;
                         } else {
-                            if (csrRowPtr[i + k + 1] - csrRowPtr[i + k]< j) {
+                            if (csrRowPtr[i + k + 1] - csrRowPtr[i + k] < j) {
                                 list[k] = 0;
                                 weightList[k] = 0;
                             } else {

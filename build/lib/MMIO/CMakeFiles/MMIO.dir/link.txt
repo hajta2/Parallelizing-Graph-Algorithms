@@ -1,1 +1,0 @@
-/opt/rh/devtoolset-7/root/usr/bin/g++ -fPIC   -m64  -I/home/shared/software/intel/compilers_and_libraries/linux/mkl/include -L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64 -Wl,--no-as-needed -lmkl_intel_lp64 -lmkl_gnu_thread -lmkl_core -lgomp -lpthread -lm -ldl -g -shared -Wl,-soname,libMMIO.so -o libMMIO.so CMakeFiles/MMIO.dir/mmio.cpp.o 

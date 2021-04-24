@@ -138,17 +138,21 @@ private:
             //NOVertices because of number of rows
             //int regularRowPart = NOVertices & (-VECTOR_SIZE);
             // round up NOVertices to nearest higher multiple of vectorsize
-            int rowSize = (NOVertices + VECTOR_SIZE - 1) & (-VECTOR_SIZE);  
+            int rowSize = (NOVertices + VECTOR_SIZE - 1) & (-VECTOR_SIZE);
+            std::cout << "ROWSIZE: " <<rowSize << "\n";
             for (int i = 0; i < rowSize; i += VECTOR_SIZE) {
                 Vec16f multiplication = 0;
                 //searching the longest row's element
                 int maxElements = 0;
                 for (int j = 0; j < VECTOR_SIZE; ++j) {
-                    int NOElements = csrRowPtr[i + j + 1] - csrRowPtr[i + j];
-                    if(NOElements > maxElements) {
-                        maxElements = NOElements;
+                    if (i + j < NOVertices) { 
+                        int NOElements = csrRowPtr[i + j + 1] - csrRowPtr[i + j];
+                        if(NOElements > maxElements) {
+                            maxElements = NOElements;
+                        }
                     }
                 }
+                std::cout << "ASD: " << maxElements << "\n";
                 //summing the elements of the row's
                 //int regularPart = maxElements & (-VECTOR_SIZE);
                 for (int j = 0; j < maxElements; ++j) {
@@ -164,8 +168,8 @@ private:
                                 list[k] = 0;
                                 weightList[k] = 0;
                             } else {
-                                list[k] = csrVal[i * VECTOR_SIZE + j + csrRowPtr[i + k]];
-                                weightList[k] = weights[csrColInd[i * VECTOR_SIZE + j + csrRowPtr[i + k]]];
+                                list[k] = csrVal[j + csrRowPtr[i + k]];
+                                weightList[k] = weights[csrColInd[j + csrRowPtr[i + k]]];
                             }
                         }
                     }

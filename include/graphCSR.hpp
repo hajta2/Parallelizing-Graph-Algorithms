@@ -139,7 +139,6 @@ private:
             //int regularRowPart = NOVertices & (-VECTOR_SIZE);
             // round up NOVertices to nearest higher multiple of vectorsize
             int rowSize = (NOVertices + VECTOR_SIZE - 1) & (-VECTOR_SIZE);
-            std::cout << "ROWSIZE: " <<rowSize << "\n";
             for (int i = 0; i < rowSize; i += VECTOR_SIZE) {
                 Vec16f multiplication = 0;
                 //searching the longest row's element
@@ -152,7 +151,6 @@ private:
                         }
                     }
                 }
-                std::cout << "ASD: " << maxElements << "\n";
                 //summing the elements of the row's
                 //int regularPart = maxElements & (-VECTOR_SIZE);
                 for (int j = 0; j < maxElements; ++j) {
@@ -161,10 +159,9 @@ private:
                     float weightList[VECTOR_SIZE];
                     for (int k = 0; k < VECTOR_SIZE; ++k) {
                         if( i + k > NOVertices - 1) {
-                            list[k] = 0;
-                            weightList[k] = 0;
+                            break;
                         } else {
-                            if (csrRowPtr[i + k + 1] - csrRowPtr[i + k] < j) {
+                            if (csrRowPtr[i + k + 1] - csrRowPtr[i + k] < j + 1) {
                                 list[k] = 0;
                                 weightList[k] = 0;
                             } else {
@@ -174,14 +171,21 @@ private:
                         }
                     }
                     col.load(list);
-                    col.load(weightList);
+                    weight.load(weightList);
                     multiplication = col * weight + multiplication;
                 }
-                multiplication.store(res.data() + i);
+                if (i + VECTOR_SIZE >= rowSize) {
+                    for (int j = 0; j < multiplication.size(); ++j) {
+                        if (i + j < NOVertices) {
+                            res[i + j] = multiplication[j];
+                        }
+                    }
+                } else {
+                    multiplication.store(res.data() + i);
+                }
             }
         }
-
-        flow = res; 
+        flow = res;
     }
 
 public:

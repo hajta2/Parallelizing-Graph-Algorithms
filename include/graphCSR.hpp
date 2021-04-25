@@ -115,20 +115,20 @@ private:
                 //initalize the vectors and the data
                 Vec16f row, weight, multiplication;
 
-                for(int i = 0; i < regularPart; i += VECTOR_SIZE) {
+                for(int j = 0; j < regularPart; j += VECTOR_SIZE) {
                     float list[VECTOR_SIZE];
                     float weightList[VECTOR_SIZE];
-                    for(int j = 0; j < VECTOR_SIZE; ++j) {
-                        list[j] = (csrVal[start + i + j]);
-                        weightList[j] = weights[csrColInd[start + i + j]];
+                    for(int k = 0; k < VECTOR_SIZE; ++j) {
+                        list[k] = (csrVal[start + j + k]);
+                        weightList[k] = weights[csrColInd[start + j + k]];
                     }
                     row.load(list);
                     weight.load(weightList);
                     multiplication = row * weight;
                 }
 
-                for(int i = regularPart - 1; i < dataSize; ++i) {
-                    res[i] += csrVal[start + i] * weights[csrColInd[start + i]];
+                for(int j = regularPart - 1; j < dataSize; ++j) {
+                    res[i] += csrVal[start + j] * weights[csrColInd[start + j]];
                 }
                 //add the multiplication to res[i]
                 res[i] += horizontal_add(multiplication);

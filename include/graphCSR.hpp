@@ -105,40 +105,39 @@ private:
                 multiplication.store(res.data() + i);
             }
         } else if (type == VCL_16_ROW) {
+            #pragma omp parallel for
             for(int i = 0; i < NOVertices - 1; ++i) {
                 int start = csrRowPtr[i];
                 int end = csrRowPtr[i + 1];
                 //Number of elements in the row
-                int dataSize = end - start;
-                //rounding down to the nearest lower multiple of VECTOR_SIZE
-                int regularPart = dataSize & (-VECTOR_SIZE);
-                //initalize the vectors and the data
-                Vec16f row, weight, multiplication;
-
-                for(int j = 0; j < regularPart; j += VECTOR_SIZE) {
-                    float list[VECTOR_SIZE];
-                    float weightList[VECTOR_SIZE];
-                    for(int k = 0; k < VECTOR_SIZE; ++j) {
-                        list[k] = (csrVal[start + j + k]);
-                        weightList[k] = weights[csrColInd[start + j + k]];
+                int dataSize = end - start;                                    
+                if (dataSize != 0) {
+                    //rounding down to the nearest lower multiple of VECTOR_SIZE
+                    int regularPart = dataSize & (-VECTOR_SIZE);
+                    //initalize the vectors and the data
+                    Vec16f row, weight, multiplication;
+                    for(int j = 0; j < regularPart; j += VECTOR_SIZE) {
+                        float list[VECTOR_SIZE];
+                        float weightList[VECTOR_SIZE];
+                        for(int k = 0; k < VECTOR_SIZE; ++k) {
+                            list[k] = (csrVal[start + j + k]);
+                            weightList[k] = weights[csrColInd[start + j + k]];
+                        }
+                        row.load(list);
+                        weight.load(weightList);
+                        multiplication = row * weight;
                     }
-                    row.load(list);
-                    weight.load(weightList);
-                    multiplication = row * weight;
+                    for(int j = regularPart - 1; j < dataSize; ++j) {
+                        res[i] += csrVal[start + j] * weights[csrColInd[start + j]];
+                    }
+                    //add the multiplication to res[i]
+                    res[i] += horizontal_add(multiplication);
                 }
-
-                for(int j = regularPart - 1; j < dataSize; ++j) {
-                    res[i] += csrVal[start + j] * weights[csrColInd[start + j]];
-                }
-                //add the multiplication to res[i]
-                res[i] += horizontal_add(multiplication);
             }
         } else if (type == VCL_16_TRANSPOSE) {
-            //rounding down to the nearest lower multiple of VECTOR_SIZE
-            //NOVertices because of number of rows
-            //int regularRowPart = NOVertices & (-VECTOR_SIZE);
             // round up NOVertices to nearest higher multiple of vectorsize
             int rowSize = (NOVertices + VECTOR_SIZE - 1) & (-VECTOR_SIZE);
+            #pragma omp parallel for
             for (int i = 0; i < rowSize; i += VECTOR_SIZE) {
                 Vec16f multiplication = 0;
                 //searching the longest row's element
@@ -178,6 +177,8 @@ private:
                     for (int j = 0; j < multiplication.size(); ++j) {
                         if (i + j < NOVertices) {
                             res[i + j] = multiplication[j];
+                        } else {
+                            break;
                         }
                     }
                 } else {
@@ -185,7 +186,7 @@ private:
                 }
             }
         }
-        flow = res;
+        //flow = res;
     }
 
 public:

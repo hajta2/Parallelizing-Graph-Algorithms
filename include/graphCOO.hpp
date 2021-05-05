@@ -76,7 +76,7 @@ public:
         weights = tmpWeights;
 
     }
-
+    //generate COO with const size
     GraphCOO (int vertices) : NOVertices(vertices) {
         std::random_device rd;
         std::mt19937_64 gen(rd());
@@ -109,6 +109,49 @@ public:
         }
         weights = tmpWeights;
 
+    }
+
+    void convertToELLPACK () {
+        //finding the max length
+        int maxLength = 0;
+        int actualRow = 0;
+        int counter = 0;
+        std::vector<int> rowLengths(NOVertices);
+        for (value const &v : neighbourMatrix) {
+            while (v.row != actualRow) {
+                actualRow++;
+                counter = 0;
+            }
+            rowLengths[actualRow]++;
+            counter++;
+            if (counter > maxLength) {
+                maxLength = counter;
+            }
+        }
+        for (int i = 0; i < NOVertices; ++i) {
+            std::cout << rowLengths[i] << " ";
+        }
+        std::cout << "\n";
+        //the new matrix padded filled w/ 0s, row`s length is maxLength
+        std::vector<value> ellpack;
+        for (int i = 0; i < NOVertices; ++i) {
+            for (int j = 0; j < maxLength; ++j) {
+                value val = {i, j, 0};
+                ellpack.push_back(val);
+            }
+        }
+        int rowStart = 0;
+        int rowEnd = 0;
+        for (int i = 0; i < NOVertices; ++i) {
+            rowEnd += rowLengths[i];
+            int offset = 0;
+            for (int j = rowStart; j < rowEnd; ++j) {
+                ellpack[i * maxLength + offset] = neighbourMatrix[j];
+                offset++;
+            }
+            rowStart += rowLengths[i]; 
+        }
+        neighbourMatrix = ellpack;
     }
 
 

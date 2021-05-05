@@ -186,33 +186,33 @@ private:
                 }
             }
         }
-        //flow = res;
+        flow = res;
     }
 
 public:
     explicit GraphCSR(GraphCOO& graph, Type t) : NOVertices(graph.getNOVertices()), type(t) {
-       std::vector<value> matrix = graph.getNeighbourMatrix();
-       weights = graph.getWeights();
-       int actualRow = 0;
-       csrRowPtr.push_back(0);
-       for(value const &v : matrix){
-           while(v.row != actualRow){
-               actualRow++;
-               csrRowPtr.push_back(csrColInd.size());
-           }
-           csrColInd.push_back(v.col);
-           csrVal.push_back(v.val);
-       }
-       //NONonZeroElements
-       csrRowPtr.push_back(csrColInd.size());
-       mkl_sparse_s_create_csr(&csrA, 
-           SPARSE_INDEX_BASE_ZERO,
-           NOVertices,
-           NOVertices,
-           csrRowPtr.data(),
-           csrRowPtr.data() + 1,
-           csrColInd.data(),
-           csrVal.data());
+        std::vector<value> matrix = graph.getNeighbourMatrix();
+        weights = graph.getWeights();
+        int actualRow = 0;
+        csrRowPtr.push_back(0);
+        for(value const &v : matrix){
+            while(v.row != actualRow){
+                actualRow++;
+                csrRowPtr.push_back(csrColInd.size());
+            }
+            csrColInd.push_back(v.col);
+            csrVal.push_back(v.val);
+        }
+        //NONonZeroElements
+        csrRowPtr.push_back(csrColInd.size());
+        mkl_sparse_s_create_csr(&csrA, 
+            SPARSE_INDEX_BASE_ZERO,
+            NOVertices,
+            NOVertices,
+            csrRowPtr.data(),
+            csrRowPtr.data() + 1,
+            csrColInd.data(),
+            csrVal.data());
     }
 
     double measureMKL() {

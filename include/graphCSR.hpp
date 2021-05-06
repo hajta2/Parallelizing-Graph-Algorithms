@@ -3,7 +3,9 @@
 
 #include "graphCOO.hpp"
 #include <omp.h>
+#ifdef USE_VCL_LIB
 #include "VCL2/vectorclass.h"
+#endif
 #include <cassert>
 
 enum Type {
@@ -62,6 +64,11 @@ private:
                     res[i] += csrVal[j] * weights[csrColInd[j]];
                 }
             }
+#ifndef USE_VCL_LIB
+        } else {
+          assert(false && "App compiled without VCL suppoert");
+        }
+#else
         } else if(type == CONST_VCL16_ROW) {
             for (int i = 0; i < NOVertices - 1; ++i) {
                 int start = csrRowPtr[i];
@@ -186,6 +193,7 @@ private:
                 }
             }
         }
+#endif
         flow = res;
     }
 

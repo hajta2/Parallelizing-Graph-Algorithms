@@ -2,8 +2,15 @@ cmake_minimum_required(VERSION 3.18)
 project(Parallelizing_Graph_Algorithms)
 set(CMAKE_CXX_STANDARD 20)
 find_package(OpenMP REQUIRED)
+
+option(USE_VCL "Building with VCL support, Intel compilers does NOT support these" ON)
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+    message(STATUS "Intel compiler detected")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mkl")
+    set(USE_VCL
+        OFF
+        CACHE BOOL "" FORCE)
 else()
     # GCC
     set(MKLROOT
@@ -30,6 +37,10 @@ set_project_warnings(project_warnings)
 add_subdirectory(lib/MMIO)
 file(GLOB SOURCES "src/*.cpp")
 add_executable(Parallelizing_Graph_Algorithms ${SOURCES})
+if(USE_VCL)
+    target_compile_definitions(Parallelizing_Graph_Algorithms PRIVATE USE_VCL_LIB)
+endif(USE_VCL)
+
 target_link_libraries(
     Parallelizing_Graph_Algorithms
     OpenMP::OpenMP_CXX

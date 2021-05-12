@@ -3,7 +3,9 @@
 
 #include "graphCOO.hpp"
 #include <omp.h>
+#ifdef USE_VCL_LIB
 #include "VCL2/vectorclass.h"
+#endif
 #include <cassert>
 
 enum Type {
@@ -11,7 +13,9 @@ enum Type {
     CONST_VCL16_ROW,
     CONST_VCL16_TRANSPOSE,
     VCL_16_ROW,
-    VCL_16_TRANSPOSE
+    VCL_16_TRANSPOSE,
+    ELLPACK,
+    TRANSPOSED_ELLPACK
 };
 
 std::string enumString[] = {
@@ -19,7 +23,9 @@ std::string enumString[] = {
     "CONST_VCL16_ROW", 
     "CONST_VCL16_TRANSPOSE",
     "VCL_16_ROW",
-    "VCL_16_TRANSPOSE"
+    "VCL_16_TRANSPOSE",
+    "ELLPACK",
+    "TRANSPOSED_ELLPACK"
 };
 
 
@@ -32,6 +38,7 @@ private:
     std::vector<float> flow;
     Type type;
     const int NOVertices;
+    int maxLength;
     struct matrix_descr descrA;
     sparse_matrix_t csrA;
 
@@ -62,6 +69,11 @@ private:
                     res[i] += csrVal[j] * weights[csrColInd[j]];
                 }
             }
+#ifndef USE_VCL_LIB
+        } else {
+          assert(false && "App compiled without VCL suppoert");
+        }
+#else
         } else if(type == CONST_VCL16_ROW) {
             for (int i = 0; i < NOVertices - 1; ++i) {
                 int start = csrRowPtr[i];
@@ -185,7 +197,41 @@ private:
                     multiplication.store(res.data() + i);
                 }
             }
+        } else if (type == ELLPACK) {
+            int rowSize = (NOVertices + VECTOR_SIZE - 1) & (-VECTOR_SIZE);
+            #pragma omp parallel for
+            for (int i = 0; i < rowSize; i += VECTOR_SIZE) {
+                Vec16f multiplication = 0;
+                for (int j = 0; j < maxLength; ++j) {
+                    Vec16f col, weight;
+                    float list[VECTOR_SIZE];
+                    float weightList[VECTOR_SIZE];
+                    for (int k = 0; k < VECTOR_SIZE; ++k) {                    
+                        if (i + k > NOVertices -1) {
+                            break;
+                        } else {
+                            list[k] = csrVal[j + csrRowPtr[i + k]];
+                            weightList[k] = weights[csrColInd[j + csrRowPtr[i + k]]];
+                        }
+                    }
+                    col.load(list);
+                    weight.load(weightList);
+                    multiplication = col * weight + multiplication;
+                }
+                if (i + VECTOR_SIZE >= rowSize) {
+                    for (int j = 0; j < multiplication.size(); ++j) {
+                        if (i + j < NOVertices) {
+                            res[i + j] = multiplication[j];
+                        } else {
+                            break;
+                        }
+                    }
+                } else {
+                    multiplication.store(res.data() + i);
+                }
+            }
         }
+#endif
         flow = res;
     }
 
@@ -195,10 +241,16 @@ public:
         weights = graph.getWeights();
         int actualRow = 0;
         csrRowPtr.push_back(0);
+        int counter = 0;
         for(value const &v : matrix){
             while(v.row != actualRow){
                 actualRow++;
+                counter = 0;
                 csrRowPtr.push_back(csrColInd.size());
+            }
+            counter++;
+            if (counter > maxLength) {
+                maxLength = counter;
             }
             csrColInd.push_back(v.col);
             csrVal.push_back(v.val);

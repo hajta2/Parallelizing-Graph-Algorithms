@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hajta2/Parallelizing-Graph-Algorithms/lib/MMIO/mmio.cpp
+stdio.h
+-
+string.h
+-
+stdlib.h
+-
+ctype.h
+-
+mmio.h
+/home/hajta2/Parallelizing-Graph-Algorithms/lib/MMIO/mmio.h
+
+/home/hajta2/Parallelizing-Graph-Algorithms/lib/MMIO/mmio.h
+

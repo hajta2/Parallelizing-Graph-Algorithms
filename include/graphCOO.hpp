@@ -128,10 +128,6 @@ public:
                 maxLength = counter;
             }
         }
-        for (int i = 0; i < NOVertices; ++i) {
-            std::cout << rowLengths[i] << " ";
-        }
-        std::cout << "\n";
         //the new matrix padded filled w/ 0s, row`s length is maxLength
         std::vector<value> ellpack;
         for (int i = 0; i < NOVertices; ++i) {

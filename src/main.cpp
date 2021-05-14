@@ -7,22 +7,21 @@
 #include "mkl.h"
 #include "mmio_cpp.h"
 
-
 template <typename Float>
-    std::vector<value> pack_coo(const std::vector<int> &row, const std::vector<int> &col,
+std::vector<value> pack_coo(const std::vector<int> &row,
+                            const std::vector<int> &col,
                             const std::vector<Float> &val) {
-        std::vector<value> result;
-        result.reserve(val.size());
-        for (int i = 0; i < val.size(); ++i) {
-            result.push_back({row[i]-1, col[i]-1, val[i]});
-        }
-        std::sort(result.begin(), result.end(), [](const auto &lhs, const auto &rhs) {
-            if (lhs.row != rhs.row) return lhs.row < rhs.row;
-            return lhs.col < rhs.col;
-        });
-        return result;
-    }
-
+  std::vector<value> result;
+  result.reserve(val.size());
+  for (int i = 0; i < val.size(); ++i) {
+    result.push_back({row[i] - 1, col[i] - 1, val[i]});
+  }
+  std::sort(result.begin(), result.end(), [](const auto &lhs, const auto &rhs) {
+    if (lhs.row != rhs.row) return lhs.row < rhs.row;
+    return lhs.col < rhs.col;
+  });
+  return result;
+}
 
 int main(int argc, const char *argv[]) {
   
@@ -93,7 +92,7 @@ int main(int argc, const char *argv[]) {
 //   }
 
   Type t = ELLPACK;
-  GraphCOO coo(std::pow(2,13), 0.03);
+  GraphCOO coo(1 << 13, 0.03f);
   coo.convertToELLPACK();
   GraphCSR csr(coo, t);
   //coo.print();

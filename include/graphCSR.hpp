@@ -38,7 +38,7 @@ private:
     std::vector<float> flow;
     Type type;
     const int NOVertices;
-    int maxLength;
+    int maxLength = 0;
     struct matrix_descr descrA;
     sparse_matrix_t csrA;
 
@@ -206,7 +206,7 @@ private:
                     Vec16f col, weight;
                     float list[VECTOR_SIZE];
                     float weightList[VECTOR_SIZE];
-                    for (int k = 0; k < VECTOR_SIZE; ++k) {                    
+                    for (int k = 0; k < VECTOR_SIZE; ++k) {
                         if (i + k > NOVertices -1) {
                             break;
                         } else {
@@ -266,6 +266,8 @@ public:
             csrColInd.data(),
             csrVal.data());
     }
+
+    ~GraphCSR() { mkl_sparse_destroy(csrA); }
 
     double measureMKL() {
         std::vector<float> res;

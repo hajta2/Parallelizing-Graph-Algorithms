@@ -1,4 +1,4 @@
-# Install script for directory: /home/hajta2/Parallelizing-Graph-Algorithms/lib/MMIO
+# Install script for directory: /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/lib/MMIO
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,6 +39,6 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/opt/rh/devtoolset-7/root/usr/bin/objdump")
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 

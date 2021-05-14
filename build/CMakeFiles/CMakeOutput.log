@@ -1,6 +1,6 @@
-The system is: Linux - 3.10.0-957.el7.x86_64 - x86_64
+The system is: Linux - 5.10.34-1-MANJARO - x86_64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-Compiler: /opt/rh/devtoolset-7/root/usr/bin/gcc 
+Compiler: /usr/bin/cc 
 Build flags: 
 Id flags:  
 
@@ -10,10 +10,10 @@ The output was:
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
 
-The C compiler identification is GNU, found in "/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/3.18.5/CompilerIdC/a.out"
+The C compiler identification is GNU, found in "/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/3.20.2/CompilerIdC/a.out"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-Compiler: /opt/rh/devtoolset-7/root/usr/bin/g++ 
+Compiler: /usr/bin/c++ 
 Build flags: 
 Id flags:  
 
@@ -23,376 +23,363 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
 
-The CXX compiler identification is GNU, found in "/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/3.18.5/CompilerIdCXX/a.out"
+The CXX compiler identification is GNU, found in "/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/3.20.2/CompilerIdCXX/a.out"
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp
+Change Dir: /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/opt/rh/devtoolset-7/root/usr/bin/gmake cmTC_81c1f/fast && gmake: Warning: File 'Makefile' has modification time 66 s in the future
-/opt/rh/devtoolset-7/root/usr/bin/gmake  -f CMakeFiles/cmTC_81c1f.dir/build.make CMakeFiles/cmTC_81c1f.dir/build
-gmake[1]: Entering directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
-gmake[1]: Warning: File 'CMakeFiles/cmTC_81c1f.dir/flags.make' has modification time 66 s in the future
-Building C object CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o
-/opt/rh/devtoolset-7/root/usr/bin/gcc   -v -o CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o -c /home/shared/software/cmake/3.18.5/share/cmake-3.18/Modules/CMakeCCompilerABI.c
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_31eee/fast && /usr/bin/make  -f CMakeFiles/cmTC_31eee.dir/build.make CMakeFiles/cmTC_31eee.dir/build
+make[1]: Entering directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc   -v -o CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.20/Modules/CMakeCCompilerABI.c
 Using built-in specs.
-COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/gcc
-Target: x86_64-redhat-linux
-Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,fortran,lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+COLLECT_GCC=/usr/bin/cc
+Target: x86_64-pc-linux-gnu
+Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++,d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc
 Thread model: posix
-gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) 
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/cc1 -quiet -v /home/shared/software/cmake/3.18.5/share/cmake-3.18/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccxdDdCM.s
-GNU C11 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)
-	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5), GMP version 6.0.0, MPFR version 3.1.1, MPC version 1.0.1, isl version isl-0.16.1-GMP
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/cc1 -quiet -v /usr/share/cmake-3.20/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccc2fG2C.s
+GNU C17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.21-GMP
 
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"
-ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../x86_64-pc-linux-gnu/include"
 #include "..." search starts here:
 #include <...> search starts here:
- /home/shared/software/intel/compilers_and_libraries/linux/mkl/include
- /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include
  /usr/local/include
- /opt/rh/devtoolset-7/root/usr/include
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed
  /usr/include
 End of search list.
-GNU C11 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)
-	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5), GMP version 6.0.0, MPFR version 3.1.1, MPC version 1.0.1, isl version isl-0.16.1-GMP
+GNU C17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.21-GMP
 
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-Compiler executable checksum: 53c9767f89aeab9360f62b583df4c70c
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/as -v --64 -o CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o /tmp/ccxdDdCM.s
-GNU assembler version 2.28 (x86_64-redhat-linux) using BFD version version 2.28-11.el7
-COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/
-LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
-Linking C executable cmTC_81c1f
-/home/shared/software/cmake/3.18.5/bin/cmake -E cmake_link_script CMakeFiles/cmTC_81c1f.dir/link.txt --verbose=1
-/opt/rh/devtoolset-7/root/usr/bin/gcc  -v CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o -o cmTC_81c1f 
+Compiler executable checksum: 1bfc39bab4733e0e3f89254efa5bbd30
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+ as -v --64 -o CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o /tmp/ccc2fG2C.s
+GNU assembler version 2.36.1 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.36.1
+COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+Linking C executable cmTC_31eee
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_31eee.dir/link.txt --verbose=1
+/usr/bin/cc  -v CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o -o cmTC_31eee 
 Using built-in specs.
-COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/gcc
-COLLECT_LTO_WRAPPER=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper
-Target: x86_64-redhat-linux
-Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,fortran,lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++,d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc
 Thread model: posix
-gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) 
-COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/
-LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_81c1f' '-mtune=generic' '-march=x86-64'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccVghZIN.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_81c1f /lib/../lib64/crt1.o /lib/../lib64/crti.o /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7 -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /lib/../lib64/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_81c1f' '-mtune=generic' '-march=x86-64'
-gmake[1]: warning:  Clock skew detected.  Your build may be incomplete.
-gmake[1]: Leaving directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
-gmake: warning:  Clock skew detected.  Your build may be incomplete.
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.2.0 (GCC) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_31eee' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccvy0rDN.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_31eee /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0 -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../.. CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_31eee' '-mtune=generic' '-march=x86-64'
+make[1]: Leaving directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
 
 
 
 Parsed C implicit include dir info from above output: rv=done
   found start of include info
   found start of implicit include info
-    add: [/home/shared/software/intel/compilers_and_libraries/linux/mkl/include]
-    add: [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include]
+    add: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include]
     add: [/usr/local/include]
-    add: [/opt/rh/devtoolset-7/root/usr/include]
+    add: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed]
     add: [/usr/include]
   end of search list found
-  collapse include dir [/home/shared/software/intel/compilers_and_libraries/linux/mkl/include] ==> [/home/shared/software/intel/compilers_and_libraries/linux/mkl/include]
-  collapse include dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include] ==> [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include]
+  collapse include dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include]
   collapse include dir [/usr/local/include] ==> [/usr/local/include]
-  collapse include dir [/opt/rh/devtoolset-7/root/usr/include] ==> [/opt/rh/devtoolset-7/root/usr/include]
+  collapse include dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed]
   collapse include dir [/usr/include] ==> [/usr/include]
-  implicit include dirs: [/home/shared/software/intel/compilers_and_libraries/linux/mkl/include;/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include;/usr/local/include;/opt/rh/devtoolset-7/root/usr/include;/usr/include]
+  implicit include dirs: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include;/usr/local/include;/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed;/usr/include]
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command(s):/opt/rh/devtoolset-7/root/usr/bin/gmake cmTC_81c1f/fast && gmake: Warning: File 'Makefile' has modification time 66 s in the future]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/gmake  -f CMakeFiles/cmTC_81c1f.dir/build.make CMakeFiles/cmTC_81c1f.dir/build]
-  ignore line: [gmake[1]: Entering directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp']
-  ignore line: [gmake[1]: Warning: File 'CMakeFiles/cmTC_81c1f.dir/flags.make' has modification time 66 s in the future]
-  ignore line: [Building C object CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/gcc   -v -o CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o -c /home/shared/software/cmake/3.18.5/share/cmake-3.18/Modules/CMakeCCompilerABI.c]
+  ignore line: [Run Build Command(s):/usr/bin/make -f Makefile cmTC_31eee/fast && /usr/bin/make  -f CMakeFiles/cmTC_31eee.dir/build.make CMakeFiles/cmTC_31eee.dir/build]
+  ignore line: [make[1]: Entering directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.20/Modules/CMakeCCompilerABI.c]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/gcc]
-  ignore line: [Target: x86_64-redhat-linux]
-  ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ fortran lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c c++ ada fortran go lto objc obj-c++ d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc]
   ignore line: [Thread model: posix]
-  ignore line: [gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) ]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/cc1 -quiet -v /home/shared/software/cmake/3.18.5/share/cmake-3.18/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccxdDdCM.s]
-  ignore line: [GNU C11 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)]
-  ignore line: [	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5)  GMP version 6.0.0  MPFR version 3.1.1  MPC version 1.0.1  isl version isl-0.16.1-GMP]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 10.2.0 (GCC) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/cc1 -quiet -v /usr/share/cmake-3.20/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccc2fG2C.s]
+  ignore line: [GNU C17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 10.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.21-GMP]
   ignore line: []
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-  ignore line: [ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"]
-  ignore line: [ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../x86_64-pc-linux-gnu/include"]
   ignore line: [#include "..." search starts here:]
   ignore line: [#include <...> search starts here:]
-  ignore line: [ /home/shared/software/intel/compilers_and_libraries/linux/mkl/include]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include]
   ignore line: [ /usr/local/include]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/include]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed]
   ignore line: [ /usr/include]
   ignore line: [End of search list.]
-  ignore line: [GNU C11 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)]
-  ignore line: [	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5)  GMP version 6.0.0  MPFR version 3.1.1  MPC version 1.0.1  isl version isl-0.16.1-GMP]
+  ignore line: [GNU C17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 10.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.21-GMP]
   ignore line: []
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-  ignore line: [Compiler executable checksum: 53c9767f89aeab9360f62b583df4c70c]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/as -v --64 -o CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o /tmp/ccxdDdCM.s]
-  ignore line: [GNU assembler version 2.28 (x86_64-redhat-linux) using BFD version version 2.28-11.el7]
-  ignore line: [COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/]
-  ignore line: [LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
-  ignore line: [Linking C executable cmTC_81c1f]
-  ignore line: [/home/shared/software/cmake/3.18.5/bin/cmake -E cmake_link_script CMakeFiles/cmTC_81c1f.dir/link.txt --verbose=1]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/gcc  -v CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o -o cmTC_81c1f ]
+  ignore line: [Compiler executable checksum: 1bfc39bab4733e0e3f89254efa5bbd30]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [ as -v --64 -o CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o /tmp/ccc2fG2C.s]
+  ignore line: [GNU assembler version 2.36.1 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.36.1]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [Linking C executable cmTC_31eee]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_31eee.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc  -v CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o -o cmTC_31eee ]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/gcc]
-  ignore line: [COLLECT_LTO_WRAPPER=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper]
-  ignore line: [Target: x86_64-redhat-linux]
-  ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ fortran lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c c++ ada fortran go lto objc obj-c++ d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc]
   ignore line: [Thread model: posix]
-  ignore line: [gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) ]
-  ignore line: [COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/]
-  ignore line: [LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_81c1f' '-mtune=generic' '-march=x86-64']
-  link line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccVghZIN.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_81c1f /lib/../lib64/crt1.o /lib/../lib64/crti.o /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7 -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /lib/../lib64/crtn.o]
-    arg [/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2] ==> ignore
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 10.2.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_31eee' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccvy0rDN.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_31eee /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0 -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../.. CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2] ==> ignore
     arg [-plugin] ==> ignore
-    arg [/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so] ==> ignore
-    arg [-plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccVghZIN.res] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccvy0rDN.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [--build-id] ==> ignore
-    arg [--no-add-needed] ==> ignore
     arg [--eh-frame-hdr] ==> ignore
     arg [--hash-style=gnu] ==> ignore
     arg [-m] ==> ignore
     arg [elf_x86_64] ==> ignore
     arg [-dynamic-linker] ==> ignore
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-pie] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_81c1f] ==> ignore
-    arg [/lib/../lib64/crt1.o] ==> ignore
-    arg [/lib/../lib64/crti.o] ==> ignore
-    arg [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o] ==> ignore
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7]
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64]
-    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
-    arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
-    arg [-L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin] ==> dir [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin]
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..]
-    arg [CMakeFiles/cmTC_81c1f.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [cmTC_31eee] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..]
+    arg [CMakeFiles/cmTC_31eee.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
+    arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
-    arg [--no-as-needed] ==> ignore
+    arg [--pop-state] ==> ignore
     arg [-lc] ==> lib [c]
     arg [-lgcc] ==> lib [gcc]
+    arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
-    arg [--no-as-needed] ==> ignore
-    arg [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o] ==> ignore
-    arg [/lib/../lib64/crtn.o] ==> ignore
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7] ==> [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7]
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> [/opt/rh/devtoolset-7/root/usr/lib64]
-  collapse library dir [/lib/../lib64] ==> [/lib64]
-  collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
-  collapse library dir [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin] ==> [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin]
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> [/opt/rh/devtoolset-7/root/usr/lib]
+    arg [--pop-state] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o]
+  collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o] ==> [/usr/lib/Scrt1.o]
+  collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o] ==> [/usr/lib/crti.o]
+  collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o] ==> [/usr/lib/crtn.o]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..] ==> [/usr/lib]
   implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
-  implicit dirs: [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7;/opt/rh/devtoolset-7/root/usr/lib64;/lib64;/usr/lib64;/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin;/opt/rh/devtoolset-7/root/usr/lib]
+  implicit objs: [/usr/lib/Scrt1.o;/usr/lib/crti.o;/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o;/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o;/usr/lib/crtn.o]
+  implicit dirs: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0;/usr/lib;/lib]
   implicit fwks: []
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp
+Change Dir: /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/opt/rh/devtoolset-7/root/usr/bin/gmake cmTC_ccb3e/fast && gmake: Warning: File 'Makefile' has modification time 66 s in the future
-/opt/rh/devtoolset-7/root/usr/bin/gmake  -f CMakeFiles/cmTC_ccb3e.dir/build.make CMakeFiles/cmTC_ccb3e.dir/build
-gmake[1]: Entering directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
-gmake[1]: Warning: File 'CMakeFiles/cmTC_ccb3e.dir/flags.make' has modification time 66 s in the future
-Building CXX object CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o
-/opt/rh/devtoolset-7/root/usr/bin/g++   -v -o CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o -c /home/shared/software/cmake/3.18.5/share/cmake-3.18/Modules/CMakeCXXCompilerABI.cpp
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_18148/fast && /usr/bin/make  -f CMakeFiles/cmTC_18148.dir/build.make CMakeFiles/cmTC_18148.dir/build
+make[1]: Entering directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++   -v -o CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.20/Modules/CMakeCXXCompilerABI.cpp
 Using built-in specs.
-COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/g++
-Target: x86_64-redhat-linux
-Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,fortran,lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+COLLECT_GCC=/usr/bin/c++
+Target: x86_64-pc-linux-gnu
+Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++,d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc
 Thread model: posix
-gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) 
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/cc1plus -quiet -v -D_GNU_SOURCE /home/shared/software/cmake/3.18.5/share/cmake-3.18/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccCwNL90.s
-GNU C++14 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)
-	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5), GMP version 6.0.0, MPFR version 3.1.1, MPC version 1.0.1, isl version isl-0.16.1-GMP
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake-3.20/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccxAJJUw.s
+GNU C++14 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.21-GMP
 
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"
-ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../x86_64-pc-linux-gnu/include"
 #include "..." search starts here:
 #include <...> search starts here:
- /home/shared/software/intel/compilers_and_libraries/linux/mkl/include
- /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7
- /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/x86_64-redhat-linux
- /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/backward
- /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/x86_64-pc-linux-gnu
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/backward
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include
  /usr/local/include
- /opt/rh/devtoolset-7/root/usr/include
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed
  /usr/include
 End of search list.
-GNU C++14 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)
-	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5), GMP version 6.0.0, MPFR version 3.1.1, MPC version 1.0.1, isl version isl-0.16.1-GMP
+GNU C++14 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.21-GMP
 
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-Compiler executable checksum: bf738984e0aad308de2a49fabf6f668f
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/as -v --64 -o CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccCwNL90.s
-GNU assembler version 2.28 (x86_64-redhat-linux) using BFD version version 2.28-11.el7
-COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/
-LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-Linking CXX executable cmTC_ccb3e
-/home/shared/software/cmake/3.18.5/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ccb3e.dir/link.txt --verbose=1
-/opt/rh/devtoolset-7/root/usr/bin/g++  -v CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_ccb3e 
+Compiler executable checksum: f27fb68878a84470810fd2057eccecc9
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ as -v --64 -o CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccxAJJUw.s
+GNU assembler version 2.36.1 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.36.1
+COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+Linking CXX executable cmTC_18148
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_18148.dir/link.txt --verbose=1
+/usr/bin/c++  -v CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_18148 
 Using built-in specs.
-COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/g++
-COLLECT_LTO_WRAPPER=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper
-Target: x86_64-redhat-linux
-Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,fortran,lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+COLLECT_GCC=/usr/bin/c++
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++,d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc
 Thread model: posix
-gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) 
-COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/
-LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_ccb3e' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccND2xy2.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_ccb3e /lib/../lib64/crt1.o /lib/../lib64/crti.o /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7 -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /lib/../lib64/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_ccb3e' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-gmake[1]: warning:  Clock skew detected.  Your build may be incomplete.
-gmake[1]: Leaving directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
-gmake: warning:  Clock skew detected.  Your build may be incomplete.
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.2.0 (GCC) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_18148' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccuZsBh4.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_18148 /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0 -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../.. CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_18148' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+make[1]: Leaving directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
 
 
 
 Parsed CXX implicit include dir info from above output: rv=done
   found start of include info
   found start of implicit include info
-    add: [/home/shared/software/intel/compilers_and_libraries/linux/mkl/include]
-    add: [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7]
-    add: [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/x86_64-redhat-linux]
-    add: [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/backward]
-    add: [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include]
+    add: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0]
+    add: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/x86_64-pc-linux-gnu]
+    add: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/backward]
+    add: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include]
     add: [/usr/local/include]
-    add: [/opt/rh/devtoolset-7/root/usr/include]
+    add: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed]
     add: [/usr/include]
   end of search list found
-  collapse include dir [/home/shared/software/intel/compilers_and_libraries/linux/mkl/include] ==> [/home/shared/software/intel/compilers_and_libraries/linux/mkl/include]
-  collapse include dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7] ==> [/opt/rh/devtoolset-7/root/usr/include/c++/7]
-  collapse include dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/x86_64-redhat-linux] ==> [/opt/rh/devtoolset-7/root/usr/include/c++/7/x86_64-redhat-linux]
-  collapse include dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/backward] ==> [/opt/rh/devtoolset-7/root/usr/include/c++/7/backward]
-  collapse include dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include] ==> [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include]
+  collapse include dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0] ==> [/usr/include/c++/10.2.0]
+  collapse include dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/x86_64-pc-linux-gnu] ==> [/usr/include/c++/10.2.0/x86_64-pc-linux-gnu]
+  collapse include dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/backward] ==> [/usr/include/c++/10.2.0/backward]
+  collapse include dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include]
   collapse include dir [/usr/local/include] ==> [/usr/local/include]
-  collapse include dir [/opt/rh/devtoolset-7/root/usr/include] ==> [/opt/rh/devtoolset-7/root/usr/include]
+  collapse include dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed]
   collapse include dir [/usr/include] ==> [/usr/include]
-  implicit include dirs: [/home/shared/software/intel/compilers_and_libraries/linux/mkl/include;/opt/rh/devtoolset-7/root/usr/include/c++/7;/opt/rh/devtoolset-7/root/usr/include/c++/7/x86_64-redhat-linux;/opt/rh/devtoolset-7/root/usr/include/c++/7/backward;/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include;/usr/local/include;/opt/rh/devtoolset-7/root/usr/include;/usr/include]
+  implicit include dirs: [/usr/include/c++/10.2.0;/usr/include/c++/10.2.0/x86_64-pc-linux-gnu;/usr/include/c++/10.2.0/backward;/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include;/usr/local/include;/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed;/usr/include]
 
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command(s):/opt/rh/devtoolset-7/root/usr/bin/gmake cmTC_ccb3e/fast && gmake: Warning: File 'Makefile' has modification time 66 s in the future]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/gmake  -f CMakeFiles/cmTC_ccb3e.dir/build.make CMakeFiles/cmTC_ccb3e.dir/build]
-  ignore line: [gmake[1]: Entering directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp']
-  ignore line: [gmake[1]: Warning: File 'CMakeFiles/cmTC_ccb3e.dir/flags.make' has modification time 66 s in the future]
-  ignore line: [Building CXX object CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/g++   -v -o CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o -c /home/shared/software/cmake/3.18.5/share/cmake-3.18/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Run Build Command(s):/usr/bin/make -f Makefile cmTC_18148/fast && /usr/bin/make  -f CMakeFiles/cmTC_18148.dir/build.make CMakeFiles/cmTC_18148.dir/build]
+  ignore line: [make[1]: Entering directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building CXX object CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++   -v -o CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.20/Modules/CMakeCXXCompilerABI.cpp]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/g++]
-  ignore line: [Target: x86_64-redhat-linux]
-  ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ fortran lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c c++ ada fortran go lto objc obj-c++ d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc]
   ignore line: [Thread model: posix]
-  ignore line: [gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) ]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/cc1plus -quiet -v -D_GNU_SOURCE /home/shared/software/cmake/3.18.5/share/cmake-3.18/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccCwNL90.s]
-  ignore line: [GNU C++14 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)]
-  ignore line: [	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5)  GMP version 6.0.0  MPFR version 3.1.1  MPC version 1.0.1  isl version isl-0.16.1-GMP]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 10.2.0 (GCC) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake-3.20/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccxAJJUw.s]
+  ignore line: [GNU C++14 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 10.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.21-GMP]
   ignore line: []
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-  ignore line: [ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"]
-  ignore line: [ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../x86_64-pc-linux-gnu/include"]
   ignore line: [#include "..." search starts here:]
   ignore line: [#include <...> search starts here:]
-  ignore line: [ /home/shared/software/intel/compilers_and_libraries/linux/mkl/include]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/x86_64-redhat-linux]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/backward]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/x86_64-pc-linux-gnu]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/backward]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include]
   ignore line: [ /usr/local/include]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/include]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed]
   ignore line: [ /usr/include]
   ignore line: [End of search list.]
-  ignore line: [GNU C++14 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)]
-  ignore line: [	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5)  GMP version 6.0.0  MPFR version 3.1.1  MPC version 1.0.1  isl version isl-0.16.1-GMP]
+  ignore line: [GNU C++14 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 10.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.21-GMP]
   ignore line: []
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-  ignore line: [Compiler executable checksum: bf738984e0aad308de2a49fabf6f668f]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/as -v --64 -o CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccCwNL90.s]
-  ignore line: [GNU assembler version 2.28 (x86_64-redhat-linux) using BFD version version 2.28-11.el7]
-  ignore line: [COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/]
-  ignore line: [LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  ignore line: [Linking CXX executable cmTC_ccb3e]
-  ignore line: [/home/shared/software/cmake/3.18.5/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ccb3e.dir/link.txt --verbose=1]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/g++  -v CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_ccb3e ]
+  ignore line: [Compiler executable checksum: f27fb68878a84470810fd2057eccecc9]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  ignore line: [ as -v --64 -o CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccxAJJUw.s]
+  ignore line: [GNU assembler version 2.36.1 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.36.1]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  ignore line: [Linking CXX executable cmTC_18148]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_18148.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++  -v CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_18148 ]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/g++]
-  ignore line: [COLLECT_LTO_WRAPPER=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper]
-  ignore line: [Target: x86_64-redhat-linux]
-  ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ fortran lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c c++ ada fortran go lto objc obj-c++ d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc]
   ignore line: [Thread model: posix]
-  ignore line: [gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) ]
-  ignore line: [COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/]
-  ignore line: [LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_ccb3e' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccND2xy2.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_ccb3e /lib/../lib64/crt1.o /lib/../lib64/crti.o /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7 -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /lib/../lib64/crtn.o]
-    arg [/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2] ==> ignore
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 10.2.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_18148' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccuZsBh4.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_18148 /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0 -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../.. CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2] ==> ignore
     arg [-plugin] ==> ignore
-    arg [/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so] ==> ignore
-    arg [-plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccND2xy2.res] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccuZsBh4.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [--build-id] ==> ignore
-    arg [--no-add-needed] ==> ignore
     arg [--eh-frame-hdr] ==> ignore
     arg [--hash-style=gnu] ==> ignore
     arg [-m] ==> ignore
     arg [elf_x86_64] ==> ignore
     arg [-dynamic-linker] ==> ignore
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-pie] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_ccb3e] ==> ignore
-    arg [/lib/../lib64/crt1.o] ==> ignore
-    arg [/lib/../lib64/crti.o] ==> ignore
-    arg [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o] ==> ignore
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7]
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64]
-    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
-    arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
-    arg [-L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin] ==> dir [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin]
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..]
-    arg [CMakeFiles/cmTC_ccb3e.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [cmTC_18148] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..]
+    arg [CMakeFiles/cmTC_18148.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -400,146 +387,143 @@ Parsed CXX implicit link information from above output:
     arg [-lc] ==> lib [c]
     arg [-lgcc_s] ==> lib [gcc_s]
     arg [-lgcc] ==> lib [gcc]
-    arg [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o] ==> ignore
-    arg [/lib/../lib64/crtn.o] ==> ignore
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7] ==> [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7]
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> [/opt/rh/devtoolset-7/root/usr/lib64]
-  collapse library dir [/lib/../lib64] ==> [/lib64]
-  collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
-  collapse library dir [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin] ==> [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin]
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> [/opt/rh/devtoolset-7/root/usr/lib]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o]
+  collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o] ==> [/usr/lib/Scrt1.o]
+  collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o] ==> [/usr/lib/crti.o]
+  collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o] ==> [/usr/lib/crtn.o]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..] ==> [/usr/lib]
   implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
-  implicit dirs: [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7;/opt/rh/devtoolset-7/root/usr/lib64;/lib64;/usr/lib64;/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin;/opt/rh/devtoolset-7/root/usr/lib]
+  implicit objs: [/usr/lib/Scrt1.o;/usr/lib/crti.o;/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o;/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o;/usr/lib/crtn.o]
+  implicit dirs: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0;/usr/lib;/lib]
   implicit fwks: []
 
 
 Detecting C OpenMP compiler ABI info compiled with the following output:
-Change Dir: /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp
+Change Dir: /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/opt/rh/devtoolset-7/root/usr/bin/gmake cmTC_3ead8/fast && gmake: Warning: File 'Makefile' has modification time 66 s in the future
-/opt/rh/devtoolset-7/root/usr/bin/gmake  -f CMakeFiles/cmTC_3ead8.dir/build.make CMakeFiles/cmTC_3ead8.dir/build
-gmake[1]: Entering directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
-gmake[1]: Warning: File 'CMakeFiles/cmTC_3ead8.dir/flags.make' has modification time 66 s in the future
-Building C object CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o
-/opt/rh/devtoolset-7/root/usr/bin/gcc   -fopenmp -v -o CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o -c /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_4d263/fast && /usr/bin/make  -f CMakeFiles/cmTC_4d263.dir/build.make CMakeFiles/cmTC_4d263.dir/build
+make[1]: Entering directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o
+/usr/bin/cc   -fopenmp -v -o CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o -c /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
 Using built-in specs.
-COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/gcc
-Target: x86_64-redhat-linux
-Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,fortran,lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+COLLECT_GCC=/usr/bin/cc
+Target: x86_64-pc-linux-gnu
+Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++,d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc
 Thread model: posix
-gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) 
-COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/cc1 -quiet -v -D_REENTRANT /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -quiet -dumpbase OpenMPTryFlag.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o -version -fopenmp -o /tmp/ccucVQpf.s
-GNU C11 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)
-	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5), GMP version 6.0.0, MPFR version 3.1.1, MPC version 1.0.1, isl version isl-0.16.1-GMP
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread'
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/cc1 -quiet -v -D_REENTRANT /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -quiet -dumpbase OpenMPTryFlag.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o -version -fopenmp -o /tmp/cc5myeJI.s
+GNU C17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.21-GMP
 
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"
-ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../x86_64-pc-linux-gnu/include"
 #include "..." search starts here:
 #include <...> search starts here:
- /home/shared/software/intel/compilers_and_libraries/linux/mkl/include
- /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include
  /usr/local/include
- /opt/rh/devtoolset-7/root/usr/include
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed
  /usr/include
 End of search list.
-GNU C11 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)
-	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5), GMP version 6.0.0, MPFR version 3.1.1, MPC version 1.0.1, isl version isl-0.16.1-GMP
+GNU C17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.21-GMP
 
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-Compiler executable checksum: 53c9767f89aeab9360f62b583df4c70c
-COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/as -v --64 -o CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o /tmp/ccucVQpf.s
-GNU assembler version 2.28 (x86_64-redhat-linux) using BFD version version 2.28-11.el7
-COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/
-LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread'
-Linking C executable cmTC_3ead8
-/home/shared/software/cmake/3.18.5/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3ead8.dir/link.txt --verbose=1
-/opt/rh/devtoolset-7/root/usr/bin/gcc  -fopenmp -v CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o -o cmTC_3ead8  -v 
+Compiler executable checksum: 1bfc39bab4733e0e3f89254efa5bbd30
+COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread'
+ as -v --64 -o CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o /tmp/cc5myeJI.s
+GNU assembler version 2.36.1 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.36.1
+COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread'
+Linking C executable cmTC_4d263
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4d263.dir/link.txt --verbose=1
+/usr/bin/cc  -fopenmp -v CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o -o cmTC_4d263  -v 
 Using built-in specs.
-COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/gcc
-COLLECT_LTO_WRAPPER=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper
-Target: x86_64-redhat-linux
-Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,fortran,lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++,d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc
 Thread model: posix
-gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) 
-COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/
-LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
-Reading specs from /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/libgomp.spec
-COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_3ead8' '-v' '-mtune=generic' '-march=x86-64' '-pthread'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc7arsth.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_3ead8 /lib/../lib64/crt1.o /lib/../lib64/crti.o /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7 -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o -lgomp -lgcc --as-needed -lgcc_s --no-as-needed -lpthread -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /lib/../lib64/crtn.o
-COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_3ead8' '-v' '-mtune=generic' '-march=x86-64' '-pthread'
-gmake[1]: warning:  Clock skew detected.  Your build may be incomplete.
-gmake[1]: Leaving directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
-gmake: warning:  Clock skew detected.  Your build may be incomplete.
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.2.0 (GCC) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/
+Reading specs from /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/libgomp.spec
+COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_4d263' '-v' '-mtune=generic' '-march=x86-64' '-pthread'
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccWjE19Z.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_4d263 /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0 -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../.. CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o -lgomp -lgcc --push-state --as-needed -lgcc_s --pop-state -lpthread -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o
+COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_4d263' '-v' '-mtune=generic' '-march=x86-64' '-pthread'
+make[1]: Leaving directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
 
 
 
 Parsed C OpenMP implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command(s):/opt/rh/devtoolset-7/root/usr/bin/gmake cmTC_3ead8/fast && gmake: Warning: File 'Makefile' has modification time 66 s in the future]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/gmake  -f CMakeFiles/cmTC_3ead8.dir/build.make CMakeFiles/cmTC_3ead8.dir/build]
-  ignore line: [gmake[1]: Entering directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp']
-  ignore line: [gmake[1]: Warning: File 'CMakeFiles/cmTC_3ead8.dir/flags.make' has modification time 66 s in the future]
-  ignore line: [Building C object CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/gcc   -fopenmp -v -o CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o -c /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.c]
+  ignore line: [Run Build Command(s):/usr/bin/make -f Makefile cmTC_4d263/fast && /usr/bin/make  -f CMakeFiles/cmTC_4d263.dir/build.make CMakeFiles/cmTC_4d263.dir/build]
+  ignore line: [make[1]: Entering directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o]
+  ignore line: [/usr/bin/cc   -fopenmp -v -o CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o -c /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.c]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/gcc]
-  ignore line: [Target: x86_64-redhat-linux]
-  ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ fortran lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c c++ ada fortran go lto objc obj-c++ d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc]
   ignore line: [Thread model: posix]
-  ignore line: [gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) ]
-  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread']
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/cc1 -quiet -v -D_REENTRANT /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -quiet -dumpbase OpenMPTryFlag.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o -version -fopenmp -o /tmp/ccucVQpf.s]
-  ignore line: [GNU C11 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)]
-  ignore line: [	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5)  GMP version 6.0.0  MPFR version 3.1.1  MPC version 1.0.1  isl version isl-0.16.1-GMP]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 10.2.0 (GCC) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread']
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/cc1 -quiet -v -D_REENTRANT /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -quiet -dumpbase OpenMPTryFlag.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o -version -fopenmp -o /tmp/cc5myeJI.s]
+  ignore line: [GNU C17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 10.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.21-GMP]
   ignore line: []
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-  ignore line: [ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"]
-  ignore line: [ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../x86_64-pc-linux-gnu/include"]
   ignore line: [#include "..." search starts here:]
   ignore line: [#include <...> search starts here:]
-  ignore line: [ /home/shared/software/intel/compilers_and_libraries/linux/mkl/include]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include]
   ignore line: [ /usr/local/include]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/include]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed]
   ignore line: [ /usr/include]
   ignore line: [End of search list.]
-  ignore line: [GNU C11 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)]
-  ignore line: [	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5)  GMP version 6.0.0  MPFR version 3.1.1  MPC version 1.0.1  isl version isl-0.16.1-GMP]
+  ignore line: [GNU C17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 10.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.21-GMP]
   ignore line: []
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-  ignore line: [Compiler executable checksum: 53c9767f89aeab9360f62b583df4c70c]
-  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread']
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/as -v --64 -o CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o /tmp/ccucVQpf.s]
-  ignore line: [GNU assembler version 2.28 (x86_64-redhat-linux) using BFD version version 2.28-11.el7]
-  ignore line: [COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/]
-  ignore line: [LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread']
-  ignore line: [Linking C executable cmTC_3ead8]
-  ignore line: [/home/shared/software/cmake/3.18.5/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3ead8.dir/link.txt --verbose=1]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/gcc  -fopenmp -v CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o -o cmTC_3ead8  -v ]
+  ignore line: [Compiler executable checksum: 1bfc39bab4733e0e3f89254efa5bbd30]
+  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread']
+  ignore line: [ as -v --64 -o CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o /tmp/cc5myeJI.s]
+  ignore line: [GNU assembler version 2.36.1 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.36.1]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o' '-c' '-mtune=generic' '-march=x86-64' '-pthread']
+  ignore line: [Linking C executable cmTC_4d263]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4d263.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc  -fopenmp -v CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o -o cmTC_4d263  -v ]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/gcc]
-  ignore line: [COLLECT_LTO_WRAPPER=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper]
-  ignore line: [Target: x86_64-redhat-linux]
-  ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ fortran lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c c++ ada fortran go lto objc obj-c++ d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc]
   ignore line: [Thread model: posix]
-  ignore line: [gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) ]
-  ignore line: [COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/]
-  ignore line: [LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
-  ignore line: [Reading specs from /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/libgomp.spec]
-  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_3ead8' '-v' '-mtune=generic' '-march=x86-64' '-pthread']
-  link line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc7arsth.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_3ead8 /lib/../lib64/crt1.o /lib/../lib64/crti.o /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7 -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o -lgomp -lgcc --as-needed -lgcc_s --no-as-needed -lpthread -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /lib/../lib64/crtn.o]
-    arg [/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2] ==> ignore
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 10.2.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [Reading specs from /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/libgomp.spec]
+  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_4d263' '-v' '-mtune=generic' '-march=x86-64' '-pthread']
+  link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccWjE19Z.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_4d263 /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0 -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../.. CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o -lgomp -lgcc --push-state --as-needed -lgcc_s --pop-state -lpthread -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2] ==> ignore
     arg [-plugin] ==> ignore
-    arg [/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so] ==> ignore
-    arg [-plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/cc7arsth.res] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccWjE19Z.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lpthread] ==> ignore
@@ -547,182 +531,172 @@ Parsed C OpenMP implicit link information from above output:
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [--build-id] ==> ignore
-    arg [--no-add-needed] ==> ignore
     arg [--eh-frame-hdr] ==> ignore
     arg [--hash-style=gnu] ==> ignore
     arg [-m] ==> ignore
     arg [elf_x86_64] ==> ignore
     arg [-dynamic-linker] ==> ignore
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-pie] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_3ead8] ==> ignore
-    arg [/lib/../lib64/crt1.o] ==> ignore
-    arg [/lib/../lib64/crti.o] ==> ignore
-    arg [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o] ==> ignore
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7]
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64]
-    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
-    arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
-    arg [-L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin] ==> dir [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin]
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..]
-    arg [CMakeFiles/cmTC_3ead8.dir/OpenMPTryFlag.c.o] ==> ignore
+    arg [cmTC_4d263] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..]
+    arg [CMakeFiles/cmTC_4d263.dir/OpenMPTryFlag.c.o] ==> ignore
     arg [-lgomp] ==> lib [gomp]
     arg [-lgcc] ==> lib [gcc]
+    arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
-    arg [--no-as-needed] ==> ignore
+    arg [--pop-state] ==> ignore
     arg [-lpthread] ==> lib [pthread]
     arg [-lc] ==> lib [c]
     arg [-lgcc] ==> lib [gcc]
+    arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
-    arg [--no-as-needed] ==> ignore
-    arg [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o] ==> ignore
-    arg [/lib/../lib64/crtn.o] ==> ignore
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7] ==> [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7]
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> [/opt/rh/devtoolset-7/root/usr/lib64]
-  collapse library dir [/lib/../lib64] ==> [/lib64]
-  collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
-  collapse library dir [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin] ==> [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin]
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> [/opt/rh/devtoolset-7/root/usr/lib]
+    arg [--pop-state] ==> ignore
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..] ==> [/usr/lib]
   implicit libs: [gomp;gcc;gcc_s;pthread;c;gcc;gcc_s]
-  implicit dirs: [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7;/opt/rh/devtoolset-7/root/usr/lib64;/lib64;/usr/lib64;/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin;/opt/rh/devtoolset-7/root/usr/lib]
+  implicit objs: []
+  implicit dirs: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0;/usr/lib;/lib]
   implicit fwks: []
 
 
 Detecting CXX OpenMP compiler ABI info compiled with the following output:
-Change Dir: /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp
+Change Dir: /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/opt/rh/devtoolset-7/root/usr/bin/gmake cmTC_2e7a6/fast && gmake: Warning: File 'Makefile' has modification time 66 s in the future
-/opt/rh/devtoolset-7/root/usr/bin/gmake  -f CMakeFiles/cmTC_2e7a6.dir/build.make CMakeFiles/cmTC_2e7a6.dir/build
-gmake[1]: Entering directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
-gmake[1]: Warning: File 'CMakeFiles/cmTC_2e7a6.dir/flags.make' has modification time 66 s in the future
-Building CXX object CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o
-/opt/rh/devtoolset-7/root/usr/bin/g++   -fopenmp -v -std=gnu++1z -o CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o -c /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_98e20/fast && /usr/bin/make  -f CMakeFiles/cmTC_98e20.dir/build.make CMakeFiles/cmTC_98e20.dir/build
+make[1]: Entering directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o
+/usr/bin/c++   -fopenmp -v -std=gnu++2a -o CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o -c /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
 Using built-in specs.
-COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/g++
-Target: x86_64-redhat-linux
-Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,fortran,lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+COLLECT_GCC=/usr/bin/c++
+Target: x86_64-pc-linux-gnu
+Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++,d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc
 Thread model: posix
-gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) 
-COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++1z' '-o' 'CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/cc1plus -quiet -v -D_GNU_SOURCE -D_REENTRANT /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -quiet -dumpbase OpenMPTryFlag.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o -std=gnu++1z -version -fopenmp -o /tmp/ccVPxubr.s
-GNU C++14 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)
-	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5), GMP version 6.0.0, MPFR version 3.1.1, MPC version 1.0.1, isl version isl-0.16.1-GMP
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++2a' '-o' 'CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread'
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/cc1plus -quiet -v -D_GNU_SOURCE -D_REENTRANT /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -quiet -dumpbase OpenMPTryFlag.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o -std=gnu++2a -version -fopenmp -o /tmp/ccxlXyn1.s
+GNU C++17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.21-GMP
 
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"
-ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../x86_64-pc-linux-gnu/include"
 #include "..." search starts here:
 #include <...> search starts here:
- /home/shared/software/intel/compilers_and_libraries/linux/mkl/include
- /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7
- /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/x86_64-redhat-linux
- /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/backward
- /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/x86_64-pc-linux-gnu
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/backward
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include
  /usr/local/include
- /opt/rh/devtoolset-7/root/usr/include
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed
  /usr/include
 End of search list.
-GNU C++14 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)
-	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5), GMP version 6.0.0, MPFR version 3.1.1, MPC version 1.0.1, isl version isl-0.16.1-GMP
+GNU C++17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.21-GMP
 
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-Compiler executable checksum: bf738984e0aad308de2a49fabf6f668f
-COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++1z' '-o' 'CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/as -v --64 -o CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o /tmp/ccVPxubr.s
-GNU assembler version 2.28 (x86_64-redhat-linux) using BFD version version 2.28-11.el7
-COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/
-LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++1z' '-o' 'CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread'
-Linking CXX executable cmTC_2e7a6
-/home/shared/software/cmake/3.18.5/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2e7a6.dir/link.txt --verbose=1
-/opt/rh/devtoolset-7/root/usr/bin/g++  -fopenmp -v CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o -o cmTC_2e7a6  -v 
+Compiler executable checksum: f27fb68878a84470810fd2057eccecc9
+COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++2a' '-o' 'CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread'
+ as -v --64 -o CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o /tmp/ccxlXyn1.s
+GNU assembler version 2.36.1 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.36.1
+COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++2a' '-o' 'CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread'
+Linking CXX executable cmTC_98e20
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_98e20.dir/link.txt --verbose=1
+/usr/bin/c++  -fopenmp -v CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o -o cmTC_98e20  -v 
 Using built-in specs.
-COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/g++
-COLLECT_LTO_WRAPPER=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper
-Target: x86_64-redhat-linux
-Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,fortran,lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+COLLECT_GCC=/usr/bin/c++
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++,d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc
 Thread model: posix
-gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) 
-COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/
-LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
-Reading specs from /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/libgomp.spec
-COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_2e7a6' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread'
- /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJP0w3r.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_2e7a6 /lib/../lib64/crt1.o /lib/../lib64/crti.o /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7 -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -lpthread -lc -lgcc_s -lgcc /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /lib/../lib64/crtn.o
-COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_2e7a6' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread'
-gmake[1]: warning:  Clock skew detected.  Your build may be incomplete.
-gmake[1]: Leaving directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
-gmake: warning:  Clock skew detected.  Your build may be incomplete.
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.2.0 (GCC) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/
+Reading specs from /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/libgomp.spec
+COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_98e20' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread'
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccsPBNIf.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_98e20 /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0 -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../.. CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -lpthread -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o
+COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_98e20' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread'
+make[1]: Leaving directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp'
 
 
 
 Parsed CXX OpenMP implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command(s):/opt/rh/devtoolset-7/root/usr/bin/gmake cmTC_2e7a6/fast && gmake: Warning: File 'Makefile' has modification time 66 s in the future]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/gmake  -f CMakeFiles/cmTC_2e7a6.dir/build.make CMakeFiles/cmTC_2e7a6.dir/build]
-  ignore line: [gmake[1]: Entering directory '/home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp']
-  ignore line: [gmake[1]: Warning: File 'CMakeFiles/cmTC_2e7a6.dir/flags.make' has modification time 66 s in the future]
-  ignore line: [Building CXX object CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/g++   -fopenmp -v -std=gnu++1z -o CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o -c /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp]
+  ignore line: [Run Build Command(s):/usr/bin/make -f Makefile cmTC_98e20/fast && /usr/bin/make  -f CMakeFiles/cmTC_98e20.dir/build.make CMakeFiles/cmTC_98e20.dir/build]
+  ignore line: [make[1]: Entering directory '/home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building CXX object CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o]
+  ignore line: [/usr/bin/c++   -fopenmp -v -std=gnu++2a -o CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o -c /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/g++]
-  ignore line: [Target: x86_64-redhat-linux]
-  ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ fortran lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c c++ ada fortran go lto objc obj-c++ d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc]
   ignore line: [Thread model: posix]
-  ignore line: [gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) ]
-  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++1z' '-o' 'CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread']
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/cc1plus -quiet -v -D_GNU_SOURCE -D_REENTRANT /home/hajta2/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -quiet -dumpbase OpenMPTryFlag.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o -std=gnu++1z -version -fopenmp -o /tmp/ccVPxubr.s]
-  ignore line: [GNU C++14 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)]
-  ignore line: [	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5)  GMP version 6.0.0  MPFR version 3.1.1  MPC version 1.0.1  isl version isl-0.16.1-GMP]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 10.2.0 (GCC) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++2a' '-o' 'CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread']
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/cc1plus -quiet -v -D_GNU_SOURCE -D_REENTRANT /home/bgd54/forge/spmv/Parallelizing-Graph-Algorithms/build/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -quiet -dumpbase OpenMPTryFlag.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o -std=gnu++2a -version -fopenmp -o /tmp/ccxlXyn1.s]
+  ignore line: [GNU C++17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 10.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.21-GMP]
   ignore line: []
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-  ignore line: [ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"]
-  ignore line: [ignoring nonexistent directory "/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../x86_64-pc-linux-gnu/include"]
   ignore line: [#include "..." search starts here:]
   ignore line: [#include <...> search starts here:]
-  ignore line: [ /home/shared/software/intel/compilers_and_libraries/linux/mkl/include]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/x86_64-redhat-linux]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/backward]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/include]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/x86_64-pc-linux-gnu]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/backward]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include]
   ignore line: [ /usr/local/include]
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/include]
+  ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed]
   ignore line: [ /usr/include]
   ignore line: [End of search list.]
-  ignore line: [GNU C++14 (GCC) version 7.3.1 20180303 (Red Hat 7.3.1-5) (x86_64-redhat-linux)]
-  ignore line: [	compiled by GNU C version 7.3.1 20180303 (Red Hat 7.3.1-5)  GMP version 6.0.0  MPFR version 3.1.1  MPC version 1.0.1  isl version isl-0.16.1-GMP]
+  ignore line: [GNU C++17 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 10.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.21-GMP]
   ignore line: []
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-  ignore line: [Compiler executable checksum: bf738984e0aad308de2a49fabf6f668f]
-  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++1z' '-o' 'CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread']
-  ignore line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/as -v --64 -o CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o /tmp/ccVPxubr.s]
-  ignore line: [GNU assembler version 2.28 (x86_64-redhat-linux) using BFD version version 2.28-11.el7]
-  ignore line: [COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/]
-  ignore line: [LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++1z' '-o' 'CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread']
-  ignore line: [Linking CXX executable cmTC_2e7a6]
-  ignore line: [/home/shared/software/cmake/3.18.5/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2e7a6.dir/link.txt --verbose=1]
-  ignore line: [/opt/rh/devtoolset-7/root/usr/bin/g++  -fopenmp -v CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o -o cmTC_2e7a6  -v ]
+  ignore line: [Compiler executable checksum: f27fb68878a84470810fd2057eccecc9]
+  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++2a' '-o' 'CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread']
+  ignore line: [ as -v --64 -o CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o /tmp/ccxlXyn1.s]
+  ignore line: [GNU assembler version 2.36.1 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.36.1]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-std=gnu++2a' '-o' 'CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread']
+  ignore line: [Linking CXX executable cmTC_98e20]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_98e20.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++  -fopenmp -v CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o -o cmTC_98e20  -v ]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/opt/rh/devtoolset-7/root/usr/bin/g++]
-  ignore line: [COLLECT_LTO_WRAPPER=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper]
-  ignore line: [Target: x86_64-redhat-linux]
-  ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ fortran lto --prefix=/opt/rh/devtoolset-7/root/usr --mandir=/opt/rh/devtoolset-7/root/usr/share/man --infodir=/opt/rh/devtoolset-7/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-plugin --with-linker-hash-style=gnu --enable-initfini-array --with-default-libstdcxx-abi=gcc4-compatible --with-isl=/builddir/build/BUILD/gcc-7.3.1-20180303/obj-x86_64-redhat-linux/isl-install --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: /build/gcc/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c c++ ada fortran go lto objc obj-c++ d --with-isl --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-install-libiberty --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror gdc_include_dir=/usr/include/dlang/gdc]
   ignore line: [Thread model: posix]
-  ignore line: [gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC) ]
-  ignore line: [COMPILER_PATH=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/]
-  ignore line: [LIBRARY_PATH=/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin/:/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
-  ignore line: [Reading specs from /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/libgomp.spec]
-  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_2e7a6' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread']
-  link line: [ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJP0w3r.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_2e7a6 /lib/../lib64/crt1.o /lib/../lib64/crti.o /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7 -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin -L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -lpthread -lc -lgcc_s -lgcc /opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /lib/../lib64/crtn.o]
-    arg [/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/collect2] ==> ignore
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 10.2.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [Reading specs from /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/libgomp.spec]
+  ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_98e20' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread']
+  link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccsPBNIf.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_98e20 /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0 -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../.. CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -lpthread -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/collect2] ==> ignore
     arg [-plugin] ==> ignore
-    arg [/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so] ==> ignore
-    arg [-plugin-opt=/opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccJP0w3r.res] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccsPBNIf.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lpthread] ==> ignore
@@ -730,25 +704,21 @@ Parsed CXX OpenMP implicit link information from above output:
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [--build-id] ==> ignore
-    arg [--no-add-needed] ==> ignore
     arg [--eh-frame-hdr] ==> ignore
     arg [--hash-style=gnu] ==> ignore
     arg [-m] ==> ignore
     arg [elf_x86_64] ==> ignore
     arg [-dynamic-linker] ==> ignore
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-pie] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_2e7a6] ==> ignore
-    arg [/lib/../lib64/crt1.o] ==> ignore
-    arg [/lib/../lib64/crti.o] ==> ignore
-    arg [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o] ==> ignore
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7]
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64]
-    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
-    arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
-    arg [-L/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin] ==> dir [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin]
-    arg [-L/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..]
-    arg [CMakeFiles/cmTC_2e7a6.dir/OpenMPTryFlag.cpp.o] ==> ignore
+    arg [cmTC_98e20] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..]
+    arg [CMakeFiles/cmTC_98e20.dir/OpenMPTryFlag.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgomp] ==> lib [gomp]
@@ -758,16 +728,14 @@ Parsed CXX OpenMP implicit link information from above output:
     arg [-lc] ==> lib [c]
     arg [-lgcc_s] ==> lib [gcc_s]
     arg [-lgcc] ==> lib [gcc]
-    arg [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o] ==> ignore
-    arg [/lib/../lib64/crtn.o] ==> ignore
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7] ==> [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7]
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> [/opt/rh/devtoolset-7/root/usr/lib64]
-  collapse library dir [/lib/../lib64] ==> [/lib64]
-  collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
-  collapse library dir [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin] ==> [/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin]
-  collapse library dir [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> [/opt/rh/devtoolset-7/root/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..] ==> [/usr/lib]
   implicit libs: [stdc++;m;gomp;gcc_s;gcc;pthread;c;gcc_s;gcc]
-  implicit dirs: [/opt/rh/devtoolset-7/root/usr/lib/gcc/x86_64-redhat-linux/7;/opt/rh/devtoolset-7/root/usr/lib64;/lib64;/usr/lib64;/home/shared/software/intel/compilers_and_libraries/linux/mkl/lib/intel64_lin;/opt/rh/devtoolset-7/root/usr/lib]
+  implicit objs: []
+  implicit dirs: [/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0;/usr/lib;/lib]
   implicit fwks: []
 
 

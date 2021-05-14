@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "../bin/Parallelizing_Graph_Algorithms"
   "../bin/Parallelizing_Graph_Algorithms.pdb"
   "CMakeFiles/Parallelizing_Graph_Algorithms.dir/src/main.cpp.o"
+  "CMakeFiles/Parallelizing_Graph_Algorithms.dir/src/main.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

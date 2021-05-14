@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/MMIO.dir/mmio.cpp.o"
+  "CMakeFiles/MMIO.dir/mmio.cpp.o.d"
   "libMMIO.pdb"
   "libMMIO.so"
 )

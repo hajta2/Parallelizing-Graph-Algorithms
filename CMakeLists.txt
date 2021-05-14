@@ -31,8 +31,8 @@ enable_sanitizers(project_options)
 add_library(project_warnings INTERFACE)
 
 # standard compiler warnings
-include(cmake/CompilerWarnings.cmake)
-set_project_warnings(project_warnings)
+# include(cmake/CompilerWarnings.cmake)
+# set_project_warnings(project_warnings)
 
 add_subdirectory(lib/MMIO)
 file(GLOB SOURCES "src/*.cpp")

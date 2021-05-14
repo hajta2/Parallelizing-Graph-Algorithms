@@ -4,7 +4,7 @@
 #include "graphCOO.hpp"
 #include <omp.h>
 #ifdef USE_VCL_LIB
-#include "VCL2/vectorclass.h"
+#include <VCL2/vectorclass.h>
 #endif
 #include <cassert>
 

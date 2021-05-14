@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC   -m64  -I/include -L/lib/intel64 -Wl,--no-as-needed -lmkl_intel_lp64 -lmkl_gnu_thread -lmkl_core -lgomp -lpthread -lm -ldl -g -shared -Wl,-soname,libMMIO.so -o libMMIO.so CMakeFiles/MMIO.dir/mmio.cpp.o 

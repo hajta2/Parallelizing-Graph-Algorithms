@@ -9,6 +9,7 @@
 #include <cassert>
 
 enum Type {
+    NAIVE,
     OPENMP,
     CONST_VCL16_ROW,
     CONST_VCL16_TRANSPOSE,
@@ -19,6 +20,7 @@ enum Type {
 };
 
 std::string enumString[] = {
+    "NAIVE",
     "OPENMP", 
     "CONST_VCL16_ROW", 
     "CONST_VCL16_TRANSPOSE",
@@ -59,8 +61,16 @@ private:
     
     void getWeightedFlow() override {
         std::vector<float> res(NOVertices);
+        if (type == NAIVE) {
+            for (int i = 0; i < NOVertices-1; ++i) {
+                int start = csrRowPtr[i];
+                int end = csrRowPtr[i + 1];
+                for (int j = start; j < end; ++j) {
+                    res[i] += csrVal[j] * weights[csrColInd[j]];
+                }
+            }
         //Calculating the matrix-vector multiplication w/ OMP 
-        if (type == OPENMP){
+        } else if (type == OPENMP){
             #pragma omp parallel for
             for (int i = 0; i < NOVertices-1; ++i) {
                 int start = csrRowPtr[i];
@@ -286,6 +296,14 @@ public:
     double bandWidth() {
 
         double time = this -> measure();
+        double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
+        //Gigabyte per second
+        return (bytes / 1000) / time;
+    }
+
+    double bandWidthMKL() {
+
+        double time = this -> measureMKL();
         double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
         //Gigabyte per second
         return (bytes / 1000) / time;

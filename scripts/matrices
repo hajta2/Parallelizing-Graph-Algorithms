@@ -1,0 +1,17 @@
+Scenario    | matrix          | r         | c         | nz         | link                                             | megjegyzes                                      |
+            | ASIC_680k       | 682,862   | 682,862   | 3,871,773  | https://sparse.tamu.edu/Sandia/ASIC_680k         | Aramkor simulation savokban connection + foatlo |
+            | cant            | 62,451    | 62,451    | 4,007,383  | https://sparse.tamu.edu/Williams/cant            | spmv-s cikkbol banded matrix                    |
+            | consph          | 83k       | 83k       | 6,010,480  | https://sparse.tamu.edu/Williams/consph          | ugyanaz                                         |
+            | crankseg_2      | 63k       | 63k       | 14,148,858 | https://sparse.tamu.edu/GHS_psdef/crankseg_2     |                                                 |
+            | dense4k         | 4096      | 4096      | 16,777,216 | ???                                              |                                                 |
+            | FullChip        | 2,987,012 | 2,987,012 | 26,621,983 | https://sparse.tamu.edu/Freescale/FullChip       | teljes aramkor, nagy elteres a connectivityben  |
+            | Ga41As41H72     | 268,096   | 268,096   | 18,488,476 | https://sparse.tamu.edu/PARSEC/Ga41As41H72       | quantim kemia, egyseg elem problema             |
+            | inline_1        | 503,712   | 503,712   | 36,816,170 | https://sparse.tamu.edu/GHS_psdef/inline_1       |                                                 |
+            | ldoor           | 952,203   | 952,203   | 42,493,817 | https://sparse.tamu.edu/GHS_psdef/ldoor          |                                                 |
+            | mac_econ_fwd500 | 206,500   | 206,500   | 1,273,389  | https://sparse.tamu.edu/Williams/mac_econ_fwd500 | cant, consph                                    |
+            | mip1            | 66,463    | 66,463    | 10,352,819 | https://sparse.tamu.edu/Andrianov/mip1           | optimisation                                    |
+            | mouse_gene      | 45,101    | 45,101    | 28,967,291 | https://sparse.tamu.edu/Belcastro/mouse_gene     | full random                                     |
+            | pdb1HYS         | 36,417    | 36,417    | 4,344,765  | https://sparse.tamu.edu/Williams/pdb1HYS         | Williamses cikk de nagyobb kapcsolatok          |
+            | pwtk            | 217,918   | 217,918   | 11,524,432 | https://sparse.tamu.edu/Boeing/pwtk              | kb banded                                       |
+            | rma10           | 46,835    | 46,835    | 2,329,092  | https://sparse.tamu.edu/Bova/rma10               |                                                 |
+            | Si41Ge41H72     | 185,639   | 185,639   | 15,011,265 | https://sparse.tamu.edu/PARSEC/Si41Ge41H72       |                                                 |

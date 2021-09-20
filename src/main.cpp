@@ -29,20 +29,18 @@ int main(int argc, const char *argv[]) {
   std::vector<int> row;
   std::vector<int> col;
   std::vector<double> vals;
+  Type t = VCL_16_ROW;
+  std::ofstream myfile;
   if (argc > 1) {
     mm_read_mtx_crd_vec(argv[1], &N_x, &N_y, row, col, vals);
-    for (int i = 0; i < vals.size(); ++i) {
-      std::cout << row[i] << " " << col[i] << " " << vals[i] << "\n";
-    }
     std::vector<value> matrix = pack_coo<double>(row,col,vals);
+    myfile.open("/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/matrices.csv", std::ios_base::app);
     GraphCOO graphCOO(N_x, matrix);
-    GraphCSR graphCSR(graphCOO, CONST_VCL16_TRANSPOSE);
-    std::cout<< graphCOO.measure() << std::endl;
-    std::cout<< graphCSR.measure() << std::endl;
-    std::cout<< graphCSR.measureMKL() << std::endl;
+    GraphCSR graphCSR(graphCOO, t);
+    myfile << argv[1] << ","
+           << graphCSR.measure() << ","
+           << graphCSR.measureMKL() << "\n";
   } else{
-    Type t = VCL_16_ROW;
-    std::ofstream myfile;
     myfile.open("../runtimes/"+enumString[t]+".csv");
     if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {
       myfile << "Vertices, CSR w/o MKL, CSR w/ MKL \n";
@@ -88,9 +86,9 @@ int main(int argc, const char *argv[]) {
           }
         }
     }
-    myfile.close();
   }
 
+  myfile.close();
 //   Type t = ELLPACK;
 //   GraphCOO coo(1 << 13, 0.03f);
 //   coo.convertToELLPACK();

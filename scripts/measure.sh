@@ -8,6 +8,6 @@ do
     file_names=(`ls $abs_path`)
     for i in "${file_names[@]}"
     do
-        ../bin/Parallelizing_Graph_Algorithms $i
+        OMP_PROC_BIND=TRUE OMP_NUM_THREADS=32 numactl --cpunodebind=1 ../bin/Parallelizing_Graph_Algorithms $absolute_path'Matrices/'$dir'/'$i
     done
 done

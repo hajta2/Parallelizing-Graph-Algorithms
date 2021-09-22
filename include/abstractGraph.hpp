@@ -8,6 +8,28 @@
 #include <vector>
 #include "mkl_spblas.h"
 
+enum Type {
+    NAIVE,
+    OPENMP,
+    CONST_VCL16_ROW,
+    CONST_VCL16_TRANSPOSE,
+    VCL_16_ROW,
+    VCL_16_TRANSPOSE,
+    ELLPACK,
+    TRANSPOSED_ELLPACK
+};
+
+std::string enumString[] = {
+    "NAIVE",
+    "OPENMP", 
+    "CONST_VCL16_ROW", 
+    "CONST_VCL16_TRANSPOSE",
+    "VCL_16_ROW",
+    "VCL_16_TRANSPOSE",
+    "ELLPACK",
+    "TRANSPOSED_ELLPACK"
+};
+
 class AbstractGraph {
 public:
     virtual void getWeightedFlow() = 0;

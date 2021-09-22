@@ -4,6 +4,7 @@
 #include "graphCOO.hpp"
 #include "graphCSR.hpp"
 #include "graphDense.hpp"
+#include "ellpack.hpp"
 #include "mkl.h"
 #include "mmio_cpp.h"
 
@@ -34,12 +35,11 @@ int main(int argc, const char *argv[]) {
   if (argc > 1) {
     mm_read_mtx_crd_vec(argv[1], &N_x, &N_y, row, col, vals);
     std::vector<value> matrix = pack_coo<double>(row,col,vals);
-    myfile.open("/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/matrices.csv", std::ios_base::app);
     GraphCOO graphCOO(N_x, matrix);
-    GraphCSR graphCSR(graphCOO, t);
-    myfile << argv[1] << ","
-           << graphCSR.measure() << ","
-           << graphCSR.measureMKL() << "\n";
+    graphCOO.print();
+    Ellpack ellpack(graphCOO, t);
+    graphCOO.print();
+    ellpack.measure();
   } else{
     myfile.open("../runtimes/"+enumString[t]+".csv");
     if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {
@@ -89,15 +89,6 @@ int main(int argc, const char *argv[]) {
   }
 
   myfile.close();
-//   Type t = ELLPACK;
-//   GraphCOO coo(1 << 13, 0.03f);
-//   coo.convertToELLPACK();
-//   GraphCSR csr(coo, t);
-//   //coo.print();
-
-//   std::cout<<csr.measure()<<"\n";
-//   std::cout << csr.measureMKL() << "\n";
-// //   //std::cout << csr.bandWidth() << "\n";
 
   return 0;
 }

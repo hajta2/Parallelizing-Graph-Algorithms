@@ -13,6 +13,8 @@ public:
     virtual void getWeightedFlow() = 0;
     double measure() {
         std::vector<float> res;
+        getWeightedFlow();
+        getWeightedFlow();
         for (int i = 0; i < 10; ++i) {
             auto start = std::chrono::high_resolution_clock::now();
             getWeightedFlow();

@@ -13,7 +13,13 @@ private:
     
     void getWeightedFlow() override {
         std::vector<float> res(NOVertices);
-        std::cout << rowLength << std::endl;     
+        if (type == NAIVE) {
+            for (int i = 0; i < NOVertices-1; ++i) {
+                for (int j = 0; j < rowLength; ++j) {
+                    res[i] += neighbourMatrix[i*rowLength+j];
+                }
+            }
+        }
     }
 
 public:
@@ -24,9 +30,14 @@ public:
         rowLength = graph.getEllpackRow();
         std::vector<float> tmpNeigbourMatrix(rowLength * NOVertices);
         int actualRow = 0;
+        int elementsInRow = 0;
         for (value v : matrix){
-            if(actualRow != v.row) actualRow++;
-            tmpNeigbourMatrix[v.row*rowLength+v.col] = v.val;
+            if(actualRow != v.row) {
+                actualRow++;
+                elementsInRow = 0;
+            }
+            tmpNeigbourMatrix[v.row*rowLength+elementsInRow] = v.val;
+            elementsInRow++;
         }
         neighbourMatrix=tmpNeigbourMatrix;
     }

@@ -1,15 +1,14 @@
-Name,CSR w/o MKL,CSR w/ MKL
-ASIC_680k.mtx,3462.6,3366.4
-cant.mtx,907,2239.9
-consph.mtx,1232.1,1274.4
-crankseg_2.mtx,2296.8,1975.5
-FullChip.mtx,14964.2,12095.5
-Ga41As41H72.mtx,3092.7,2776.2
-inline_1.mtx,5866.7,5169.9
-ldoor.mtx,7443.4,6188.3
-mac_econ_fwd500.mtx,978.8,809.9
-mouse_gene.mtx,4217.1,4026.5
-pdb1HYS.mtx,950.7,950.4
-pwtk.mtx,2318.5,1845.6
-rma10_b.mtx,271.1,2.3
-rma10.mtx,748.5,1967.3
+Name,CSR w/o MKL,CSR w/ MKLASIC_680k.mtx,3117.4,2946.8
+cant.mtx,802.8,1029.7
+consph.mtx,1094.6,1121
+crankseg_2.mtx,1988.4,1991.9
+FullChip.mtx,13872.5,11896.6
+Ga41As41H72.mtx,2713.6,2535.2
+inline_1.mtx,5028.7,5950.1
+ldoor.mtx,6180.4,5217.8
+mac_econ_fwd500.mtx,907,816.8
+mouse_gene.mtx,3361.6,3367
+pdb1HYS.mtx,869,1034.7
+pwtk.mtx,2012.2,1943.3
+rma10_b.mtx,128.3,2
+rma10.mtx,667.2,798.1

@@ -30,7 +30,7 @@ int main(int argc, const char *argv[]) {
   std::vector<int> row;
   std::vector<int> col;
   std::vector<double> vals;
-  Type t = VCL_16_ROW;
+  Type t = OPENMP;
   std::ofstream myfile;
   if (argc > 1) {
     mm_read_mtx_crd_vec(argv[1], &N_x, &N_y, row, col, vals);
@@ -69,20 +69,21 @@ int main(int argc, const char *argv[]) {
           }
         }
     } else {
-        myfile << "Vertices,Density,Bandwidth, Const\n";
-        for(int i = 10; i <= 17; ++i){
+        //myfile << "Vertices,Density,Bandwidth, Const\n";
+        for(int i = 10; i <= 12; ++i){
           for(float j = 1; j <= 30; j++){
             GraphCOO graphCOO(std::pow(2, i), j/1000); 
             GraphCSR graphCSR(graphCOO, t);
+            Ellpack ellpack(graphCOO, t);
             if (i == 10 && j == 1) {
               graphCSR.measure();
               graphCSR.measureMKL();
             }
             std::cout<< std::pow(2,i) << " " << j/10 << "\n";
-            myfile<< std::pow(2,i) << ","
+            std::cout<< std::pow(2,i) << ","
                   << j/10 << "," 
-                  << graphCSR.bandWidth() * 1000 << ","
-                  << "68554.2" << "\n";
+                  << graphCSR.measure()<< ","
+                  << ellpack.measure() << "\n";
           }
         }
     }

@@ -6,7 +6,8 @@
 class Ellpack : public AbstractGraph {
 private:
     std::vector<float> weights;
-    std::vector<float> neighbourMatrix;
+    std::vector<float> values;
+    std::vector<int> columns;
     const int NOVertices;
     int rowLength;
     Type type;
@@ -16,7 +17,14 @@ private:
         if (type == NAIVE) {
             for (int i = 0; i < NOVertices-1; ++i) {
                 for (int j = 0; j < rowLength; ++j) {
-                    res[i] += neighbourMatrix[i*rowLength+j];
+                    res[i] += values[i*rowLength+j] * weights[columns[i*rowLength+j]];
+                }
+            }
+        } else if (type == OPENMP) {
+            #pragma omp parallel for
+            for (int i = 0; i < NOVertices-1; ++i) {
+                for (int j = 0; j < rowLength; ++j) {
+                    res[i] += values[i*rowLength+j] * weights[columns[i*rowLength+j]];
                 }
             }
         }
@@ -28,7 +36,8 @@ public:
         std::vector<value> matrix = graph.getNeighbourMatrix();
         weights = graph.getWeights();
         rowLength = graph.getEllpackRow();
-        std::vector<float> tmpNeigbourMatrix(rowLength * NOVertices);
+        std::vector<float> tmpValues(rowLength * NOVertices);
+        std::vector<int> tmpColumns(rowLength * NOVertices);
         int actualRow = 0;
         int elementsInRow = 0;
         for (value v : matrix){
@@ -36,10 +45,12 @@ public:
                 actualRow++;
                 elementsInRow = 0;
             }
-            tmpNeigbourMatrix[v.row*rowLength+elementsInRow] = v.val;
+            tmpValues[v.row*rowLength+elementsInRow] = v.val;
+            tmpColumns[v.row*rowLength+elementsInRow] = v.col;
             elementsInRow++;
         }
-        neighbourMatrix=tmpNeigbourMatrix;
+        values=tmpValues;
+        columns=tmpColumns;
     }
 
 };

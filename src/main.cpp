@@ -4,6 +4,7 @@
 #include "graphCOO.hpp"
 #include "graphCSR.hpp"
 #include "graphDense.hpp"
+#include "ellpack.hpp"
 #include "mkl.h"
 #include "mmio_cpp.h"
 
@@ -29,17 +30,17 @@ int main(int argc, const char *argv[]) {
   std::vector<int> row;
   std::vector<int> col;
   std::vector<double> vals;
-  Type t = VCL_16_ROW;
+  Type t = OPENMP;
   std::ofstream myfile;
   if (argc > 1) {
     mm_read_mtx_crd_vec(argv[1], &N_x, &N_y, row, col, vals);
     std::vector<value> matrix = pack_coo<double>(row,col,vals);
-    myfile.open("/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/matrices.csv", std::ios_base::app);
     GraphCOO graphCOO(N_x, matrix);
+    Ellpack ellpack(graphCOO, t);
     GraphCSR graphCSR(graphCOO, t);
-    myfile << argv[1] << ","
-           << graphCSR.measure() << ","
-           << graphCSR.measureMKL() << "\n";
+    std::cout << ellpack.measure()  << ","
+              << graphCSR.measure() << ","
+              << graphCSR.measureMKL() << std::endl;
   } else{
     myfile.open("../runtimes/"+enumString[t]+".csv");
     if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {
@@ -51,53 +52,28 @@ int main(int argc, const char *argv[]) {
               << graphCSR.measure() << ", "
               << graphCSR.measureMKL() << "\n";
       }
-    } else if (t == ELLPACK) { //|| t == TRANSPOSED_ELLPACK) {
-        myfile << "Vertices,Density,CSR w/o MKL,CSR w/ MKL\n";
-        for(int i = 10; i <= 17; ++i){
-          for(float j = 1; j <= 30; j++){
-            GraphCOO graphCOO(std::pow(2, i), j/1000);
-            graphCOO.convertToELLPACK();
-            GraphCSR graphCSR(graphCOO, t);
-            if (i == 10 && j == 1) {
-              graphCSR.measure();
-              graphCSR.measureMKL();
-            }
-            std::cout<< std::pow(2,i) << " " << j/10 << "\n";
-            myfile<< std::pow(2,i) << ","
-                  << j/10 << "," 
-                  << graphCSR.measure() << "\n";
-          }
-        }
     } else {
-        myfile << "Vertices,Density,Bandwidth, Const\n";
-        for(int i = 10; i <= 17; ++i){
+        //myfile << "Vertices,Density,Bandwidth, Const\n";
+        for(int i = 10; i <= 12; ++i){
           for(float j = 1; j <= 30; j++){
             GraphCOO graphCOO(std::pow(2, i), j/1000); 
             GraphCSR graphCSR(graphCOO, t);
+            Ellpack ellpack(graphCOO, t);
             if (i == 10 && j == 1) {
               graphCSR.measure();
               graphCSR.measureMKL();
             }
             std::cout<< std::pow(2,i) << " " << j/10 << "\n";
-            myfile<< std::pow(2,i) << ","
+            std::cout<< std::pow(2,i) << ","
                   << j/10 << "," 
-                  << graphCSR.bandWidth() * 1000 << ","
-                  << "68554.2" << "\n";
+                  << graphCSR.measure()<< ","
+                  << ellpack.measure() << "\n";
           }
         }
     }
   }
 
   myfile.close();
-//   Type t = ELLPACK;
-//   GraphCOO coo(1 << 13, 0.03f);
-//   coo.convertToELLPACK();
-//   GraphCSR csr(coo, t);
-//   //coo.print();
-
-//   std::cout<<csr.measure()<<"\n";
-//   std::cout << csr.measureMKL() << "\n";
-// //   //std::cout << csr.bandWidth() << "\n";
 
   return 0;
 }

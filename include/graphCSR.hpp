@@ -8,29 +8,6 @@
 #endif
 #include <cassert>
 
-enum Type {
-    NAIVE,
-    OPENMP,
-    CONST_VCL16_ROW,
-    CONST_VCL16_TRANSPOSE,
-    VCL_16_ROW,
-    VCL_16_TRANSPOSE,
-    ELLPACK,
-    TRANSPOSED_ELLPACK
-};
-
-std::string enumString[] = {
-    "NAIVE",
-    "OPENMP", 
-    "CONST_VCL16_ROW", 
-    "CONST_VCL16_TRANSPOSE",
-    "VCL_16_ROW",
-    "VCL_16_TRANSPOSE",
-    "ELLPACK",
-    "TRANSPOSED_ELLPACK"
-};
-
-
 class GraphCSR : public AbstractGraph {
 private:
     std::vector<float> csrVal;
@@ -189,39 +166,6 @@ private:
                                 list[k] = csrVal[j + csrRowPtr[i + k]];
                                 weightList[k] = weights[csrColInd[j + csrRowPtr[i + k]]];
                             }
-                        }
-                    }
-                    col.load(list);
-                    weight.load(weightList);
-                    multiplication = col * weight + multiplication;
-                }
-                if (i + VECTOR_SIZE >= rowSize) {
-                    for (int j = 0; j < multiplication.size(); ++j) {
-                        if (i + j < NOVertices) {
-                            res[i + j] = multiplication[j];
-                        } else {
-                            break;
-                        }
-                    }
-                } else {
-                    multiplication.store(res.data() + i);
-                }
-            }
-        } else if (type == ELLPACK) {
-            int rowSize = (NOVertices + VECTOR_SIZE - 1) & (-VECTOR_SIZE);
-            #pragma omp parallel for
-            for (int i = 0; i < rowSize; i += VECTOR_SIZE) {
-                Vec16f multiplication = 0;
-                for (int j = 0; j < maxLength; ++j) {
-                    Vec16f col, weight;
-                    float list[VECTOR_SIZE];
-                    float weightList[VECTOR_SIZE];
-                    for (int k = 0; k < VECTOR_SIZE; ++k) {
-                        if (i + k > NOVertices -1) {
-                            break;
-                        } else {
-                            list[k] = csrVal[j + csrRowPtr[i + k]];
-                            weightList[k] = weights[csrColInd[j + csrRowPtr[i + k]]];
                         }
                     }
                     col.load(list);

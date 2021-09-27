@@ -18,6 +18,7 @@ private:
     std::vector<value> neighbourMatrix;
     std::vector<float> weights;
     const int NOVertices;
+    int ellpackRowLength = 0;
 
     void getWeightedFlow() override{
         std::vector<float> res(NOVertices);
@@ -148,6 +149,7 @@ public:
             rowStart += rowLengths[i]; 
         }
         neighbourMatrix = ellpack;
+        ellpackRowLength = maxLength;
     }
 
 
@@ -162,6 +164,10 @@ public:
 
     [[nodiscard]] int getNOVertices() const{
         return NOVertices;
+    }
+
+    int getEllpackRow() {
+        return ellpackRowLength;
     }
 
     void print() {

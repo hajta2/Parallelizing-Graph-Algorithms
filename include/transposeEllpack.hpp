@@ -13,8 +13,26 @@ private:
     Type type;
 
 public:
-    explicit TransposeEllpack(GraphCOO& graph, Type t) : NOVertices(graph.getNOVertices()), type(t) {
-        graph.convertToELLPACK();
+    explicit TransposeEllpack(GraphCOO graph, Type t) : NOVertices(graph.getNOVertices()), type(t) {
+        graph.convertToTransposedELLPACK();
+        std::vector<value> matrix = graph.getNeighbourMatrix();
+        weights = graph.getWeights();
+        rowLength = graph.getEllpackRow();
+        std::vector<float> tmpValues(rowLength * NOVertices);
+        std::vector<int> tmpColumns(rowLength * NOVertices);
+        int actualRow = 0;
+        int elementsInRow = 0;
+        for (value v : matrix){
+            if(actualRow != v.row) {
+                actualRow++;
+                elementsInRow = 0;
+            }
+            tmpValues[v.row*rowLength+elementsInRow] = v.val;
+            tmpColumns[v.row*rowLength+elementsInRow] = v.col;
+            elementsInRow++;
+        }
+        values=tmpValues;
+        columns=tmpColumns;
     }
 
 };

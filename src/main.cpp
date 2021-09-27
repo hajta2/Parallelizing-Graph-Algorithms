@@ -36,10 +36,11 @@ int main(int argc, const char *argv[]) {
     mm_read_mtx_crd_vec(argv[1], &N_x, &N_y, row, col, vals);
     std::vector<value> matrix = pack_coo<double>(row,col,vals);
     GraphCOO graphCOO(N_x, matrix);
-    graphCOO.print();
     Ellpack ellpack(graphCOO, t);
-    graphCOO.print();
-    ellpack.measure();
+    GraphCSR graphCSR(graphCOO, t);
+    std::cout << ellpack.measure()  << ","
+              << graphCSR.measure() << ","
+              << graphCSR.measureMKL() << std::endl;
   } else{
     myfile.open("../runtimes/"+enumString[t]+".csv");
     if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {
@@ -51,23 +52,6 @@ int main(int argc, const char *argv[]) {
               << graphCSR.measure() << ", "
               << graphCSR.measureMKL() << "\n";
       }
-    } else if (t == ELLPACK) { //|| t == TRANSPOSED_ELLPACK) {
-        myfile << "Vertices,Density,CSR w/o MKL,CSR w/ MKL\n";
-        for(int i = 10; i <= 17; ++i){
-          for(float j = 1; j <= 30; j++){
-            GraphCOO graphCOO(std::pow(2, i), j/1000);
-            graphCOO.convertToELLPACK();
-            GraphCSR graphCSR(graphCOO, t);
-            if (i == 10 && j == 1) {
-              graphCSR.measure();
-              graphCSR.measureMKL();
-            }
-            std::cout<< std::pow(2,i) << " " << j/10 << "\n";
-            myfile<< std::pow(2,i) << ","
-                  << j/10 << "," 
-                  << graphCSR.measure() << "\n";
-          }
-        }
     } else {
         //myfile << "Vertices,Density,Bandwidth, Const\n";
         for(int i = 10; i <= 12; ++i){

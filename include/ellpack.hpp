@@ -27,7 +27,38 @@ private:
                     res[i] += values[i*rowLength+j] * weights[columns[i*rowLength+j]];
                 }
             }
+#ifndef USE_VCL_LIB
+        } else {
+            assert(false && "App compiled without VCL support");
         }
+#else
+        } else if (type == VCL_16_ROW) {
+            //rounding down to the nearest lower multiple of VECTOR_SIZE
+            int regularPart = rowLength & (-VECTOR_SIZE);
+            #pragma omp parallel for
+            for (int i = 0; i < NOVertices - 1; ++i) {
+                Vec16f row, weight, multiplication;
+                if (values[i * rowLength] == 0) continue;
+                for (int j = 0; j < regularPart; j += VECTOR_SIZE) {
+                    float list[VECTOR_SIZE];
+                    float weightList[VECTOR_SIZE];
+                    for (int k = 0; k < VECTOR_SIZE; ++k) {
+                        list[k] = values[i*rowLength+j+k];
+                        weightList[k] = weights[columns[i*rowLength+j+k]];
+                    }
+                    row.load(list);
+                    weight.load(list);
+                    multiplication = row * weight;
+                }
+                //if (values[i*rowLength + regularPart - 1]) continue;
+                for (int j = regularPart - 1; j < rowLength; ++j) {
+                    res[i] += values[i*rowLength+j] * weights[columns[i*rowLength+j]];
+                }
+                //add the multiplication to res[i]
+                res[i] += horizontal_add(multiplication);
+            }
+        }
+#endif
     }
 
 public:

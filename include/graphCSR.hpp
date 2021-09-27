@@ -184,39 +184,6 @@ private:
                     multiplication.store(res.data() + i);
                 }
             }
-        } else if (type == ELLPACK) {
-            int rowSize = (NOVertices + VECTOR_SIZE - 1) & (-VECTOR_SIZE);
-            #pragma omp parallel for
-            for (int i = 0; i < rowSize; i += VECTOR_SIZE) {
-                Vec16f multiplication = 0;
-                for (int j = 0; j < maxLength; ++j) {
-                    Vec16f col, weight;
-                    float list[VECTOR_SIZE];
-                    float weightList[VECTOR_SIZE];
-                    for (int k = 0; k < VECTOR_SIZE; ++k) {
-                        if (i + k > NOVertices -1) {
-                            break;
-                        } else {
-                            list[k] = csrVal[j + csrRowPtr[i + k]];
-                            weightList[k] = weights[csrColInd[j + csrRowPtr[i + k]]];
-                        }
-                    }
-                    col.load(list);
-                    weight.load(weightList);
-                    multiplication = col * weight + multiplication;
-                }
-                if (i + VECTOR_SIZE >= rowSize) {
-                    for (int j = 0; j < multiplication.size(); ++j) {
-                        if (i + j < NOVertices) {
-                            res[i + j] = multiplication[j];
-                        } else {
-                            break;
-                        }
-                    }
-                } else {
-                    multiplication.store(res.data() + i);
-                }
-            }
         }
 #endif
         flow = res;

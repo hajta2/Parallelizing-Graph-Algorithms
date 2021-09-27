@@ -64,7 +64,7 @@ int main(int argc, const char *argv[]) {
   }
 
   if (measure_one_cmd->parsed()) {
-    if (opt_if->parsed()) {
+    if (opt_if->count()) {
       int N_x = 0, N_y = 0;
       std::vector<int> row;
       std::vector<int> col;

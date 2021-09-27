@@ -36,8 +36,8 @@ int main(int argc, const char *argv[]) {
     mm_read_mtx_crd_vec(argv[1], &N_x, &N_y, row, col, vals);
     std::vector<value> matrix = pack_coo<double>(row,col,vals);
     GraphCOO graphCOO(N_x, matrix);
-    Ellpack ellpack(graphCOO, t);
     GraphCSR graphCSR(graphCOO, t);
+    Ellpack ellpack(graphCOO, t);
     std::cout << ellpack.measure()  << ","
               << graphCSR.measure() << ","
               << graphCSR.measureMKL() << std::endl;

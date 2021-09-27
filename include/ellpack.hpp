@@ -38,7 +38,7 @@ private:
             #pragma omp parallel for
             for (int i = 0; i < NOVertices - 1; ++i) {
                 Vec16f row, weight, multiplication;
-                if (values[i * rowLength] == 0) continue;
+                //if (values[i * rowLength] == 0) continue;
                 for (int j = 0; j < regularPart; j += VECTOR_SIZE) {
                     float list[VECTOR_SIZE];
                     float weightList[VECTOR_SIZE];
@@ -62,8 +62,12 @@ private:
     }
 
 public:
-    explicit Ellpack(GraphCOO& graph, Type t) : NOVertices(graph.getNOVertices()), type(t) {
-        graph.convertToELLPACK();
+    explicit Ellpack(GraphCOO graph, Type t, bool transposed) : NOVertices(graph.getNOVertices()), type(t) {
+        if(transposed) {
+            graph.convertToELLPACK();
+        } else {
+            graph.convertToTransposedELLPACK();
+        }
         std::vector<value> matrix = graph.getNeighbourMatrix();
         weights = graph.getWeights();
         rowLength = graph.getEllpackRow();

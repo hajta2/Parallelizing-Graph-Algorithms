@@ -43,6 +43,7 @@ private:
                     float list[VECTOR_SIZE];
                     float weightList[VECTOR_SIZE];
                     for (int k = 0; k < VECTOR_SIZE; ++k) {
+                        //if(values[i*rowLength+j+k] == 0) continue;
                         list[k] = values[i*rowLength+j+k];
                         weightList[k] = weights[columns[i*rowLength+j+k]];
                     }

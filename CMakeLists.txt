@@ -41,12 +41,15 @@ if(USE_VCL)
     target_compile_definitions(Parallelizing_Graph_Algorithms PRIVATE USE_VCL_LIB)
 endif(USE_VCL)
 
+find_package(Boost REQUIRED)
+
 target_link_libraries(
     Parallelizing_Graph_Algorithms
     OpenMP::OpenMP_CXX
     MMIO
     project_options
-    project_warnings)
+    project_warnings
+    Boost::boost)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/)
 
 include_directories(include)

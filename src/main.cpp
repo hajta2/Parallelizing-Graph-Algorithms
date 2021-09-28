@@ -16,8 +16,8 @@ std::vector<value> pack_coo(const std::vector<int> &row,
                             const std::vector<Float> &val) {
   std::vector<value> result;
   result.reserve(val.size());
-  for (int i = 0; i < val.size(); ++i) {
-    result.push_back({row[i] - 1, col[i] - 1, val[i]});
+  for (size_t i = 0; i < val.size(); ++i) {
+    result.push_back({row[i] - 1, col[i] - 1, static_cast<float>(val[i])});
   }
   std::sort(result.begin(), result.end(), [](const auto &lhs, const auto &rhs) {
     if (lhs.row != rhs.row) return lhs.row < rhs.row;
@@ -77,24 +77,46 @@ int main(int argc, const char *argv[]) {
       GraphCSR graphCSR(graphCOO, t);
       Ellpack ellpack(graphCOO, t, false);
       Ellpack transposedEllpack(graphCOO, t, true);
-      myfile << std::filesystem::path(input_file).stem() << ","
-             << ellpack.measure() << "," << transposedEllpack.measure() << ","
-             << graphCSR.measure() << "," << graphCSR.measureMKL() << "\n";
+      myfile << std::filesystem::path(input_file).stem().string() << ", ";
+      {
+        auto [times, bw] = graphCSR.measure();
+        myfile << times.mean << ", " << times.confidence_interval_width << ", "
+               << bw.mean << ", " << bw.confidence_interval_width << ", "
+      }
+      myfile << graphCSR.measureMKL() << ", ";
+      {
+        auto [times, bw] = ellpack.measure();
+        myfile << times.mean << ", " << times.confidence_interval_width << ", "
+               << bw.mean << ", " << bw.confidence_interval_width << ", "
+      }
+      {
+        auto [times, bw] = transposedEllpack.measure();
+        myfile << times.mean << ", " << times.confidence_interval_width << ", "
+               << bw.mean << ", " << bw.confidence_interval_width << ", "
+      }
+      myfile << "\n";
     } else {
       GraphCOO coo(N, rho);
       GraphCSR csr(coo, t);
-      std::cout << csr.measure() << "\n";
+      auto [times, bw] = csr.measure();
+      std::cout << "Runtime: " << times.mean << ", "
+                << times.confidence_interval_width << "\n";
+      std::cout << "Bandwidth: " << bw.mean << ", "
+                << bw.confidence_interval_width << "\n";
       std::cout << csr.measureMKL() << "\n";
     }
   } else if (scaling_cmd->parsed()) {
     std::ofstream myfile("../runtimes/" + enumString[t] + ".csv");
     if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {
-      myfile << "Vertices, CSR w/o MKL, CSR w/ MKL\n";
+      myfile << "Vertices, CSR w/o MKL, CI w 0.95, BW, CI w 0.95, CSR w/ MKL\n";
       for (int i = 10; i <= 17; ++i) {
         GraphCOO graphCOO(static_cast<int>(std::pow(2, i)));
         GraphCSR graphCSR(graphCOO, t);
-        myfile << std::pow(2, i) << ", " << graphCSR.measure() << ", "
-               << graphCSR.measureMKL() << "\n";
+        auto [times, bw] = graphCSR.measure();
+        myfile << std::pow(2, i) << ", " << times.mean << ", "
+               << times.confidence_interval_width << ", " << bw.mean << ", "
+               << bw.confidence_interval_width << ", " << graphCSR.measureMKL()
+               << "\n";
       }
     } else {
         myfile << "Vertices,Density,CSR w/o MKL,CSR w/ MKL,Ellpack,Transposed Ellpack,Bandwidth,Const\n";

@@ -1,11 +1,15 @@
 #ifndef PARALLELIZING_GRAPH_ALGORITHMS_ABSTRACTGRAPH_HPP
 #define PARALLELIZING_GRAPH_ALGORITHMS_ABSTRACTGRAPH_HPP
 
-#include <chrono>
-#include <functional>
-#include <iostream>
-#include <random>
-#include <vector>
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/framework/accumulator_set.hpp>
+#include <boost/accumulators/statistics.hpp>
+#include <boost/concept_check.hpp>
+#include <boost/math/distributions/students_t.hpp>
+#include <utility>
+
+#include "timer.h"
+#include "util.h"
 
 enum Type {
     NAIVE,
@@ -26,24 +30,74 @@ std::string enumString[] = {
 };
 
 class AbstractGraph {
-public:
-    virtual void getWeightedFlow() = 0;
-    double measure() {
-        std::vector<float> res;
+ public:
+  virtual void getWeightedFlow() = 0;
+  virtual double getBandWidth(double time_s) = 0;
+
+  std::pair<measurement_result, measurement_result> measure() {
+    using namespace boost::accumulators;
+    accumulator_set<double,
+                    stats<tag::count, tag::mean, tag::median, tag::variance>>
+        acc_time;
+    accumulator_set<double,
+                    stats<tag::count, tag::mean, tag::median, tag::variance>>
+        acc_bw;
+
+    getWeightedFlow();
+    getWeightedFlow();
+    int pilotCount = 10;
+    int amortizationCount = 10;
+    int sampleSize;
+    constexpr double significance_level = 0.05;
+    for (int i = 0; i < pilotCount; ++i) {
+      high_resolution_timer timer;
+      for (int n = 0; n < amortizationCount; ++n) {
         getWeightedFlow();
-        getWeightedFlow();
-        for (int i = 0; i < 10; ++i) {
-            auto start = std::chrono::high_resolution_clock::now();
-            getWeightedFlow();
-            auto stop = std::chrono::high_resolution_clock::now();
-            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-            res.push_back(static_cast<float>(duration.count()));
-        }
-        double sum = 0;
-        for (float re : res) { sum += re; }
-        return sum / res.size();
+      }
+      double time = timer.elapsed() * 1e3 / amortizationCount;
+      acc_time(time);
+      acc_bw(getBandWidth(time));
     }
-    virtual ~AbstractGraph() = default;
+    {
+      // estimate required number of samples for confidence intercal with .95
+      // confidence
+      double Sd = std::sqrt(variance(acc_time) * pilotCount / (pilotCount - 1));
+      double Sm = mean(acc_time);
+      boost::math::students_t s_dist(pilotCount - 1);
+      double z = boost::math::quantile(
+          boost::math::complement(s_dist, significance_level / 2));
+      double size = z * Sd / ((significance_level / 2) * Sm);
+      sampleSize =
+          std::max(pilotCount, static_cast<int>(std::ceil(size * size) + 1));
+    }
+    for (int i = pilotCount; i < sampleSize; ++i) {
+      high_resolution_timer timer;
+      for (int n = 0; n < amortizationCount; ++n) {
+        getWeightedFlow();
+      }
+      double time = timer.elapsed() * 1e3 / amortizationCount;
+      acc_time(time);
+      acc_bw(getBandWidth(time));
+    }
+    boost::math::students_t dist(sampleSize - 1);
+
+    double T = boost::math::quantile(
+        boost::math::complement(dist, significance_level / 2));
+
+    double Sd_time =
+        std::sqrt(variance(acc_time) * sampleSize / (sampleSize - 1));
+    double Sm_time = mean(acc_time);
+    double w_time = T * Sd_time / sqrt(double(sampleSize));
+    double Sd_bw = std::sqrt(variance(acc_bw) * sampleSize / (sampleSize - 1));
+    double Sm_bw = mean(acc_bw);
+    double w_bw = T * Sd_bw / sqrt(double(sampleSize));
+
+    return std::make_pair<measurement_result, measurement_result>(
+        {Sm_time, median(acc_time), Sd_time, w_time},
+        {Sm_bw, median(acc_bw), Sd_bw, w_bw});
+  }
+
+  virtual ~AbstractGraph() = default;
 };
 
-#endif//PARALLELIZING_GRAPH_ALGORITHMS_ABSTRACTGRAPH_HPP
+#endif  // PARALLELIZING_GRAPH_ALGORITHMS_ABSTRACTGRAPH_HPP

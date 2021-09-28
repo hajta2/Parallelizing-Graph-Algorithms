@@ -6,7 +6,6 @@
 #include <iostream>
 #include <random>
 #include <vector>
-#include "mkl_spblas.h"
 
 enum Type {
     NAIVE,
@@ -38,12 +37,13 @@ public:
             getWeightedFlow();
             auto stop = std::chrono::high_resolution_clock::now();
             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-            res.push_back((float)duration.count());
+            res.push_back(static_cast<float>(duration.count()));
         }
         double sum = 0;
         for (float re : res) { sum += re; }
         return sum / res.size();
     }
+    virtual ~AbstractGraph() = default;
 };
 
 #endif//PARALLELIZING_GRAPH_ALGORITHMS_ABSTRACTGRAPH_HPP

@@ -7,6 +7,7 @@
 #include <VCL2/vectorclass.h>
 #endif
 #include <cassert>
+#include "mkl_spblas.h"
 
 class GraphCSR : public AbstractGraph {
 private:

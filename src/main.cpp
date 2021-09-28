@@ -1,6 +1,8 @@
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 
+#include "CLI11.hpp"
 #include "graphCOO.hpp"
 #include "graphCSR.hpp"
 #include "graphDense.hpp"
@@ -25,41 +27,80 @@ std::vector<value> pack_coo(const std::vector<int> &row,
 }
 
 int main(int argc, const char *argv[]) {
-  
-  int N_x = 0, N_y = 0;
-  std::vector<int> row;
-  std::vector<int> col;
-  std::vector<double> vals;
+  std::string input_file = "";
+  std::string output_file =
+      "/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/matrices.csv";
+  int N = 8192;
+  float rho = 3e-2f;
   Type t = VCL_16_ROW;
-  std::ofstream myfile;
-  if (argc > 1) {
-    mm_read_mtx_crd_vec(argv[1], &N_x, &N_y, row, col, vals);
-    std::vector<value> matrix = pack_coo<double>(row,col,vals);
-    myfile.open("/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/matricesWithELPACK.csv", std::ios_base::app);
-    GraphCOO graphCOO(N_x, matrix);
-    GraphCSR graphCSR(graphCOO, t);
-    Ellpack ellpack(graphCOO, t, false);
-    Ellpack transposedEllpack(graphCOO, t, true);
-    myfile  << ellpack.measure()  << ","
-            << transposedEllpack.measure() << ","
-            << graphCSR.measure() << ","
-            << graphCSR.measureMKL() << std::endl;
-  } else{
-    myfile.open("../runtimes/"+enumString[t]+".csv");
+
+  CLI::App app;
+  app.add_option("-o,--output", output_file, "Output file csv");
+  app.add_option("-t,--type", t, "Matrix format to measure");
+  app.require_subcommand(/* min */ 1, /* max */ 1);
+
+  CLI::App *measure_one_cmd =
+      app.add_subcommand("single", "Run measurements on single matrix");
+  auto opt_if = measure_one_cmd->add_option("-i,--input", input_file,
+                                            "Input mtx file to measure");
+  auto opt_n = measure_one_cmd->add_option(
+      "-n", N, "Input matrix file for generated matrices");
+  auto opt_r = measure_one_cmd->add_option(
+      "-r,--rho", rho, "Density of the matrix for generated matrices");
+
+  opt_if->excludes(opt_n);
+  opt_if->excludes(opt_r);
+  opt_n->excludes(opt_if);
+  opt_r->excludes(opt_if);
+
+  CLI::App *scaling_cmd =
+      app.add_subcommand("scaling",
+                         "Run measurements on a single format with different "
+                         "matrix sizes and desinties");
+
+  CLI11_PARSE(app, argc, argv);
+  if(t > VCL_16_TRANSPOSE) {
+    return 1;
+  }
+
+  if (measure_one_cmd->parsed()) {
+    if (opt_if->parsed()) {
+      int N_x = 0, N_y = 0;
+      std::vector<int> row;
+      std::vector<int> col;
+      std::vector<double> vals;
+      mm_read_mtx_crd_vec(input_file.c_str(), &N_x, &N_y, row, col, vals);
+      assert(N_x == N_y && "graph class handles squeare matrices only");
+      std::vector<value> matrix = pack_coo<double>(row, col, vals);
+      std::ofstream myfile(output_file, std::ios_base::app);
+      GraphCOO graphCOO(N_x, matrix);
+      GraphCSR graphCSR(graphCOO, t);
+      Ellpack ellpack(graphCOO, t, false);
+      Ellpack transposedEllpack(graphCOO, t, true);
+      myfile << std::filesystem::path(input_file).stem() << ","
+             << ellpack.measure() << "," << transposedEllpack.measure() << ","
+             << graphCSR.measure() << "," << graphCSR.measureMKL() << "\n";
+    } else {
+      GraphCOO coo(N, rho);
+      GraphCSR csr(coo, t);
+      std::cout << csr.measure() << "\n";
+      std::cout << csr.measureMKL() << "\n";
+    }
+  } else if (scaling_cmd->parsed()) {
+    std::ofstream myfile("../runtimes/" + enumString[t] + ".csv");
     if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {
-      myfile << "Vertices,CSR w/o MKL,CSR w/ MKL\n";
-      for(int i = 10; i <= 17; ++i){
-        GraphCOO graphCOO(std::pow(2, i)); 
+      myfile << "Vertices, CSR w/o MKL, CSR w/ MKL\n";
+      for (int i = 10; i <= 17; ++i) {
+        GraphCOO graphCOO(static_cast<int>(std::pow(2, i)));
         GraphCSR graphCSR(graphCOO, t);
-        myfile<< std::pow(2,i) << ", "
-              << graphCSR.measure() << ", "
-              << graphCSR.measureMKL() << "\n";
+        myfile << std::pow(2, i) << ", " << graphCSR.measure() << ", "
+               << graphCSR.measureMKL() << "\n";
       }
     } else {
         myfile << "Vertices,Density,CSR w/o MKL,CSR w/ MKL,Ellpack,Transposed Ellpack,Bandwidth,Const\n";
         for(int i = 10; i <= 12; ++i){
           for(float j = 1; j <= 30; j++){
-            GraphCOO graphCOO(std::pow(2, i), j/1000); 
+            GraphCOO graphCOO(static_cast<int>(std::pow(2, i)), j/1000); 
             GraphCSR graphCSR(graphCOO, t);
             Ellpack ellpack(graphCOO, t, false);
             Ellpack transposedEllpack(graphCOO, t, true);
@@ -74,9 +115,9 @@ int main(int argc, const char *argv[]) {
           }
         }
     }
+  } else {
+    assert(false);
+    return 1;
   }
-
-  myfile.close();
-
   return 0;
 }

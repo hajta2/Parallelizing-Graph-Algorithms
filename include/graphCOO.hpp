@@ -112,7 +112,7 @@ public:
 
     }
 
-    void convertToELLPACK () {
+    void convertToELLPACK() {
         //finding the max length
         int maxLength = 0;
         int actualRow = 0;
@@ -148,6 +148,56 @@ public:
             }
             rowStart += rowLengths[i]; 
         }
+        neighbourMatrix = ellpack;
+        ellpackRowLength = maxLength;
+    }
+
+    void convertToTransposedELLPACK() {
+        //finding the max length
+        int maxLength = 0;
+        int actualRow = 0;
+        int counter = 0;
+        std::vector<int> rowLengths(NOVertices);
+        for (value const &v : neighbourMatrix) {
+            while (v.row != actualRow) {
+                actualRow++;
+                counter = 0;
+            }
+            rowLengths[actualRow]++;
+            counter++;
+            if (counter > maxLength) {
+                maxLength = counter;
+            }
+        }
+        //the new matrix padded filled w/ 0s, row`s length is maxLength
+        std::vector<value> ellpack;
+        for (int i = 0; i < NOVertices; ++i) {
+            for (int j = 0; j < maxLength; ++j) {
+                value val = {i, j, 0};
+                ellpack.push_back(val);
+            }
+        }
+        int rowStart = 0;
+        int rowEnd = 0;
+        for (int i = 0; i < NOVertices; ++i) {
+            rowEnd += rowLengths[i];
+            int offset = 0;
+            for (int j = rowStart; j < rowEnd; ++j) {
+                ellpack[i * maxLength + offset] = neighbourMatrix[j];
+                offset++;
+            }
+            rowStart += rowLengths[i]; 
+        }
+
+        for (value &v : ellpack) {
+            value transpose = {v.col, v.row, v.val};
+            v = transpose;
+        }
+        std::sort(ellpack.begin(), ellpack.end(), [](const auto &lhs, const auto &rhs) {
+            if (lhs.row != rhs.row) return lhs.row < rhs.row;
+            return lhs.col < rhs.col;
+        });
+
         neighbourMatrix = ellpack;
         ellpackRowLength = maxLength;
     }

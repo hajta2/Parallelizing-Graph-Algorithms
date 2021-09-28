@@ -30,23 +30,24 @@ int main(int argc, const char *argv[]) {
   std::vector<int> row;
   std::vector<int> col;
   std::vector<double> vals;
-  Type t = OPENMP;
+  Type t = VCL_16_ROW;
   std::ofstream myfile;
   if (argc > 1) {
     mm_read_mtx_crd_vec(argv[1], &N_x, &N_y, row, col, vals);
     std::vector<value> matrix = pack_coo<double>(row,col,vals);
+    myfile.open("/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/matricesWithELPACK.csv", std::ios_base::app);
     GraphCOO graphCOO(N_x, matrix);
     GraphCSR graphCSR(graphCOO, t);
     Ellpack ellpack(graphCOO, t, false);
     Ellpack transposedEllpack(graphCOO, t, true);
-    std::cout << ellpack.measure()  << ","
-              << transposedEllpack.measure() << ","
-              << graphCSR.measure() << ","
-              << graphCSR.measureMKL() << std::endl;
+    myfile  << ellpack.measure()  << ","
+            << transposedEllpack.measure() << ","
+            << graphCSR.measure() << ","
+            << graphCSR.measureMKL() << std::endl;
   } else{
     myfile.open("../runtimes/"+enumString[t]+".csv");
     if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {
-      myfile << "Vertices, CSR w/o MKL, CSR w/ MKL \n";
+      myfile << "Vertices,CSR w/o MKL,CSR w/ MKL\n";
       for(int i = 10; i <= 17; ++i){
         GraphCOO graphCOO(std::pow(2, i)); 
         GraphCSR graphCSR(graphCOO, t);
@@ -55,21 +56,21 @@ int main(int argc, const char *argv[]) {
               << graphCSR.measureMKL() << "\n";
       }
     } else {
-        //myfile << "Vertices,Density,Bandwidth, Const\n";
+        myfile << "Vertices,Density,CSR w/o MKL,CSR w/ MKL,Ellpack,Transposed Ellpack,Bandwidth,Const\n";
         for(int i = 10; i <= 12; ++i){
           for(float j = 1; j <= 30; j++){
             GraphCOO graphCOO(std::pow(2, i), j/1000); 
             GraphCSR graphCSR(graphCOO, t);
             Ellpack ellpack(graphCOO, t, false);
-            if (i == 10 && j == 1) {
-              graphCSR.measure();
-              graphCSR.measureMKL();
-            }
-            std::cout<< std::pow(2,i) << " " << j/10 << "\n";
-            std::cout<< std::pow(2,i) << ","
-                  << j/10 << "," 
-                  << graphCSR.measure()<< ","
-                  << ellpack.measure() << "\n";
+            Ellpack transposedEllpack(graphCOO, t, true);
+            std::cout << std::pow(2,i) << " " << j/10 << "\n";
+            std::cout << std::pow(2,i) << ","
+                      << j/10 << "," 
+                      << graphCSR.measure()<< ","
+                      << graphCSR.measureMKL()<< ","
+                      << ellpack.measure() << ","
+                      << transposedEllpack.measure() << ","
+                      << "68554.2" << "\n";
           }
         }
     }

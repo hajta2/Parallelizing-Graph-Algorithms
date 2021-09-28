@@ -48,7 +48,7 @@ private:
                         weightList[k] = weights[columns[i*rowLength+j+k]];
                     }
                     row.load(list);
-                    weight.load(list);
+                    weight.load(weightList);
                     multiplication = row * weight;
                 }
                 //if (values[i*rowLength + regularPart - 1]) continue;

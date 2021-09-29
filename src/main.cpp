@@ -26,6 +26,10 @@ std::vector<value> pack_coo(const std::vector<int> &row,
   return result;
 }
 
+std::ostream &operator <<(std::ostream &o, const measurement_result &r) {
+  return o << r.mean << ", " << r.confidence_interval_width;
+}
+
 int main(int argc, const char *argv[]) {
   std::string input_file = "";
   std::string output_file =
@@ -81,18 +85,18 @@ int main(int argc, const char *argv[]) {
       {
         auto [times, bw] = graphCSR.measure();
         myfile << times.mean << ", " << times.confidence_interval_width << ", "
-               << bw.mean << ", " << bw.confidence_interval_width << ", "
+               << bw.mean << ", " << bw.confidence_interval_width << ", ";
       }
       myfile << graphCSR.measureMKL() << ", ";
       {
         auto [times, bw] = ellpack.measure();
         myfile << times.mean << ", " << times.confidence_interval_width << ", "
-               << bw.mean << ", " << bw.confidence_interval_width << ", "
+               << bw.mean << ", " << bw.confidence_interval_width << ", ";
       }
       {
         auto [times, bw] = transposedEllpack.measure();
         myfile << times.mean << ", " << times.confidence_interval_width << ", "
-               << bw.mean << ", " << bw.confidence_interval_width << ", "
+               << bw.mean << ", " << bw.confidence_interval_width << ", ";
       }
       myfile << "\n";
     } else {
@@ -128,12 +132,21 @@ int main(int argc, const char *argv[]) {
             Ellpack transposedEllpack(graphCOO, t, true);
             std::cout << std::pow(2,i) << " " << j/10 << "\n";
             std::cout << std::pow(2,i) << ","
-                      << j/10 << "," 
-                      << graphCSR.measure()<< ","
-                      << graphCSR.measureMKL()<< ","
-                      << ellpack.measure() << ","
-                      << transposedEllpack.measure() << ","
-                      << "68554.2" << "\n";
+                      << j/10 << "," ;
+            {
+              auto [time, bw] = graphCSR.measure();
+              std::cout << time << ", " << bw << ", ";
+            }
+            std::cout << graphCSR.measureMKL() << ",";
+            {
+              auto [time, bw] = ellpack.measure();
+              std::cout << time << ", " << bw << ", ";
+            }
+            {
+              auto [time, bw] = transposedEllpack.measure();
+              std::cout << time << ", " << bw << ", ";
+            }
+            std::cout << "68554.2" << "\n";
           }
         }
     }

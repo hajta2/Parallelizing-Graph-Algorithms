@@ -40,12 +40,12 @@ int main(int argc, const char *argv[]) {
     GraphCSR graphCSR(graphCOO, t);
     Ellpack ellpack(graphCOO, t, false);
     Ellpack transposedEllpack(graphCOO, t, true);
-    myfile  << ellpack.measure()  << ","
+    std::cout  << ellpack.measure()  << ","
             << transposedEllpack.measure() << ","
             << graphCSR.measure() << ","
             << graphCSR.measureMKL() << std::endl;
   } else{
-    myfile.open("../runtimes/"+enumString[t]+".csv");
+    myfile.open("../runtimes/"+enumString[t]+"withEllpack.csv");
     if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {
       myfile << "Vertices,CSR w/o MKL,CSR w/ MKL\n";
       for(int i = 10; i <= 17; ++i){
@@ -57,7 +57,7 @@ int main(int argc, const char *argv[]) {
       }
     } else {
         myfile << "Vertices,Density,CSR w/o MKL,CSR w/ MKL,Ellpack,Transposed Ellpack,Bandwidth,Const\n";
-        for(int i = 10; i <= 12; ++i){
+        for(int i = 10; i <= 15; ++i){
           for(float j = 1; j <= 30; j++){
             GraphCOO graphCOO(std::pow(2, i), j/1000); 
             GraphCSR graphCSR(graphCOO, t);

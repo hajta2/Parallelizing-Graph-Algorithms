@@ -124,7 +124,7 @@ int main(int argc, const char *argv[]) {
       }
     } else {
         myfile << "Vertices,Density,CSR w/o MKL,CSR w/ MKL,Ellpack,Transposed Ellpack,Bandwidth,Const\n";
-        for(int i = 10; i <= 12; ++i){
+        for(int i = 10; i <= 15; ++i){
           for(float j = 1; j <= 30; j++){
             GraphCOO graphCOO(static_cast<int>(std::pow(2, i)), j/1000); 
             GraphCSR graphCSR(graphCOO, t);

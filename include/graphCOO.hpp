@@ -1,8 +1,9 @@
 #ifndef PARALLELIZING_GRAPH_ALGORITHMS_GRAPHCOORDINATE_HPP
 #define PARALLELIZING_GRAPH_ALGORITHMS_GRAPHCOORDINATE_HPP
 
-#include <cmath>
 #include <algorithm>
+#include <cmath>
+#include <random>
 
 #include "abstractGraph.hpp"
 
@@ -236,7 +237,12 @@ public:
         std::cout<<"\n";
     }
 
-    
+    double getBandWidth(double time_s) override {
+        double bytes = sizeof(float) * (weights.size() + 2 * NOVertices) +
+                       sizeof(int) * 2 * neighbourMatrix.size();
+
+        return bytes / 1000 / time_s;
+    }
 };
 
 #endif//PARALLELIZING_GRAPH_ALGORITHMS_GRAPHCOORDINATE_HPP

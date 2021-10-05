@@ -7,6 +7,7 @@
 #include <VCL2/vectorclass.h>
 #endif
 #include <cassert>
+#include "mkl_spblas.h"
 
 class GraphCSR : public AbstractGraph {
 private:
@@ -239,7 +240,7 @@ public:
 
     double bandWidth() {
 
-        double time = this -> measure();
+        double time = this -> measure().first.mean;
         double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
         //Gigabyte per second
         return (bytes / 1000) / time;
@@ -251,6 +252,12 @@ public:
         double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
         //Gigabyte per second
         return (bytes / 1000) / time;
+    }
+
+    double getBandWidth(double time_s) override {
+        double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
+        //Gigabyte per second
+        return bytes / 1000 / time_s;
     }
 
 };

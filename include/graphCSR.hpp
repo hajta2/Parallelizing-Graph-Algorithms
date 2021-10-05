@@ -124,7 +124,7 @@ private:
                         }
                         row.load(list);
                         weight.load(weightList);
-                        multiplication = row * weight;
+                        multiplication += row * weight;
                     }
                     for(int j = regularPart - 1; j < dataSize; ++j) {
                         res[i] += csrVal[start + j] * weights[csrColInd[start + j]];
@@ -186,7 +186,7 @@ private:
             }
         }
 #endif
-        flow = res;
+        //flow = res;
     }
 
 public:

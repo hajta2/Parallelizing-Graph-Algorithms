@@ -49,7 +49,7 @@ private:
                     }
                     row.load(list);
                     weight.load(weightList);
-                    multiplication = row * weight;
+                    multiplication += row * weight;
                 }
                 //if (values[i*rowLength + regularPart - 1]) continue;
                 for (int j = regularPart - 1; j < rowLength; ++j) {

@@ -30,20 +30,16 @@ int main(int argc, const char *argv[]) {
   std::vector<int> row;
   std::vector<int> col;
   std::vector<double> vals;
-  Type t = VCL_16_ROW;
+  Type t = VCL_16_MULTIROW;
   std::ofstream myfile;
   if (argc > 1) {
     mm_read_mtx_crd_vec(argv[1], &N_x, &N_y, row, col, vals);
     std::vector<value> matrix = pack_coo<double>(row,col,vals);
-    myfile.open("/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/matricesWithELPACK.csv", std::ios_base::app);
+    myfile.open("/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/matrices.csv", std::ios_base::app);
     GraphCOO graphCOO(N_x, matrix);
     GraphCSR graphCSR(graphCOO, t);
-    Ellpack ellpack(graphCOO, t, false);
-    Ellpack transposedEllpack(graphCOO, t, true);
-    std::cout  << ellpack.measure()  << ","
-            << transposedEllpack.measure() << ","
-            << graphCSR.measure() << ","
-            << graphCSR.measureMKL() << std::endl;
+    myfile  << graphCSR.measure() << ","
+            << graphCSR.measureMKL() << "\n";
   } else{
     myfile.open("../runtimes/"+enumString[t]+"withEllpack.csv");
     if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {

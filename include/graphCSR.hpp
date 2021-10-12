@@ -7,6 +7,7 @@
 #include <VCL2/vectorclass.h>
 #endif
 #include <cassert>
+#include "mkl_spblas.h"
 
 class GraphCSR : public AbstractGraph {
 private:
@@ -17,7 +18,10 @@ private:
     std::vector<float> flow;
     Type type;
     const int NOVertices;
+    int NONonZeros;
     int maxLength = 0;
+    int vectorLanes;
+    const int vectorRownum = 4; //number of rows that a vector calculate simultaneously
     struct matrix_descr descrA;
     sparse_matrix_t csrA;
 
@@ -121,6 +125,8 @@ private:
                         for(int k = 0; k < VECTOR_SIZE; ++k) {
                             list[k] = (csrVal[start + j + k]);
                             weightList[k] = weights[csrColInd[start + j + k]];
+                            // row.insert(k, csrVal[start + j + k]);
+                            // weight.insert(k, weights[csrColInd[start + j + k]]);
                         }
                         row.load(list);
                         weight.load(weightList);
@@ -184,6 +190,53 @@ private:
                     multiplication.store(res.data() + i);
                 }
             }
+        } else if ( type == VCL_16_MULTIROW ) {
+            #pragma omp parallel for
+            for (int i = 0; i < NOVertices - 1; i += vectorRownum) {
+                if (i + vectorRownum < NOVertices - 1) {
+                    std::vector<int> startIndices(vectorRownum);
+                    std::vector<int> endIndices(vectorRownum);
+                    std::vector<int> dataSizes(vectorRownum);
+                    std::vector<int> regularParts(vectorRownum);
+                    int maxRegularPart = 0;
+                    for(int j = 0; j < vectorRownum; ++j) {
+                        int start = csrRowPtr[i];
+                        int end = csrRowPtr[i + 1];
+                        int dataSize = end - start;
+                        int regularPart = dataSize & (-VECTOR_SIZE);
+                        if (regularPart > maxRegularPart) maxRegularPart = regularPart;
+                        startIndices.push_back(start);
+                        endIndices.push_back(end);
+                        dataSizes.push_back(dataSize);
+                        regularParts.push_back(regularPart);
+                    }
+
+                    Vec16f row, weight, multiplication;
+                    for(int j = 0; j < maxRegularPart; j+= VECTOR_SIZE/vectorRownum) {
+                        float list[VECTOR_SIZE];
+                        float weightList[VECTOR_SIZE];
+                        for (int k = 0; k < VECTOR_SIZE; k+=vectorRownum) {
+                            for (int l = 0; l < vectorRownum; l++) {
+                                if (regularParts[l] < j) {
+                                    list[k+l] = 0;
+                                    weightList[k+l] = 0;
+                                } else {
+                                    list[k+l]= csrVal[startIndices[l] + j + k/vectorRownum];
+                                    weightList[k+l]= weights[csrColInd[startIndices[l] + j + k/vectorRownum]];
+                                }
+                            }
+                        }
+                        for (int l = 0; l < vectorRownum; l++) {
+                            Vec4i index(l,l+4,l+8,l+12);
+                            Vec4f a = lookup<16>(index, list);
+                            Vec4f b = lookup<16>(index, weightList);
+                            res[i + l] += horizontal_add(a*b);
+                        }
+                    }
+                } else {
+                    
+                }
+            }
         }
 #endif
         //flow = res;
@@ -210,7 +263,8 @@ public:
             csrVal.push_back(v.val);
         }
         //NONonZeroElements
-        csrRowPtr.push_back(csrColInd.size());
+        NONonZeros = csrColInd.size();
+        csrRowPtr.push_back(NONonZeros);
         mkl_sparse_s_create_csr(&csrA, 
             SPARSE_INDEX_BASE_ZERO,
             NOVertices,
@@ -219,6 +273,8 @@ public:
             csrRowPtr.data() + 1,
             csrColInd.data(),
             csrVal.data());
+        
+        if (type == VCL_16_MULTIROW) vectorLanes = std::sqrt(NONonZeros/NOVertices);
     }
 
     ~GraphCSR() { mkl_sparse_destroy(csrA); }

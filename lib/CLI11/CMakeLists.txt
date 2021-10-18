@@ -1,0 +1,5 @@
+add_library(CLI11 INTERFACE)
+
+target_include_directories(CLI11 INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+set_target_properties(CLI11 PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES
+                                       $<TARGET_PROPERTY:CLI11,INTERFACE_INCLUDE_DIRECTORIES>)

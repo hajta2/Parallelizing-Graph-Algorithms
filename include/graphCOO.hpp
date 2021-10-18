@@ -20,14 +20,7 @@ private:
     std::vector<float> weights;
     const int NOVertices;
     int ellpackRowLength = 0;
-
-    void getWeightedFlow() override{
-        std::vector<float> res(NOVertices);
-
-        for (value v : neighbourMatrix) {
-            res[v.row] = v.val * weights[v.col];
-        }
-    }
+    std::vector<float> flow;
 
 public:
     GraphCOO(int vertices, std::vector<value> matrix) : NOVertices(vertices), neighbourMatrix(matrix) {
@@ -243,6 +236,20 @@ public:
 
         return bytes / 1000 / time_s;
     }
+
+    void getWeightedFlow() override{
+        std::vector<float> res(NOVertices);
+
+        for (value v : neighbourMatrix) {
+            res[v.row] = v.val * weights[v.col];
+        }
+        flow = res;
+    }
+
+    float *getResult() override {
+      return flow.data();
+    }
+
 };
 
 #endif//PARALLELIZING_GRAPH_ALGORITHMS_GRAPHCOORDINATE_HPP

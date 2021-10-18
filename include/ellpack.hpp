@@ -11,7 +11,9 @@ private:
     const int NOVertices;
     int rowLength;
     Type type;
+    std::vector<float> flow;
     
+public:
     void getWeightedFlow() override {
         std::vector<float> res(NOVertices);
         if (type == NAIVE) {
@@ -60,9 +62,9 @@ private:
             }
         }
 #endif
+      flow = res;
     }
 
-public:
     explicit Ellpack(GraphCOO graph, Type t, bool transposed) : NOVertices(graph.getNOVertices()), type(t) {
         if(transposed) {
             graph.convertToELLPACK();
@@ -94,6 +96,11 @@ public:
                      sizeof(int) * weights.size();
       return bytes / 1000 / time_s;
     }
+  
+  float *getResult() override {
+    return flow.data();
+  }
+
 };
 
 #endif//PARALLELIZING_GRAPH_ALGORITHMS_ELLPACK_HPP

@@ -17,7 +17,8 @@ enum Type {
     CONST_VCL16_ROW,
     CONST_VCL16_TRANSPOSE,
     VCL_16_ROW,
-    VCL_16_TRANSPOSE
+    VCL_16_TRANSPOSE,
+    VCL_MULTIROW
 };
 
 std::string enumString[] = {
@@ -26,13 +27,15 @@ std::string enumString[] = {
     "CONST_VCL16_ROW", 
     "CONST_VCL16_TRANSPOSE",
     "VCL_16_ROW",
-    "VCL_16_TRANSPOSE"
+    "VCL_16_TRANSPOSE",
+    "VCL_MULTIROW"
 };
 
 class AbstractGraph {
  public:
   virtual void getWeightedFlow() = 0;
   virtual double getBandWidth(double time_s) = 0;
+  virtual float* getResult() = 0;
 
   std::pair<measurement_result, measurement_result> measure() {
     using namespace boost::accumulators;

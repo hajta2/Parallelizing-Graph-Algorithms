@@ -9,20 +9,22 @@ private:
     std::vector<float> weights;
     std::vector<int> neighbourMatrix;
     const int NOVertices;
+    std::vector<float> flow;
 
+public:
     void getWeightedFlow() override {
-        std::vector<int> res(NOVertices);
+        std::vector<float> res(NOVertices);
 
         for (int i = 0; i < NOVertices; ++i) {
-            int sum = 0;
+            float sum = 0;
             for (int j = 0; j < NOVertices; ++j) {
                 sum += weights[i] * neighbourMatrix[i * NOVertices + j];
             }
             res[i] = sum;
         }
+        flow = res;
     }
 
-public:
     explicit GraphDense(GraphCOO& graph) : NOVertices(graph.getNOVertices()){
         std::vector<value> matrix = graph.getNeighbourMatrix();
         weights = graph.getWeights();
@@ -33,6 +35,10 @@ public:
             tmpNeigbourMatrix[v.row*NOVertices+v.col] = v.val;
         }
         neighbourMatrix=tmpNeigbourMatrix;
+    }
+
+    float *getResult() override {
+      return flow.data();
     }
 
 };

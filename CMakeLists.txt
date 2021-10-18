@@ -35,22 +35,34 @@ include(cmake/CompilerWarnings.cmake)
 set_project_warnings(project_warnings)
 
 add_subdirectory(lib/MMIO)
+add_subdirectory(lib/CLI11)
 file(GLOB SOURCES "src/*.cpp")
 add_executable(Parallelizing_Graph_Algorithms ${SOURCES})
 if(USE_VCL)
-    target_compile_definitions(Parallelizing_Graph_Algorithms PRIVATE USE_VCL_LIB)
+  target_compile_definitions(project_options INTERFACE USE_VCL_LIB)
 endif(USE_VCL)
 
 find_package(Boost REQUIRED)
+
+target_include_directories(project_options INTERFACE include)
+target_include_directories(project_options INTERFACE lib)
 
 target_link_libraries(
     Parallelizing_Graph_Algorithms
     OpenMP::OpenMP_CXX
     MMIO
+    CLI11
     project_options
     project_warnings
     Boost::boost)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/)
+
+option(ENABLE_TESTING "Build tests" OFF)
+if (ENABLE_TESTING)
+  enable_testing()
+  add_subdirectory(test)
+endif (ENABLE_TESTING)
+
 
 include_directories(include)
 include_directories(SYSTEM lib)

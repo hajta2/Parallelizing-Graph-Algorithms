@@ -9,6 +9,19 @@
 #include <cassert>
 #include "mkl_spblas.h"
 
+void csrMultiRow(const int NOVertices, const int *csrRowPtr,
+                 const int *csrColInd, const float *m, const float *v,
+                 float *flow) {
+#pragma omp parallel for
+  for (int i = 0; i < NOVertices - 1; ++i) {
+    int start = csrRowPtr[i];
+    int end = csrRowPtr[i + 1];
+    for (int j = start; j < end; ++j) {
+      flow[i] += m[j] * v[csrColInd[j]];
+    }
+  }
+}
+
 class GraphCSR : public AbstractGraph {
 private:
     std::vector<float> csrVal;
@@ -37,6 +50,7 @@ private:
         assert(result == SPARSE_STATUS_SUCCESS);
     }
     
+public:
     void getWeightedFlow() override {
         std::vector<float> res(NOVertices);
         if (type == NAIVE) {
@@ -57,6 +71,10 @@ private:
                     res[i] += csrVal[j] * weights[csrColInd[j]];
                 }
             }
+        } else if (type == VCL_MULTIROW) {
+          csrMultiRow(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                      csrVal.data(), weights.data(), res.data());
+
 #ifndef USE_VCL_LIB
         } else {
           assert(false && "App compiled without VCL suppoert");
@@ -190,7 +208,6 @@ private:
         flow = res;
     }
 
-public:
     explicit GraphCSR(GraphCOO& graph, Type t) : NOVertices(graph.getNOVertices()), type(t) {
         std::vector<value> matrix = graph.getNeighbourMatrix();
         weights = graph.getWeights();
@@ -258,6 +275,10 @@ public:
         double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
         //Gigabyte per second
         return bytes / 1000 / time_s;
+    }
+
+    float *getResult() override {
+      return flow.data();
     }
 
 };

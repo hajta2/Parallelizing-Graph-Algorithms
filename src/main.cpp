@@ -31,25 +31,6 @@ std::ostream &operator <<(std::ostream &o, const measurement_result &r) {
 }
 
 int main(int argc, const char *argv[]) {
-<<<<<<< HEAD
-  
-  int N_x = 0, N_y = 0;
-  std::vector<int> row;
-  std::vector<int> col;
-  std::vector<double> vals;
-  Type t = VCL_16_MULTIROW;
-  std::ofstream myfile;
-  if (argc > 1) {
-    mm_read_mtx_crd_vec(argv[1], &N_x, &N_y, row, col, vals);
-    std::vector<value> matrix = pack_coo<double>(row,col,vals);
-    myfile.open("/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/matrices.csv", std::ios_base::app);
-    GraphCOO graphCOO(N_x, matrix);
-    GraphCSR graphCSR(graphCOO, t);
-    myfile  << graphCSR.measure() << ","
-            << graphCSR.measureMKL() << "\n";
-  } else{
-    myfile.open("../runtimes/"+enumString[t]+"withEllpack.csv");
-=======
   std::string input_file = "";
   std::string output_file =
       "/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/matrices.csv";
@@ -130,7 +111,6 @@ int main(int argc, const char *argv[]) {
     }
   } else if (scaling_cmd->parsed()) {
     std::ofstream myfile("../runtimes/" + enumString[t] + ".csv");
->>>>>>> feature/confidence_interval
     if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {
       myfile << "Vertices, CSR w/o MKL, CI w 0.95, BW, CI w 0.95, CSR w/ MKL\n";
       for (int i = 10; i <= 17; ++i) {

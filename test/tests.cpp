@@ -39,3 +39,16 @@ TEST_CASE("test csr multirow on small", "[small]") {
 
   require_allclose(graphRef.getResult(), graphCSR.getResult(), N);
 }
+
+TEST_CASE("test csr multirow on small odd", "[small]") {
+  constexpr size_t N = 9;
+  constexpr double density = 0.5;
+  GraphCOO graphCOO(N, density);
+  GraphCSR graphCSR(graphCOO, VCL_MULTIROW);
+  GraphCSR graphRef(graphCOO, OPENMP);
+
+  graphCSR.getWeightedFlow();
+  graphRef.getWeightedFlow();
+
+  require_allclose(graphRef.getResult(), graphCSR.getResult(), N);
+}

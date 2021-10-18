@@ -8,16 +8,80 @@
 #endif
 #include <cassert>
 #include "mkl_spblas.h"
+#include <limits>
 
 void csrMultiRow(const int NOVertices, const int *csrRowPtr,
                  const int *csrColInd, const float *m, const float *v,
                  float *flow) {
 #pragma omp parallel for
-  for (int i = 0; i < NOVertices - 1; ++i) {
-    int start = csrRowPtr[i];
-    int end = csrRowPtr[i + 1];
-    for (int j = start; j < end; ++j) {
-      flow[i] += m[j] * v[csrColInd[j]];
+  for (int i = 0; i < NOVertices; i += 2) {
+    if (i + 1 == NOVertices) {
+      Vec16i offs(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+      int start = csrRowPtr[i];
+      int end = csrRowPtr[i + 1];
+      // Number of elements in the row
+      int dataSize = end - start;
+      if (dataSize != 0) {
+        // rounding down to the nearest lower multiple of VECTOR_SIZE
+        int regularPart = dataSize & (-VECTOR_SIZE);
+        // initalize the vectors and the data
+        Vec16f row, weight, multiplication = 0;
+        Vec16i index = 0;
+        for (int j = 0; j < regularPart; j += VECTOR_SIZE) {
+          row.load(m + start + j);
+          index.load(csrColInd + start + j);
+          weight = lookup<std::numeric_limits<int>::max()>(index, v);
+          multiplication += row * weight;
+        }
+        if (regularPart < dataSize) {
+          row.load_partial(dataSize - regularPart, m + start + regularPart);
+          index.load_partial(dataSize - regularPart,
+                             csrColInd + start + regularPart);
+          weight = lookup<std::numeric_limits<int>::max()>(index, v);
+          multiplication =
+              if_add(end - start + offs > 0, multiplication, weight * row);
+        }
+        // add the multiplication to res[i]
+        flow[i] += horizontal_add(multiplication);
+      }
+    } else {
+      Vec8i offs(0, 1, 2, 3, 4, 5, 6, 7);
+      int start = csrRowPtr[i];
+      int start2 = csrRowPtr[i + 1];
+      int end = csrRowPtr[i + 2];
+
+      Vec16f res = 0;
+      for (int j = 0; j + start < start2 || j + start2 < end; j += 8) {
+        int ind1 = start + j;
+        int ind2 = start2 + j;
+        Vec8f low, high;
+        Vec8i lindex, hindex;
+        if (start2 - ind1 >= 8) {
+          low.load(m + ind1);
+          lindex.load(csrColInd + ind1);
+        } else {
+          low.load_partial(std::max(0, start2 - ind1), m + ind1);
+          lindex.load_partial(std::max(0, start2 - ind1), csrColInd + ind1);
+        }
+        if (end - ind2 >= 8) {
+          high.load(m + ind2);
+          hindex.load(csrColInd + ind2);
+        } else {
+          high.load_partial(std::max(0, end - ind2), m + ind2);
+          hindex.load_partial(std::max(0, end - ind2), csrColInd + ind2);
+        }
+        Vec16f row(low, high);
+
+        Vec16i index_weights(lindex, hindex);
+        Vec16f values =
+            lookup<std::numeric_limits<int>::max()>(index_weights, v);
+
+        res = if_add(
+            Vec16i(Vec8i(start2 - ind1) + offs, Vec8i(end - ind2) + offs) > 0,
+            res, values * row);
+      }
+      flow[i] = horizontal_add(res.get_low());
+      flow[i + 1] = horizontal_add(res.get_high());
     }
   }
 }
@@ -54,7 +118,7 @@ public:
     void getWeightedFlow() override {
         std::vector<float> res(NOVertices);
         if (type == NAIVE) {
-            for (int i = 0; i < NOVertices-1; ++i) {
+            for (int i = 0; i < NOVertices; ++i) {
                 int start = csrRowPtr[i];
                 int end = csrRowPtr[i + 1];
                 for (int j = start; j < end; ++j) {
@@ -64,7 +128,7 @@ public:
         //Calculating the matrix-vector multiplication w/ OMP 
         } else if (type == OPENMP){
             #pragma omp parallel for
-            for (int i = 0; i < NOVertices-1; ++i) {
+            for (int i = 0; i < NOVertices; ++i) {
                 int start = csrRowPtr[i];
                 int end = csrRowPtr[i + 1];
                 for (int j = start; j < end; ++j) {

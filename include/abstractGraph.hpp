@@ -6,26 +6,15 @@
 #include <iostream>
 #include <random>
 #include <vector>
-#include "mkl_spblas.h"
 
 enum Type {
     NAIVE,
-    OPENMP,
-    CONST_VCL16_ROW,
-    CONST_VCL16_TRANSPOSE,
-    VCL_16_MULTIROW,
-    VCL_16_ROW,
-    VCL_16_TRANSPOSE
+    OPENMP
 };
 
 std::string enumString[] = {
     "NAIVE",
-    "OPENMP", 
-    "CONST_VCL16_ROW", 
-    "CONST_VCL16_TRANSPOSE",
-    "VCL_16_MULTIROW",
-    "VCL_16_ROW",
-    "VCL_16_TRANSPOSE"
+    "OPENMP"
 };
 
 class AbstractGraph {

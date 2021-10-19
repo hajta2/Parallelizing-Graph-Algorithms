@@ -52,4 +52,15 @@ void mm_read_mtx_crd_vec(const char *fname, int *M, int *N,
   free(vals);
 }
 
+void mm_write_mtx_vec(const char *fname, int M, int N, int nz,
+                         std::vector<int> &row, std::vector<int> &col,
+                         std::vector<double> &val, bool is_symmetric = true) {
+  MM_typecode code = {'M', 'C', 'R', 'S'};
+  if(!is_symmetric) {
+    code[3] = 'G';
+  }
+
+  mm_write_mtx_crd(fname, M, N, nz, row.data(), col.data(), val.data(), code);
+}
+
 #endif /* ifndef MMIO_CPP_INCLUDED */

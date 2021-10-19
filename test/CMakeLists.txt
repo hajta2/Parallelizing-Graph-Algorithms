@@ -15,6 +15,16 @@ target_link_libraries(
     Boost::boost)
 
 add_test(
-    NAME tests 
+    NAME tests
     COMMAND tests
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_executable(gen_mat generate_matrix.cpp)
+
+target_link_libraries(
+    gen_mat
+    OpenMP::OpenMP_CXX
+    MMIO
+    CLI11
+    project_options
+    project_warnings)

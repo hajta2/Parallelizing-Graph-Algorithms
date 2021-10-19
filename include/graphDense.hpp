@@ -41,6 +41,13 @@ public:
       return flow.data();
     }
 
+    double getBandWidth(double time_s) override {
+      double bytes = sizeof(float) * (weights.size() + neighbourMatrix.size() +
+                                      2 * flow.size());
+      // Gigabyte per second
+      return bytes / 1e9 / time_s;
+    }
+
 };
 
 #endif//PARALLELIZING_GRAPH_ALGORITHMS_GRAPHDENSE_HPP

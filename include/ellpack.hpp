@@ -94,7 +94,7 @@ public:
     double getBandWidth(double time_s) override {
       double bytes = sizeof(float) * (weights.size() + 2 * NOVertices) +
                      sizeof(int) * weights.size();
-      return bytes / 1000 / time_s;
+      return bytes / 1e9 / time_s;
     }
   
   float *getResult() override {

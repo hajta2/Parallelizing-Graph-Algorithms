@@ -336,9 +336,10 @@ public:
     }
 
     double getBandWidth(double time_s) override {
-        double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
-        //Gigabyte per second
-        return bytes / 1000 / time_s;
+      double bytes =
+          sizeof(float) * (weights.size() + csrVal.size() + 2 * flow.size());
+      // Gigabyte per second
+      return bytes / 1e9 / time_s;
     }
 
     float *getResult() override {

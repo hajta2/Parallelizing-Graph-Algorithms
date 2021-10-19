@@ -38,6 +38,7 @@ class AbstractGraph {
   virtual float* getResult() = 0;
 
   std::pair<measurement_result, measurement_result> measure() {
+    constexpr double SECONDS_TO_US = 1e9;
     using namespace boost::accumulators;
     accumulator_set<double,
                     stats<tag::count, tag::mean, tag::median, tag::variance>>
@@ -57,8 +58,8 @@ class AbstractGraph {
       for (int n = 0; n < amortizationCount; ++n) {
         getWeightedFlow();
       }
-      double time = timer.elapsed() * 1e3 / amortizationCount;
-      acc_time(time);
+      double time = timer.elapsed() / amortizationCount;
+      acc_time(time * SECONDS_TO_US);
       acc_bw(getBandWidth(time));
     }
     {
@@ -78,8 +79,8 @@ class AbstractGraph {
       for (int n = 0; n < amortizationCount; ++n) {
         getWeightedFlow();
       }
-      double time = timer.elapsed() * 1e3 / amortizationCount;
-      acc_time(time);
+      double time = timer.elapsed() / amortizationCount;
+      acc_time(time * SECONDS_TO_US);
       acc_bw(getBandWidth(time));
     }
     boost::math::students_t dist(sampleSize - 1);

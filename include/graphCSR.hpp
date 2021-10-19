@@ -21,7 +21,7 @@ private:
     int NONonZeros;
     int maxLength = 0;
     int vectorLanes;
-    const int vectorRownum = 4; //number of rows that a vector calculate simultaneously
+    const int vectorRownum = 2; //number of rows that a vector calculate simultaneously
     struct matrix_descr descrA;
     sparse_matrix_t csrA;
 
@@ -191,52 +191,6 @@ private:
                 }
             }
         } else if ( type == VCL_16_MULTIROW ) {
-            #pragma omp parallel for
-            for (int i = 0; i < NOVertices - 1; i += vectorRownum) {
-                if (i + vectorRownum < NOVertices - 1) {
-                    std::vector<int> startIndices(vectorRownum);
-                    std::vector<int> endIndices(vectorRownum);
-                    std::vector<int> dataSizes(vectorRownum);
-                    std::vector<int> regularParts(vectorRownum);
-                    int maxRegularPart = 0;
-                    for(int j = 0; j < vectorRownum; ++j) {
-                        int start = csrRowPtr[i];
-                        int end = csrRowPtr[i + 1];
-                        int dataSize = end - start;
-                        int regularPart = dataSize & (-VECTOR_SIZE);
-                        if (regularPart > maxRegularPart) maxRegularPart = regularPart;
-                        startIndices.push_back(start);
-                        endIndices.push_back(end);
-                        dataSizes.push_back(dataSize);
-                        regularParts.push_back(regularPart);
-                    }
-
-                    Vec16f row, weight, multiplication;
-                    for(int j = 0; j < maxRegularPart; j+= VECTOR_SIZE/vectorRownum) {
-                        float list[VECTOR_SIZE];
-                        float weightList[VECTOR_SIZE];
-                        for (int k = 0; k < VECTOR_SIZE; k+=vectorRownum) {
-                            for (int l = 0; l < vectorRownum; l++) {
-                                if (regularParts[l] < j) {
-                                    list[k+l] = 0;
-                                    weightList[k+l] = 0;
-                                } else {
-                                    list[k+l]= csrVal[startIndices[l] + j + k/vectorRownum];
-                                    weightList[k+l]= weights[csrColInd[startIndices[l] + j + k/vectorRownum]];
-                                }
-                            }
-                        }
-                        for (int l = 0; l < vectorRownum; l++) {
-                            Vec4i index(l,l+4,l+8,l+12);
-                            Vec4f a = lookup<16>(index, list);
-                            Vec4f b = lookup<16>(index, weightList);
-                            res[i + l] += horizontal_add(a*b);
-                        }
-                    }
-                } else {
-                    
-                }
-            }
         }
 #endif
         //flow = res;

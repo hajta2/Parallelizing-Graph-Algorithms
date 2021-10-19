@@ -85,7 +85,7 @@ int main(int argc, const char *argv[]) {
       myfile << std::filesystem::path(input_file).stem().string() << ", ";
       {
         auto [time, bw] = graphCSR.measure();
-        myfile << time << ", " << bw << ", ";
+        myfile << t << ", " << time << ", " << bw << ", ";
       }
       myfile << graphCSR.measureMKL() << ", ";
       // {
@@ -100,10 +100,18 @@ int main(int argc, const char *argv[]) {
     } else {
       GraphCOO coo(N, rho);
       GraphCSR csr(coo, t);
-      auto [time, bw] = csr.measure();
-      std::cout << "Runtime: " << time << "\n";
-      std::cout << "Bandwidth: " << bw << "\n";
-      std::cout << csr.measureMKL() << "\n";
+      {
+        auto [time, bw] = csr.measure();
+        std::cout << t << "\n";
+        std::cout << "Runtime: " << time << "\n";
+        std::cout << "Bandwidth: " << bw << "\n";
+        std::cout << "Bandwidth: " << csr.bandWidth() << "\n";
+      }
+      {
+        auto [time, bw] = csr.measureMKL_and_bw();
+        std::cout << "MKL t: " << time << "\n";
+        std::cout << "MKL b: " << bw << "\n";
+      }
     }
   } else if (scaling_cmd->parsed()) {
     std::ofstream myfile("../runtimes/" + enumString[t] + ".csv");

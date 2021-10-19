@@ -88,21 +88,21 @@ int main(int argc, const char *argv[]) {
         myfile << time << ", " << bw << ", ";
       }
       myfile << graphCSR.measureMKL() << ", ";
-      {
-        auto [time, bw] = ellpack.measure();
-        myfile << time << ", " << bw << ", ";
-      }
-      {
-        auto [time, bw] = transposedEllpack.measure();
-        myfile << time << ", " << bw << ", ";
-      }
+      // {
+      //   auto [time, bw] = ellpack.measure();
+      //   myfile << time << ", " << bw << ", ";
+      // }
+      // {
+      //   auto [time, bw] = transposedEllpack.measure();
+      //   myfile << time << ", " << bw << ", ";
+      // }
       myfile << "\n";
     } else {
       GraphCOO coo(N, rho);
       GraphCSR csr(coo, t);
       auto [time, bw] = csr.measure();
       std::cout << "Runtime: " << time << "\n";
-      std::cout << "Bandwidth: " << bw "\n";
+      std::cout << "Bandwidth: " << bw << "\n";
       std::cout << csr.measureMKL() << "\n";
     }
   } else if (scaling_cmd->parsed()) {

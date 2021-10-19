@@ -45,7 +45,7 @@ endif(USE_VCL)
 find_package(Boost REQUIRED)
 
 target_include_directories(project_options INTERFACE include)
-target_include_directories(project_options INTERFACE lib)
+target_include_directories(project_options SYSTEM INTERFACE lib)
 
 target_link_libraries(
     Parallelizing_Graph_Algorithms

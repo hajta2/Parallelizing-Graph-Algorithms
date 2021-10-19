@@ -2,6 +2,9 @@
 #define PARALLELIZING_GRAPH_ALGORITHMS_ELLPACK_HPP
 
 #include "graphCOO.hpp"
+#ifdef USE_VCL_LIB
+#include <VCL2/vectorclass.h>
+#endif
 
 class Ellpack : public AbstractGraph {
 private:

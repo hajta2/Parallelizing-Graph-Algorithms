@@ -25,7 +25,7 @@ private:
             0.0f,
             flow.data()
         );
-        assert(result == ARMPL_STATUS_SUCCESS)
+        assert(result == ARMPL_STATUS_SUCCESS);
     }
 
     void naiveFlow() {

@@ -41,6 +41,8 @@ if(USE_VCL)
     target_compile_definitions(Parallelizing_Graph_Algorithms PRIVATE USE_VCL_LIB)
 endif(USE_VCL)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
+
 find_package(Boost REQUIRED)
 
 target_link_libraries(

@@ -49,7 +49,7 @@ int main(int argc, const char *argv[]) {
   auto opt_if = measure_one_cmd->add_option("-i,--input", input_file,
                                             "Input mtx file to measure");
   auto opt_n = measure_one_cmd->add_option(
-      "-n", N, "Input matrix file for generated matrices");
+      "-n", N, "Input matrix size for generated matrices");
   auto opt_r = measure_one_cmd->add_option(
       "-r,--rho", rho, "Density of the matrix for generated matrices");
 
@@ -87,7 +87,11 @@ int main(int argc, const char *argv[]) {
         auto [time, bw] = graphCSR.measure();
         myfile << t << ", " << time << ", " << bw << ", ";
       }
-      myfile << graphCSR.measureMKL() << ", ";
+      {
+        auto [time, bw] = graphCSR.measureMKL_and_bw();
+        myfile <<  time << ", " << bw << ", ";
+      }
+      // myfile << graphCSR.measureMKL() << ", ";
       // {
       //   auto [time, bw] = ellpack.measure();
       //   myfile << time << ", " << bw << ", ";
@@ -114,7 +118,7 @@ int main(int argc, const char *argv[]) {
       }
     }
   } else if (scaling_cmd->parsed()) {
-    std::ofstream myfile("../runtimes/" + enumString[t] + ".csv");
+    std::ofstream myfile(output_file);
     if (t == CONST_VCL16_ROW || t == CONST_VCL16_TRANSPOSE) {
       myfile << "Vertices, CSR w/o MKL, CI w 0.95, BW, CI w 0.95, CSR w/ MKL\n";
       for (int i = 10; i <= 17; ++i) {

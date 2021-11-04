@@ -42,6 +42,8 @@ if(USE_VCL)
   target_compile_definitions(project_options INTERFACE USE_VCL_LIB)
 endif(USE_VCL)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
+
 find_package(Boost REQUIRED)
 
 target_include_directories(project_options INTERFACE include)

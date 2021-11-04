@@ -1,7 +1,6 @@
 #include <limits>
 
 #include "catch.hpp"
-
 #include "graphCOO.hpp"
 #include "graphCSR.hpp"
 
@@ -19,9 +18,10 @@ void require_allclose(const Float *expected, const Float *actual, size_t N) {
     CAPTURE(actual[i]);
     Float min_val = std::min(std::abs(expected[i]), std::abs(actual[i]));
     const double tolerance =
-        abs_tolerance<Float> + rel_tolerance<Float> * min_val;
+        abs_tolerance<Float> +
+        rel_tolerance<Float> * static_cast<double>(min_val);
     CAPTURE(tolerance);
-    const double diff = std::abs(static_cast<double>(expected[i]) - actual[i]);
+    const double diff = std::abs(static_cast<double>(expected[i] - actual[i]));
     CAPTURE(diff);
     REQUIRE(diff <= tolerance);
   }

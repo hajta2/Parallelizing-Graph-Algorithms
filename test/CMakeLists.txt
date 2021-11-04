@@ -28,3 +28,14 @@ target_link_libraries(
     CLI11
     project_options
     project_warnings)
+
+add_executable(run_csr perf_compare.cpp)
+
+target_link_libraries(
+    run_csr
+    OpenMP::OpenMP_CXX
+    MMIO
+    CLI11
+    project_options
+    project_warnings
+    Boost::boost)

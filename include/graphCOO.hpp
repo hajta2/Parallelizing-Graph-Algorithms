@@ -12,7 +12,7 @@ struct value {
     float val;
 };
 
-const int VECTOR_SIZE = 16;
+constexpr int VECTOR_SIZE = 16;
 
 class GraphCOO : public AbstractGraph {
 private:
@@ -23,10 +23,10 @@ private:
     std::vector<float> flow;
 
 public:
-    GraphCOO(int vertices, std::vector<value> matrix) : NOVertices(vertices), neighbourMatrix(matrix) {
+    GraphCOO(int vertices, std::vector<value> matrix) : neighbourMatrix(matrix),  NOVertices(vertices) {
         std::random_device rd;
         std::mt19937_64 gen(rd());
-        std::uniform_int_distribution<int> dis(0, vertices - 1);
+        std::uniform_real_distribution<float> dis(0, 1);
         std::vector<float> tmpWeights(vertices);
 
         for (int i = 0; i < vertices; ++i) {

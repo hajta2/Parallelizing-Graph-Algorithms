@@ -47,7 +47,7 @@ std::pair<measurement_result, measurement_result> measure_func(
   accumulator_set<double,
                   stats<tag::count, tag::mean, tag::median, tag::variance>>
       acc_bw;
-  constexpr int pilotCount = 10;
+  constexpr int pilotCount = 100;
   int sampleSize;
   constexpr double significance_level = 0.05;
 

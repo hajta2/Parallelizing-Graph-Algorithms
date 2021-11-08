@@ -7,7 +7,77 @@
 #include <VCL2/vectorclass.h>
 #endif
 #include <cassert>
+#include <limits>
 #include "mkl_spblas.h"
+
+inline void csrMultiRow(const int NOVertices, const int *csrRowPtr,
+                        const int *csrColInd, const float *m, const float *v,
+                        float *flow) {
+#pragma omp parallel for
+  for (int i = 0; i < NOVertices; i += 2) {
+    if (i + 1 == NOVertices) {
+      int start = csrRowPtr[i];
+      int end = csrRowPtr[i + 1];
+      // Number of elements in the row
+      int dataSize = end - start;
+      if (dataSize != 0) {
+        // rounding down to the nearest lower multiple of VECTOR_SIZE
+        int regularPart = dataSize & (-VECTOR_SIZE);
+        // initalize the vectors and the data
+        Vec16f row, weight, multiplication = 0;
+        Vec16i index = 0;
+        for (int j = 0; j < regularPart; j += VECTOR_SIZE) {
+          row.load(m + start + j);
+          index.load(csrColInd + start + j);
+          weight = lookup<std::numeric_limits<int>::max()>(index, v);
+          multiplication += row * weight;
+        }
+        row.load_partial(dataSize - regularPart, m + start + regularPart);
+        index.load_partial(dataSize - regularPart,
+                           csrColInd + start + regularPart);
+        weight = lookup<std::numeric_limits<int>::max()>(index, v);
+        multiplication += weight * row;
+        flow[i] += horizontal_add(multiplication);
+      }
+    } else {
+      int start = csrRowPtr[i];
+      int start2 = csrRowPtr[i + 1];
+      int end = csrRowPtr[i + 2];
+
+      Vec16f res = 0;
+      for (int j = 0; j + start < start2 || j + start2 < end; j += 8) {
+        int ind1 = start + j;
+        int ind2 = start2 + j;
+        Vec8f low, high;
+        Vec8i lindex, hindex;
+        if (start2 - ind1 >= 8) {
+          low.load(m + ind1);
+          lindex.load(csrColInd + ind1);
+        } else {
+          low.load_partial(std::max(0, start2 - ind1), m + ind1);
+          lindex.load_partial(std::max(0, start2 - ind1), csrColInd + ind1);
+        }
+        if (end - ind2 >= 8) {
+          high.load(m + ind2);
+          hindex.load(csrColInd + ind2);
+        } else {
+          high.load_partial(std::max(0, end - ind2), m + ind2);
+          hindex.load_partial(std::max(0, end - ind2), csrColInd + ind2);
+        }
+
+        Vec16f row(low, high);
+
+        Vec16i index_weights(lindex, hindex);
+        Vec16f values =
+            lookup<std::numeric_limits<int>::max()>(index_weights, v);
+
+        res += values * row;
+      }
+      flow[i] = horizontal_add(res.get_low());
+      flow[i + 1] = horizontal_add(res.get_high());
+    }
+  }
+}
 
 class GraphCSR : public AbstractGraph {
 private:
@@ -66,7 +136,7 @@ private:
         }
 #else
         } else if(type == CONST_VCL16_ROW) {
-            for (int i = 0; i < NOVertices - 1; ++i) {
+            for (int i = 0; i < NOVertices; ++i) {
                 int start = csrRowPtr[i];
                 int end = csrRowPtr[i + 1];
                 //every row size should be 16
@@ -109,7 +179,7 @@ private:
             }
         } else if (type == VCL_16_ROW) {
             #pragma omp parallel for
-            for(int i = 0; i < NOVertices - 1; ++i) {
+            for(int i = 0; i < NOVertices; ++i) {
                 int start = csrRowPtr[i];
                 int end = csrRowPtr[i + 1];
                 //Number of elements in the row
@@ -191,13 +261,15 @@ private:
                 }
             }
         } else if ( type == VCL_16_MULTIROW ) {
+          csrMultiRow(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                      csrVal.data(), weights.data(), res.data());
         }
 #endif
-        //flow = res;
+        flow = res;
     }
 
 public:
-    explicit GraphCSR(GraphCOO& graph, Type t) : NOVertices(graph.getNOVertices()), type(t) {
+    explicit GraphCSR(GraphCOO& graph, Type t) : NOVertices(graph.getNOVertices()), type(t), flow(NOVertices) {
         std::vector<value> matrix = graph.getNeighbourMatrix();
         weights = graph.getWeights();
         int actualRow = 0;
@@ -266,7 +338,7 @@ public:
     double getBandWidth(double time_s) override {
         double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
         //Gigabyte per second
-        return bytes / 1000 / time_s;
+        return bytes * 1e-9 / time_s;
     }
 
 };

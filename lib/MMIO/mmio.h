@@ -9,6 +9,8 @@
 #ifndef MM_IO_H
 #define MM_IO_H
 
+#include <stdio.h>
+
 #define MM_MAX_LINE_LENGTH 1025
 #define MatrixMarketBanner "%%MatrixMarket"
 #define MM_MAX_TOKEN_LENGTH 64
@@ -25,6 +27,8 @@ int mm_write_banner(FILE *f, MM_typecode matcode);
 int mm_write_mtx_crd_size(FILE *f, int M, int N, int nz);
 int mm_write_mtx_array_size(FILE *f, int M, int N);
 
+int mm_read_mtx_crd(char *fname, int *M, int *N, int *nz, int **I_, int **J, 
+        double **val, MM_typecode *matcode);
 
 /********************* MM_typecode query fucntions ***************************/
 
@@ -118,18 +122,15 @@ int mm_is_valid(MM_typecode matcode);		/* too complex for a macro */
 
 /*  high level routines */
 
-int mm_write_mtx_crd(char fname[], int M, int N, int nz, int I[], int J[],
+int mm_write_mtx_crd(char fname[], int M, int N, int nz, int _I[], int J[],
 		 double val[], MM_typecode matcode);
-int mm_read_mtx_crd_data(FILE *f, int M, int N, int nz, int I[], int J[],
+int mm_read_mtx_crd_data(FILE *f, int M, int N, int nz, int _I[], int J[],
 		double val[], MM_typecode matcode);
-int mm_read_mtx_crd_entry(FILE *f, int *I, int *J, double *real, double *img,
+int mm_read_mtx_crd_entry(FILE *f, int *_I, int *J, double *real, double *img,
 			MM_typecode matcode);
 
 int mm_read_unsymmetric_sparse(const char *fname, int *M_, int *N_, int *nz_,
                 double **val_, int **I_, int **J_);
-
-int mm_read_mtx_crd(const char *fname, int *M, int *N, int *nz, int **I, int **J, 
-        double **val, MM_typecode *matcode);
 
 
 

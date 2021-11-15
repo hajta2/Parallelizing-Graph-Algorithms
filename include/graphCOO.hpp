@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <algorithm>
+#include <random>
 
 #include "abstractGraph.hpp"
 
@@ -16,14 +17,7 @@ private:
     std::vector<value> neighbourMatrix;
     std::vector<float> weights;
     const int NOVertices;
-
-    void getWeightedFlow() override{
-        std::vector<float> res(NOVertices);
-
-        for (value v : neighbourMatrix) {
-            res[v.row] = v.val * weights[v.col];
-        }
-    }
+    std::vector<float> flow;
 
 public:
     GraphCOO(int vertices, std::vector<value> matrix) : NOVertices(vertices), neighbourMatrix(matrix) {
@@ -101,6 +95,26 @@ public:
             std::cout<< weights[i] << " ";
         }
         std::cout<<"\n";
+    }
+
+    double getBandWidth(double time_s) override {
+        double bytes = sizeof(float) * (weights.size() + 2 * NOVertices) +
+                       sizeof(int) * 2 * neighbourMatrix.size();
+
+        return bytes / 1000 / time_s;
+    }
+
+    void getWeightedFlow() override{
+        std::vector<float> res(NOVertices);
+
+        for (value v : neighbourMatrix) {
+            res[v.row] = v.val * weights[v.col];
+        }
+        flow = res;
+    }
+
+    float *getResult() override {
+      return flow.data();
     }
 
     

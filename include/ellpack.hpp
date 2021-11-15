@@ -2,6 +2,9 @@
 #define PARALLELIZING_GRAPH_ALGORITHMS_ELLPACK_HPP
 
 #include "graphCOO.hpp"
+#ifdef USE_VCL_LIB
+#include <VCL2/vectorclass.h>
+#endif
 
 class Ellpack : public AbstractGraph {
 private:
@@ -11,7 +14,9 @@ private:
     const int NOVertices;
     int rowLength;
     Type type;
+    std::vector<float> flow;
     
+public:
     void getWeightedFlow() override {
         std::vector<float> res(NOVertices);
         if (type == NAIVE) {
@@ -36,7 +41,7 @@ private:
             //rounding down to the nearest lower multiple of VECTOR_SIZE
             int regularPart = rowLength & (-VECTOR_SIZE);
             #pragma omp parallel for
-            for (int i = 0; i < NOVertices - 1; ++i) {
+            for (int i = 0; i < NOVertices; ++i) {
                 Vec16f row, weight, multiplication;
                 //if (values[i * rowLength] == 0) continue;
                 for (int j = 0; j < regularPart; j += VECTOR_SIZE) {
@@ -49,7 +54,7 @@ private:
                     }
                     row.load(list);
                     weight.load(weightList);
-                    multiplication += row * weight;
+                    multiplication = row * weight;
                 }
                 //if (values[i*rowLength + regularPart - 1]) continue;
                 for (int j = regularPart - 1; j < rowLength; ++j) {
@@ -60,9 +65,9 @@ private:
             }
         }
 #endif
+      flow = res;
     }
 
-public:
     explicit Ellpack(GraphCOO graph, Type t, bool transposed) : NOVertices(graph.getNOVertices()), type(t) {
         if(transposed) {
             graph.convertToELLPACK();
@@ -92,8 +97,13 @@ public:
     double getBandWidth(double time_s) override {
       double bytes = sizeof(float) * (weights.size() + 2 * NOVertices) +
                      sizeof(int) * weights.size();
-      return bytes / 1000 / time_s;
+      return bytes / 1e9 / time_s;
     }
+  
+  float *getResult() override {
+    return flow.data();
+  }
+
 };
 
 #endif//PARALLELIZING_GRAPH_ALGORITHMS_ELLPACK_HPP

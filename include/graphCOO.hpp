@@ -18,16 +18,9 @@ class GraphCOO : public AbstractGraph {
 private:
     std::vector<value> neighbourMatrix;
     std::vector<float> weights;
+    std::vector<float> flow;
     const int NOVertices;
     int ellpackRowLength = 0;
-
-    void getWeightedFlow() override{
-        std::vector<float> res(NOVertices);
-
-        for (value v : neighbourMatrix) {
-            res[v.row] = v.val * weights[v.col];
-        }
-    }
 
 public:
     GraphCOO(int vertices, std::vector<value> matrix) : NOVertices(vertices), neighbourMatrix(matrix) {
@@ -241,7 +234,20 @@ public:
         double bytes = sizeof(float) * (weights.size() + 2 * NOVertices) +
                        sizeof(int) * 2 * neighbourMatrix.size();
 
-        return bytes / 1000 / time_s;
+        return bytes / 1e9 / time_s;
+    }
+
+    void getWeightedFlow() override{
+        std::vector<float> res(NOVertices);
+
+        for (value v : neighbourMatrix) {
+            res[v.row] = v.val * weights[v.col];
+        }
+        flow = res;
+    }
+
+    float *getResult() override {
+      return flow.data();
     }
 };
 

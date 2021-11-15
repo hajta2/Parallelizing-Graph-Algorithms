@@ -111,23 +111,23 @@ private:
     }
     
     void getWeightedFlow() override {
-        std::vector<float> res(NOVertices);
+        assert(NOVertices == flow.size());
         if (type == NAIVE) {
-            for (int i = 0; i < NOVertices-1; ++i) {
+            for (int i = 0; i < NOVertices; ++i) {
                 int start = csrRowPtr[i];
                 int end = csrRowPtr[i + 1];
                 for (int j = start; j < end; ++j) {
-                    res[i] += csrVal[j] * weights[csrColInd[j]];
+                    flow[i] += csrVal[j] * weights[csrColInd[j]];
                 }
             }
         //Calculating the matrix-vector multiplication w/ OMP 
         } else if (type == OPENMP){
             #pragma omp parallel for
-            for (int i = 0; i < NOVertices-1; ++i) {
+            for (int i = 0; i < NOVertices; ++i) {
                 int start = csrRowPtr[i];
                 int end = csrRowPtr[i + 1];
                 for (int j = start; j < end; ++j) {
-                    res[i] += csrVal[j] * weights[csrColInd[j]];
+                    flow[i] += csrVal[j] * weights[csrColInd[j]];
                 }
             }
 #ifndef USE_VCL_LIB
@@ -136,7 +136,7 @@ private:
         }
 #else
         } else if(type == CONST_VCL16_ROW) {
-            for (int i = 0; i < NOVertices; ++i) {
+            for (int i = 0; i < NOVertices - 1; ++i) {
                 int start = csrRowPtr[i];
                 int end = csrRowPtr[i + 1];
                 //every row size should be 16
@@ -157,7 +157,7 @@ private:
                 weight.load(weightList);
                 multiplication = row * weight;
                 //sum of the elements in the multiplication
-                res[i] = horizontal_add(multiplication);
+                flow[i] = horizontal_add(multiplication);
             }
 
         } else if (type == CONST_VCL16_TRANSPOSE) { 
@@ -175,7 +175,7 @@ private:
                 weight.load(weightList);
                 multiplication = col * weight + multiplication;
                 }
-                multiplication.store(res.data() + i);
+                multiplication.store(flow.data() + i);
             }
         } else if (type == VCL_16_ROW) {
             #pragma omp parallel for
@@ -188,25 +188,29 @@ private:
                     //rounding down to the nearest lower multiple of VECTOR_SIZE
                     int regularPart = dataSize & (-VECTOR_SIZE);
                     //initalize the vectors and the data
-                    Vec16f row, weight, multiplication;
+                    // Vec16f row, weight, multiplication = 0;
+                    Vec16f multiplication = 0;
                     for(int j = 0; j < regularPart; j += VECTOR_SIZE) {
+                        Vec16f row, weight;
                         float list[VECTOR_SIZE];
                         float weightList[VECTOR_SIZE];
                         for(int k = 0; k < VECTOR_SIZE; ++k) {
                             list[k] = (csrVal[start + j + k]);
                             weightList[k] = weights[csrColInd[start + j + k]];
-                            // row.insert(k, csrVal[start + j + k]);
-                            // weight.insert(k, weights[csrColInd[start + j + k]]);
                         }
                         row.load(list);
+                        // row.load(csrVal.data() + start + j);
                         weight.load(weightList);
+                        // Vec16i index;
+                        // index.load(csrColInd.data() + start + j);
+                        // weight = lookup<std::numeric_limits<int>::max()>(index, weights.data());
                         multiplication += row * weight;
                     }
-                    for(int j = regularPart - 1; j < dataSize; ++j) {
-                        res[i] += csrVal[start + j] * weights[csrColInd[start + j]];
+                    //add the multiplication to flow[i]
+                    flow[i] = horizontal_add(multiplication);
+                    for(int j = regularPart; j < dataSize; ++j) {
+                        flow[i] += csrVal[start + j] * weights[csrColInd[start + j]];
                     }
-                    //add the multiplication to res[i]
-                    res[i] += horizontal_add(multiplication);
                 }
             }
         } else if (type == VCL_16_TRANSPOSE) {
@@ -251,27 +255,24 @@ private:
                 if (i + VECTOR_SIZE >= rowSize) {
                     for (int j = 0; j < multiplication.size(); ++j) {
                         if (i + j < NOVertices) {
-                            res[i + j] = multiplication[j];
+                            flow[i + j] = multiplication[j];
                         } else {
                             break;
                         }
                     }
                 } else {
-                    multiplication.store(res.data() + i);
+                    multiplication.store(flow.data() + i);
                 }
             }
-        } else if ( type == VCL_16_MULTIROW ) {
-          csrMultiRow(NOVertices, csrRowPtr.data(), csrColInd.data(),
-                      csrVal.data(), weights.data(), res.data());
         }
 #endif
-        flow = res;
     }
 
 public:
     explicit GraphCSR(GraphCOO& graph, Type t) : NOVertices(graph.getNOVertices()), type(t), flow(NOVertices) {
         std::vector<value> matrix = graph.getNeighbourMatrix();
         weights = graph.getWeights();
+        flow.resize(weights.size());
         int actualRow = 0;
         csrRowPtr.push_back(0);
         int counter = 0;
@@ -279,7 +280,7 @@ public:
             while(v.row != actualRow){
                 actualRow++;
                 counter = 0;
-                csrRowPtr.push_back(csrColInd.size());
+                csrRowPtr.push_back(static_cast<int>(csrColInd.size()));
             }
             counter++;
             if (counter > maxLength) {
@@ -288,9 +289,8 @@ public:
             csrColInd.push_back(v.col);
             csrVal.push_back(v.val);
         }
-        //NONonZeroElements
-        NONonZeros = csrColInd.size();
-        csrRowPtr.push_back(NONonZeros);
+        // NONonZeroElements
+        csrRowPtr.push_back(static_cast<int>(csrColInd.size()));
         mkl_sparse_s_create_csr(&csrA, 
             SPARSE_INDEX_BASE_ZERO,
             NOVertices,
@@ -299,46 +299,62 @@ public:
             csrRowPtr.data() + 1,
             csrColInd.data(),
             csrVal.data());
-        
-        if (type == VCL_16_MULTIROW) vectorLanes = std::sqrt(NONonZeros/NOVertices);
     }
 
     ~GraphCSR() { mkl_sparse_destroy(csrA); }
 
     double measureMKL() {
-        std::vector<float> res;
+        std::vector<double> res;
         for (int i = 0; i < 10; ++i) {
             auto start = std::chrono::high_resolution_clock::now();
             getWeightedFlowMKL();
             auto stop = std::chrono::high_resolution_clock::now();
             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-            res.push_back((float)duration.count());
+            res.push_back(duration.count());
         }
         double sum = 0;
-        for (float re : res) { sum += re; }
+        for (double re : res) { sum += re; }
         return sum / res.size();
     }
 
     double bandWidth() {
-
-        double time = this -> measure().first.mean;
-        double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
-        //Gigabyte per second
-        return (bytes / 1000) / time;
+      double time = this->measure().first.mean;
+      double bytes = static_cast<double>(
+          sizeof(float) * (weights.size() + csrVal.size() + 2 * flow.size()));
+      // Gigabyte per second
+      return (bytes / 1000) / time;
     }
 
     double bandWidthMKL() {
-
-        double time = this -> measureMKL();
-        double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
-        //Gigabyte per second
-        return (bytes / 1000) / time;
+      double time = this->measureMKL();
+      double bytes = static_cast<double>(
+          sizeof(float) * (weights.size() + csrVal.size() + 2 * flow.size()));
+      // Gigabyte per second
+      return (bytes / 1000) / time;
     }
 
     double getBandWidth(double time_s) override {
-        double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
-        //Gigabyte per second
-        return bytes * 1e-9 / time_s;
+      double bytes = static_cast<double>(
+          sizeof(float) * (weights.size() + csrVal.size() + 2 * flow.size()));
+      // Gigabyte per second
+      return bytes * 1e-9 / time_s;
+    }
+
+    float *getResult() override {
+      return flow.data();
+    }
+
+    std::pair<measurement_result, measurement_result> measureMKL_and_bw() {
+      constexpr int amortizationCount = 10;
+      auto measure = [&]() {
+        for (int n = 0; n < amortizationCount; ++n) {
+          getWeightedFlowMKL();
+        }
+      };
+
+      auto getbw = [&](double time_s) { return getBandWidth(time_s); };
+
+      return measure_func(measure, getbw, amortizationCount);
     }
 
 };

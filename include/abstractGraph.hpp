@@ -98,7 +98,7 @@ class AbstractGraph {
  public:
   virtual void getWeightedFlow() = 0;
   virtual double getBandWidth(double time_s) = 0;
-  virtual float *getResult() = 0;
+  // virtual float *getResult() = 0;
 
   std::pair<measurement_result, measurement_result> measure() {
     constexpr int amortizationCount = 10;

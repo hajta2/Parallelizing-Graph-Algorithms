@@ -104,6 +104,8 @@ int main(int argc, const char *argv[]) {
     } else {
       GraphCOO coo(N, rho);
       GraphCSR csr(coo, t);
+      std::cout<< t << "\n";
+      std::cout<< N << "," << rho << "\n";
       {
         auto [time, bw] = csr.measure();
         std::cout << "Time: " << time << "\n";

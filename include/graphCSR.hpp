@@ -6,95 +6,152 @@
 #include <cassert>
 #include <armpl.h>
 #include <limits>
-#include <arm_sve.h> 
+#ifdef __ARM_FEATURE_SVE
+#include <arm_sve.h>
+#endif /* __ARM_FEATURE_SVE */ 
+
+void naive(const int NOVertices, const int *csrRowPtr,
+           const int *csrColInd, const double *csrVal,
+           const double *weights, double *flow) {
+    for (int i = 0; i < NOVertices; ++i) {
+            int start = csrRowPtr[i];
+            int end = csrRowPtr[i + 1];
+            for (int j = start; j < end; ++j) {
+                flow[i] += csrVal[j] * weights[csrColInd[j]];
+            }
+    }
+}
+
+void openmp(const int NOVertices, const int *csrRowPtr,
+            const int *csrColInd, const double *csrVal,
+            const double *weights, double *flow) {
+    #pragma omp parallel for
+    for (int i = 0; i < NOVertices; ++i) {
+        int start = csrRowPtr[i];
+        int end = csrRowPtr[i + 1];
+        for (int j = start; j < end; ++j) {
+            flow[i] += csrVal[j] * weights[csrColInd[j]];
+        }
+    }
+}
+
+void sve_1(const int NOVertices, const int *csrRowPtr,
+           const int *csrColInd, const double *csrVal,
+           const double *weights, double *flow) {
+    #pragma omp parallel for
+    for (int i = 0; i < NOVertices; ++i) {
+        uint64_t idx = 0;
+        uint64_t start = csrRowPtr[i];
+        uint64_t end = csrRowPtr[i + 1];
+
+        svbool_t pg;
+        const double *val = &(csrVal[start]);
+        const int *col = &(csrColInd[start]);
+        svfloat64_t svsum = svdup_f64(0.0);
+        for (uint64_t j = start; j < end; j += svcntd()) {
+            pg = svwhilelt_b64(idx, end - start);
+            svfloat64_t value = svld1_f64(pg, val + idx);
+            svuint64_t column = svld1sw_u64(pg, col + idx);
+            svfloat64_t x_val = svld1_gather_index(pg, weights, column);
+            svsum = svmla_m(pg, svsum, value, x_val);
+            idx += svcntd();
+        }
+        svst1(svptrue_b64(), &flow[i], svsum);
+    } 
+}
+
+void sve_4(const int NOVertices, const int *csrRowPtr,
+           const int *csrColInd, const double *csrVal,
+           const double *weights, double *flow) {
+    #pragma omp parallel for
+    for (int i = 0; i < NOVertices; ++i) {
+        uint64_t idx = 0;
+        uint64_t start = csrRowPtr[i];
+        uint64_t end = csrRowPtr[i + 1];
+
+        svfloat64_t sum0,sum1,sum2,sum3 = svdup_f64(0.0);
+        svbool_t pg = svwhilelt_b64(idx, end-start);
+        const double *val0 = &(csrVal[start + 0*svcntd()]);
+        const double *val1 = &(csrVal[start + 1*svcntd()]);
+        const double *val2 = &(csrVal[start + 2*svcntd()]);
+        const double *val3 = &(csrVal[start + 3*svcntd()]);
+        const int *col0 = &(csrColInd[start + 0*svcntd()]);
+        const int *col1 = &(csrColInd[start + 1*svcntd()]);
+        const int *col2 = &(csrColInd[start + 2*svcntd()]);
+        const int *col3 = &(csrColInd[start + 3*svcntd()]);
+
+        do {
+            svfloat64_t value0 = svld1_f64(pg, val0 + idx);
+            svfloat64_t value1 = svld1_f64(pg, val1 + idx);
+            svfloat64_t value2 = svld1_f64(pg, val2 + idx);
+            svfloat64_t value3 = svld1_f64(pg, val3 + idx);
+            svuint64_t column0 = svld1sw_u64(pg, col0 + idx);
+            svuint64_t column1 = svld1sw_u64(pg, col1 + idx);
+            svuint64_t column2 = svld1sw_u64(pg, col2 + idx);
+            svuint64_t column3 = svld1sw_u64(pg, col3 + idx);
+            svfloat64_t x_val0 = svld1_gather_index(pg, weights, column0);
+            svfloat64_t x_val1 = svld1_gather_index(pg, weights, column1);
+            svfloat64_t x_val2 = svld1_gather_index(pg, weights, column2);
+            svfloat64_t x_val3 = svld1_gather_index(pg, weights, column3);
+            sum0 = svmla_m(pg, sum0, value0, x_val0);
+            sum1 = svmla_m(pg, sum1, value1, x_val1);
+            sum2 = svmla_m(pg, sum2, value2, x_val2);
+            sum3 = svmla_m(pg, sum3, value3, x_val3);
+            idx += 4*svcntd();
+            pg = svwhilelt_b64(idx, end-start);
+        } while(svptest_any(svptrue_b64(), pg));
+        svst1(svptrue_b64(), &flow[i + 0*svcntd()], sum0);
+        svst1(svptrue_b64(), &flow[i + 1*svcntd()], sum1);
+        svst1(svptrue_b64(), &flow[i + 2*svcntd()], sum2);
+        svst1(svptrue_b64(), &flow[i + 3*svcntd()], sum3);
+    }
+}
 
 class GraphCSR : public AbstractGraph {
 private:
-    std::vector<float> csrVal;
+    std::vector<double> csrVal;
     std::vector<int> csrColInd;
     std::vector<int> csrRowPtr;
-    std::vector<float> weights;
-    std::vector<float> flow;
-    std::vector<double> doubleWeights;
-    std::vector<double> doubleVal;
-    std::vector<double> doubleFlow;
+    std::vector<double> weights;
+    std::vector<double> flow;
+    // std::vector<double> doubleWeights;
+    // std::vector<double> doubleVal;
+    // std::vector<double> doubleFlow;
     Type type;
     const int NOVertices;
     armpl_spmat_t csrA;
 
     void getWeightedFlowARM() {
-        std::vector<float> res(NOVertices);
-        armpl_status_t result = armpl_spmv_exec_s(ARMPL_SPARSE_OPERATION_NOTRANS,
+        armpl_status_t result = armpl_spmv_exec_d(ARMPL_SPARSE_OPERATION_NOTRANS,
             1.0f,
             csrA,
             weights.data(),
             0.0f,
-            res.data()
+            flow.data()
         );
         assert(result == ARMPL_STATUS_SUCCESS);
     }
 
-    void naiveFlow() {
-        std::vector<float> res(NOVertices);
-        for (int i = 0; i < NOVertices; ++i) {
-            int start = csrRowPtr[i];
-            int end = csrRowPtr[i + 1];
-            for (int j = start; j < end; ++j) {
-                res[i] += csrVal[j] * weights[csrColInd[j]];
-            }
-        }
-    }
-
-    void OPENMPFlow() {
-        std::vector<float> res(NOVertices);
-        #pragma omp parallel for
-        for (int i = 0; i < NOVertices; ++i) {
-            int start = csrRowPtr[i];
-            int end = csrRowPtr[i + 1];
-            for (int j = start; j < end; ++j) {
-                res[i] += csrVal[j] * weights[csrColInd[j]];
-            }
-        }
-    }
-
-    void SVEFlow() {
-        //std::vector<double> res(NOVertices);
-        #pragma omp parallel for
-        for (int i = 0; i < NOVertices; ++i) {
-            uint64_t idx = 0;
-            uint64_t start = csrRowPtr[i];
-            uint64_t end = csrRowPtr[i + 1];
-
-            svbool_t pg;
-            double *val = &(doubleVal[start]);
-            int *col = &(csrColInd[start]);
-            svfloat64_t svsum = svdup_f64(0.0);
-            for (uint64_t j = start; j < end; j += svcntd()) {
-                pg = svwhilelt_b64(idx, end - start);
-                svfloat64_t value = svld1_f64(pg, val + idx);
-                svuint64_t column = svld1sw_u64(pg, col + idx);
-                svfloat64_t x_val = svld1_gather_index(pg, doubleWeights.data(), column);
-                svsum = svmla_m(pg, svsum, value, x_val);
-                idx += svcntd();
-            }
-            svst1(svptrue_b64(), &doubleFlow[i], svsum);
-        } 
-    }
-
     void getWeightedFlow() override {
+        assert(NOVertices == flow.size());
         if (type == NAIVE) {
-            naiveFlow();
+            naive(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                  csrVal.data(), weights.data(), flow.data());
         } else if (type == OPENMP){
-            OPENMPFlow();
+            openmp(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                   csrVal.data(), weights.data(), flow.data());;
         } else if (type == SVE) {
-            SVEFlow();
+            sve_4(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                  csrVal.data(), weights.data(), flow.data());
         }
     }
 
 public:
     explicit GraphCSR(GraphCOO& graph, Type t) : NOVertices(graph.getNOVertices()), type(t) {
         std::vector<value> matrix = graph.getNeighbourMatrix();
-        weights = graph.getWeights();
+        std::vector<float> tmpWeights = graph.getWeights();
+        flow.resize(tmpWeights.size());
+        weights.resize(tmpWeights.size());
         int actualRow = 0;
         csrRowPtr.push_back(0);
         for(value const &v : matrix){
@@ -102,13 +159,12 @@ public:
                 actualRow++;
                 csrRowPtr.push_back(static_cast<int>(csrColInd.size()));
             }
-            csrColInd.push_back(v.col);
-            csrVal.push_back(v.val);
+            csrColInd.push_back(static_cast<int>(v.col));
+            csrVal.push_back(static_cast<double>(v.val));
         }
-        //NONonZeroElements
         int NONonZeros = static_cast<int>(csrColInd.size());
         csrRowPtr.push_back(NONonZeros);
-        armpl_status_t armMatrix = armpl_spmat_create_csr_s(
+        armpl_status_t armMatrix = armpl_spmat_create_csr_d(
             &csrA,
             NOVertices,
             NOVertices,
@@ -118,15 +174,15 @@ public:
             0
         );
         assert( armMatrix == ARMPL_STATUS_SUCCESS );
-
-        std::vector<double> tmpVal(csrVal.size());
-        std::vector<double> tmpWeights(weights.size());
-        std::vector<double> tmpFlow(csrVal.size());
-        std::copy(csrVal.begin(),csrVal.end(),tmpVal.begin());
-        std::copy(weights.begin(),weights.end(),tmpWeights.begin());
-        doubleVal = tmpVal;
-        doubleWeights = tmpWeights;
-        doubleFlow = tmpFlow;
+        std::copy(tmpWeights.begin(), tmpWeights.end(), weights.begin());
+        // std::vector<double> tmpVal(csrVal.size());
+        // std::vector<double> tmpWeights(weights.size());
+        // std::vector<double> tmpFlow(csrVal.size());
+        // std::copy(csrVal.begin(),csrVal.end(),tmpVal.begin());
+        // std::copy(weights.begin(),weights.end(),tmpWeights.begin());
+        // doubleVal = tmpVal;
+        // doubleWeights = tmpWeights;
+        // doubleFlow = tmpFlow;
     }
 
     ~GraphCSR() { armpl_spmat_destroy(csrA); }
@@ -151,9 +207,12 @@ public:
         return bytes / 1000 / time_s;
     }
 
-    float *getResult() override {
-      return flow.data();
-    }
+    // float *getResult() override {
+    //     // std::vector<float> res(NOVertices);
+    //     // std::copy(flow.begin(),flow.end(), res.begin());
+    //     // return res.data();
+    //     return;
+    // }
 
    std::pair<measurement_result, measurement_result> measureARM_and_bw() {
       constexpr int amortizationCount = 10;

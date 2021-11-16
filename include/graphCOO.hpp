@@ -113,9 +113,9 @@ public:
         flow = res;
     }
 
-    float *getResult() override {
-      return flow.data();
-    }
+    // float *getResult() override {
+    //   return flow.data();
+    // }
 
     
 };

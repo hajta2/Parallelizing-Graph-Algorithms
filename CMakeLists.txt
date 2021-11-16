@@ -20,7 +20,7 @@ set(CMAKE_CXX_FLAGS
 #)
 
 set(CMAKE_CXX_FLAGS
-    "${CMAKE_CXX_FLAGS} -march=armv8.5-a+sve"
+    "${CMAKE_CXX_FLAGS} -march=armv8.6-a+sve2"
 )
 
 #add_library(project_options INTERFACE)

@@ -79,6 +79,177 @@ inline void csrMultiRow(const int NOVertices, const int *csrRowPtr,
   }
 }
 
+void naive(const int NOVertices, const int *csrRowPtr,
+           const int *csrColInd, const float *csrVal,
+           const float *weights, float *flow) {
+    for (int i = 0; i < NOVertices; ++i) {
+        int start = csrRowPtr[i];
+        int end = csrRowPtr[i + 1];
+        for (int j = start; j < end; ++j) {
+            flow[i] += csrVal[j] * weights[csrColInd[j]];
+        }
+    }
+}
+
+void openmp(const int NOVertices, const int *csrRowPtr,
+            const int *csrColInd, const float *csrVal,
+            const float *weights, float *flow){
+    #pragma omp parallel for
+    for (int i = 0; i < NOVertices; ++i) {
+        int start = csrRowPtr[i];
+        int end = csrRowPtr[i + 1];
+        for (int j = start; j < end; ++j) {
+            flow[i] += csrVal[j] * weights[csrColInd[j]];
+        }
+    }
+}
+
+void const_vcl_16_row(const int NOVertices, const int *csrRowPtr,
+                      const int *csrColInd, const float *csrVal,
+                      const float *weights, float *flow){
+    #pragma omp parallel for
+    for (int i = 0; i < NOVertices - 1; ++i) {
+        int start = csrRowPtr[i];
+        int end = csrRowPtr[i + 1];
+        //every row size should be 16
+        assert(end - start == VECTOR_SIZE);
+        //init the vectors
+        Vec16f row, weight, multiplication;
+        //creating the subarray
+        float list[VECTOR_SIZE];
+        float weightList[VECTOR_SIZE];
+        int idx = 0;
+        for (int j = start; j < end; ++j) {
+            list[idx] = (csrVal[j]);
+            weightList[idx] = weights[csrColInd[j]];
+            idx++;
+        }
+        //loading the subarray into the vector
+        row.load(list);
+        weight.load(weightList);
+        multiplication = row * weight;
+        //sum of the elements in the multiplication
+        flow[i] = horizontal_add(multiplication);
+    }
+}
+
+void const_vcl_16_transpose(const int NOVertices, const int *csrRowPtr,
+                            const int *csrColInd, const float *csrVal,
+                            const float *weights, float *flow){
+    #pragma omp parallel for
+    for (int i = 0; i < NOVertices; i+=VECTOR_SIZE) {
+        Vec16f multiplication = 0;
+        for(int j = 0; j < VECTOR_SIZE; ++j) {
+        Vec16f col, weight;
+        float list[VECTOR_SIZE];
+        float weightList[VECTOR_SIZE];
+        for (int k = 0; k < VECTOR_SIZE; ++k) {
+            list[k] = csrVal[i * VECTOR_SIZE + j + k * VECTOR_SIZE];
+            weightList[k] = weights[csrColInd[i * VECTOR_SIZE + j + k * VECTOR_SIZE]];
+        }
+        col.load(list);
+        weight.load(weightList);
+        multiplication = col * weight + multiplication;
+        }
+        multiplication.store(flow + i);
+    }
+}
+
+void vcl_16_transpose(const int NOVertices, const int *csrRowPtr,
+                      const int *csrColInd, const float *csrVal,
+                      const float *weights, float *flow){
+    // round up NOVertices to nearest higher multiple of vectorsize
+    int rowSize = (NOVertices + VECTOR_SIZE - 1) & (-VECTOR_SIZE);
+    #pragma omp parallel for
+    for (int i = 0; i < rowSize; i += VECTOR_SIZE) {
+        Vec16f multiplication = 0;
+        //searching the longest row's element
+        int maxElements = 0;
+        for (int j = 0; j < VECTOR_SIZE; ++j) {
+            if (i + j < NOVertices) { 
+                int NOElements = csrRowPtr[i + j + 1] - csrRowPtr[i + j];
+                if(NOElements > maxElements) {
+                    maxElements = NOElements;
+                }
+            }
+        }
+        //summing the elements of the row's
+        //int regularPart = maxElements & (-VECTOR_SIZE);
+        for (int j = 0; j < maxElements; ++j) {
+            Vec16f col, weight;
+            float list[VECTOR_SIZE];
+            float weightList[VECTOR_SIZE];
+            for (int k = 0; k < VECTOR_SIZE; ++k) {
+                if( i + k > NOVertices - 1) {
+                    break;
+                } else {
+                    if (csrRowPtr[i + k + 1] - csrRowPtr[i + k] < j + 1) {
+                        list[k] = 0;
+                        weightList[k] = 0;
+                    } else {
+                        list[k] = csrVal[j + csrRowPtr[i + k]];
+                        weightList[k] = weights[csrColInd[j + csrRowPtr[i + k]]];
+                    }
+                }
+            }
+            col.load(list);
+            weight.load(weightList);
+            multiplication = col * weight + multiplication;
+        }
+        if (i + VECTOR_SIZE >= rowSize) {
+            for (int j = 0; j < multiplication.size(); ++j) {
+                if (i + j < NOVertices) {
+                    flow[i + j] = multiplication[j];
+                } else {
+                    break;
+                }
+            }
+        } else {
+            multiplication.store(flow + i);
+        }
+    }
+}
+
+void vcl_16_row_load(const int NOVertices, const int *csrRowPtr,
+                     const int *csrColInd, const float *csrVal,
+                     const float *weights, float *flow){
+    #pragma omp parallel for
+    for(int i = 0; i < NOVertices; ++i) {
+        int start = csrRowPtr[i];
+        int end = csrRowPtr[i + 1];
+        //Number of elements in the row
+        int dataSize = end - start;                                    
+        if (dataSize != 0) {
+            //rounding down to the nearest lower multiple of VECTOR_SIZE
+            int regularPart = dataSize & (-VECTOR_SIZE);
+            //initalize the vectors and the data
+            // Vec16f row, weight, multiplication = 0;
+            Vec16f multiplication = 0;
+            for(int j = 0; j < regularPart; j += VECTOR_SIZE) {
+                Vec16f row, weight;
+                float list[VECTOR_SIZE];
+                float weightList[VECTOR_SIZE];
+                for(int k = 0; k < VECTOR_SIZE; ++k) {
+                    list[k] = (csrVal[start + j + k]);
+                    weightList[k] = weights[csrColInd[start + j + k]];
+                }
+                row.load(list);
+                // row.load(csrVal.data() + start + j);
+                weight.load(weightList);
+                // Vec16i index;
+                // index.load(csrColInd.data() + start + j);
+                // weight = lookup<std::numeric_limits<int>::max()>(index, weights.data());
+                multiplication += row * weight;
+            }
+            //add the multiplication to flow[i]
+            flow[i] = horizontal_add(multiplication);
+            for(int j = regularPart; j < dataSize; ++j) {
+                flow[i] += csrVal[start + j] * weights[csrColInd[start + j]];
+            }
+        }
+    }
+}
+
 class GraphCSR : public AbstractGraph {
 private:
     std::vector<float> csrVal;
@@ -113,159 +284,25 @@ private:
     void getWeightedFlow() override {
         assert(NOVertices == flow.size());
         if (type == NAIVE) {
-            for (int i = 0; i < NOVertices; ++i) {
-                int start = csrRowPtr[i];
-                int end = csrRowPtr[i + 1];
-                for (int j = start; j < end; ++j) {
-                    flow[i] += csrVal[j] * weights[csrColInd[j]];
-                }
-            }
+            naive(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                  csrVal.data(), weights.data(), flow.data());
         //Calculating the matrix-vector multiplication w/ OMP 
         } else if (type == OPENMP){
-            #pragma omp parallel for
-            for (int i = 0; i < NOVertices; ++i) {
-                int start = csrRowPtr[i];
-                int end = csrRowPtr[i + 1];
-                for (int j = start; j < end; ++j) {
-                    flow[i] += csrVal[j] * weights[csrColInd[j]];
-                }
-            }
-#ifndef USE_VCL_LIB
-        } else {
-          assert(false && "App compiled without VCL suppoert");
-        }
-#else
+            openmp(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                   csrVal.data(), weights.data(), flow.data());
         } else if(type == CONST_VCL16_ROW) {
-            for (int i = 0; i < NOVertices - 1; ++i) {
-                int start = csrRowPtr[i];
-                int end = csrRowPtr[i + 1];
-                //every row size should be 16
-                assert(end - start == VECTOR_SIZE);
-                //init the vectors
-                Vec16f row, weight, multiplication;
-                //creating the subarray
-                float list[VECTOR_SIZE];
-                float weightList[VECTOR_SIZE];
-                int idx = 0;
-                for (int j = start; j < end; ++j) {
-                    list[idx] = (csrVal[j]);
-                    weightList[idx] = weights[csrColInd[j]];
-                    idx++;
-                }
-                //loading the subarray into the vector
-                row.load(list);
-                weight.load(weightList);
-                multiplication = row * weight;
-                //sum of the elements in the multiplication
-                flow[i] = horizontal_add(multiplication);
-            }
-
+            const_vcl_16_row(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                             csrVal.data(), weights.data(), flow.data());
         } else if (type == CONST_VCL16_TRANSPOSE) { 
-            for (int i = 0; i < NOVertices; i+=VECTOR_SIZE) {
-                Vec16f multiplication = 0;
-                for(int j = 0; j < VECTOR_SIZE; ++j) {
-                Vec16f col, weight;
-                float list[VECTOR_SIZE];
-                float weightList[VECTOR_SIZE];
-                for (int k = 0; k < VECTOR_SIZE; ++k) {
-                    list[k] = csrVal[i * VECTOR_SIZE + j + k * VECTOR_SIZE];
-                    weightList[k] = weights[csrColInd[i * VECTOR_SIZE + j + k * VECTOR_SIZE]];
-                }
-                col.load(list);
-                weight.load(weightList);
-                multiplication = col * weight + multiplication;
-                }
-                multiplication.store(flow.data() + i);
-            }
+            const_vcl_16_transpose(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                                   csrVal.data(), weights.data(), flow.data());
         } else if (type == VCL_16_ROW) {
-            #pragma omp parallel for
-            for(int i = 0; i < NOVertices; ++i) {
-                int start = csrRowPtr[i];
-                int end = csrRowPtr[i + 1];
-                //Number of elements in the row
-                int dataSize = end - start;                                    
-                if (dataSize != 0) {
-                    //rounding down to the nearest lower multiple of VECTOR_SIZE
-                    int regularPart = dataSize & (-VECTOR_SIZE);
-                    //initalize the vectors and the data
-                    // Vec16f row, weight, multiplication = 0;
-                    Vec16f multiplication = 0;
-                    for(int j = 0; j < regularPart; j += VECTOR_SIZE) {
-                        Vec16f row, weight;
-                        float list[VECTOR_SIZE];
-                        float weightList[VECTOR_SIZE];
-                        for(int k = 0; k < VECTOR_SIZE; ++k) {
-                            list[k] = (csrVal[start + j + k]);
-                            weightList[k] = weights[csrColInd[start + j + k]];
-                        }
-                        row.load(list);
-                        // row.load(csrVal.data() + start + j);
-                        weight.load(weightList);
-                        // Vec16i index;
-                        // index.load(csrColInd.data() + start + j);
-                        // weight = lookup<std::numeric_limits<int>::max()>(index, weights.data());
-                        multiplication += row * weight;
-                    }
-                    //add the multiplication to flow[i]
-                    flow[i] = horizontal_add(multiplication);
-                    for(int j = regularPart; j < dataSize; ++j) {
-                        flow[i] += csrVal[start + j] * weights[csrColInd[start + j]];
-                    }
-                }
-            }
+            vcl_16_row_load(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                            csrVal.data(), weights.data(), flow.data());
         } else if (type == VCL_16_TRANSPOSE) {
-            // round up NOVertices to nearest higher multiple of vectorsize
-            int rowSize = (NOVertices + VECTOR_SIZE - 1) & (-VECTOR_SIZE);
-            #pragma omp parallel for
-            for (int i = 0; i < rowSize; i += VECTOR_SIZE) {
-                Vec16f multiplication = 0;
-                //searching the longest row's element
-                int maxElements = 0;
-                for (int j = 0; j < VECTOR_SIZE; ++j) {
-                    if (i + j < NOVertices) { 
-                        int NOElements = csrRowPtr[i + j + 1] - csrRowPtr[i + j];
-                        if(NOElements > maxElements) {
-                            maxElements = NOElements;
-                        }
-                    }
-                }
-                //summing the elements of the row's
-                //int regularPart = maxElements & (-VECTOR_SIZE);
-                for (int j = 0; j < maxElements; ++j) {
-                    Vec16f col, weight;
-                    float list[VECTOR_SIZE];
-                    float weightList[VECTOR_SIZE];
-                    for (int k = 0; k < VECTOR_SIZE; ++k) {
-                        if( i + k > NOVertices - 1) {
-                            break;
-                        } else {
-                            if (csrRowPtr[i + k + 1] - csrRowPtr[i + k] < j + 1) {
-                                list[k] = 0;
-                                weightList[k] = 0;
-                            } else {
-                                list[k] = csrVal[j + csrRowPtr[i + k]];
-                                weightList[k] = weights[csrColInd[j + csrRowPtr[i + k]]];
-                            }
-                        }
-                    }
-                    col.load(list);
-                    weight.load(weightList);
-                    multiplication = col * weight + multiplication;
-                }
-                if (i + VECTOR_SIZE >= rowSize) {
-                    for (int j = 0; j < multiplication.size(); ++j) {
-                        if (i + j < NOVertices) {
-                            flow[i + j] = multiplication[j];
-                        } else {
-                            break;
-                        }
-                    }
-                } else {
-                    multiplication.store(flow.data() + i);
-                }
-            }
+            vcl_16_transpose(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                             csrVal.data(), weights.data(), flow.data());
         }
-#endif
     }
 
 public:

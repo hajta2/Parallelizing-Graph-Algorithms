@@ -36,7 +36,7 @@ add_library(project_warnings INTERFACE)
 include(cmake/CompilerWarnings.cmake)
 set_project_warnings(project_warnings)
 
-add_subdirectory(lib/MMIO)
+# add_subdirectory(lib/MMIO)
 add_subdirectory(lib/CLI11)
 file(GLOB SOURCES "src/*.cpp")
 add_executable(Parallelizing_Graph_Algorithms ${SOURCES})
@@ -46,7 +46,7 @@ target_link_libraries(
     OpenMP::OpenMP_CXX
     Boost::boost
     CLI11
-    MMIO
+    # MMIO
     #project_options
     project_warnings)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/)

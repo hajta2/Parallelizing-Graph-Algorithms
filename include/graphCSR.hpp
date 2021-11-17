@@ -60,52 +60,52 @@ void sve_1(const int NOVertices, const int *csrRowPtr,
     } 
 }
 
-void sve_4(const int NOVertices, const int *csrRowPtr,
-           const int *csrColInd, const double *csrVal,
-           const double *weights, double *flow) {
-    #pragma omp parallel for
-    for (int i = 0; i < NOVertices; ++i) {
-        uint64_t idx = 0;
-        uint64_t start = csrRowPtr[i];
-        uint64_t end = csrRowPtr[i + 1];
+// void sve_4(const int NOVertices, const int *csrRowPtr,
+//            const int *csrColInd, const double *csrVal,
+//            const double *weights, double *flow) {
+//     #pragma omp parallel for
+//     for (int i = 0; i < NOVertices; ++i) {
+//         uint64_t idx = 0;
+//         uint64_t start = csrRowPtr[i];
+//         uint64_t end = csrRowPtr[i + 1];
 
-        svfloat64_t sum0,sum1,sum2,sum3 = svdup_f64(0.0);
-        svbool_t pg = svwhilelt_b64(idx, end-start);
-        const double *val0 = &(csrVal[start + 0*svcntd()]);
-        const double *val1 = &(csrVal[start + 1*svcntd()]);
-        const double *val2 = &(csrVal[start + 2*svcntd()]);
-        const double *val3 = &(csrVal[start + 3*svcntd()]);
-        const int *col0 = &(csrColInd[start + 0*svcntd()]);
-        const int *col1 = &(csrColInd[start + 1*svcntd()]);
-        const int *col2 = &(csrColInd[start + 2*svcntd()]);
-        const int *col3 = &(csrColInd[start + 3*svcntd()]);
+//         svfloat64_t sum0,sum1,sum2,sum3 = svdup_f64(0.0);
+//         svbool_t pg = svwhilelt_b64(idx, end-start);
+//         const double *val0 = &(csrVal[start + 0*svcntd()]);
+//         const double *val1 = &(csrVal[start + 1*svcntd()]);
+//         const double *val2 = &(csrVal[start + 2*svcntd()]);
+//         const double *val3 = &(csrVal[start + 3*svcntd()]);
+//         const int *col0 = &(csrColInd[start + 0*svcntd()]);
+//         const int *col1 = &(csrColInd[start + 1*svcntd()]);
+//         const int *col2 = &(csrColInd[start + 2*svcntd()]);
+//         const int *col3 = &(csrColInd[start + 3*svcntd()]);
 
-        do {
-            svfloat64_t value0 = svld1_f64(pg, val0 + idx);
-            svfloat64_t value1 = svld1_f64(pg, val1 + idx);
-            svfloat64_t value2 = svld1_f64(pg, val2 + idx);
-            svfloat64_t value3 = svld1_f64(pg, val3 + idx);
-            svuint64_t column0 = svld1sw_u64(pg, col0 + idx);
-            svuint64_t column1 = svld1sw_u64(pg, col1 + idx);
-            svuint64_t column2 = svld1sw_u64(pg, col2 + idx);
-            svuint64_t column3 = svld1sw_u64(pg, col3 + idx);
-            svfloat64_t x_val0 = svld1_gather_index(pg, weights, column0);
-            svfloat64_t x_val1 = svld1_gather_index(pg, weights, column1);
-            svfloat64_t x_val2 = svld1_gather_index(pg, weights, column2);
-            svfloat64_t x_val3 = svld1_gather_index(pg, weights, column3);
-            sum0 = svmla_m(pg, sum0, value0, x_val0);
-            sum1 = svmla_m(pg, sum1, value1, x_val1);
-            sum2 = svmla_m(pg, sum2, value2, x_val2);
-            sum3 = svmla_m(pg, sum3, value3, x_val3);
-            idx += 4*svcntd();
-            pg = svwhilelt_b64(idx, end-start);
-        } while(svptest_any(svptrue_b64(), pg));
-        svst1(svptrue_b64(), &flow[i + 0*svcntd()], sum0);
-        svst1(svptrue_b64(), &flow[i + 1*svcntd()], sum1);
-        svst1(svptrue_b64(), &flow[i + 2*svcntd()], sum2);
-        svst1(svptrue_b64(), &flow[i + 3*svcntd()], sum3);
-    }
-}
+//         do {
+//             svfloat64_t value0 = svld1_f64(pg, val0 + idx);
+//             svfloat64_t value1 = svld1_f64(pg, val1 + idx);
+//             svfloat64_t value2 = svld1_f64(pg, val2 + idx);
+//             svfloat64_t value3 = svld1_f64(pg, val3 + idx);
+//             svuint64_t column0 = svld1sw_u64(pg, col0 + idx);
+//             svuint64_t column1 = svld1sw_u64(pg, col1 + idx);
+//             svuint64_t column2 = svld1sw_u64(pg, col2 + idx);
+//             svuint64_t column3 = svld1sw_u64(pg, col3 + idx);
+//             svfloat64_t x_val0 = svld1_gather_index(pg, weights, column0);
+//             svfloat64_t x_val1 = svld1_gather_index(pg, weights, column1);
+//             svfloat64_t x_val2 = svld1_gather_index(pg, weights, column2);
+//             svfloat64_t x_val3 = svld1_gather_index(pg, weights, column3);
+//             sum0 = svmla_m(pg, sum0, value0, x_val0);
+//             sum1 = svmla_m(pg, sum1, value1, x_val1);
+//             sum2 = svmla_m(pg, sum2, value2, x_val2);
+//             sum3 = svmla_m(pg, sum3, value3, x_val3);
+//             idx += 4*svcntd();
+//             pg = svwhilelt_b64(idx, end-start);
+//         } while(svptest_any(svptrue_b64(), pg));
+//         svst1(svptrue_b64(), &flow[i + 0*svcntd()], sum0);
+//         svst1(svptrue_b64(), &flow[i + 1*svcntd()], sum1);
+//         svst1(svptrue_b64(), &flow[i + 2*svcntd()], sum2);
+//         svst1(svptrue_b64(), &flow[i + 3*svcntd()], sum3);
+//     }
+// }
 
 class GraphCSR : public AbstractGraph {
 private:
@@ -116,7 +116,7 @@ private:
     std::vector<double> flow;
     // std::vector<double> doubleWeights;
     // std::vector<double> doubleVal;
-    // std::vector<double> doubleFlow;
+    std::vector<double> doubleFlow;
     Type type;
     const int NOVertices;
     armpl_spmat_t csrA;
@@ -141,8 +141,8 @@ private:
             openmp(NOVertices, csrRowPtr.data(), csrColInd.data(),
                    csrVal.data(), weights.data(), flow.data());;
         } else if (type == SVE) {
-            sve_4(NOVertices, csrRowPtr.data(), csrColInd.data(),
-                  csrVal.data(), weights.data(), flow.data());
+            sve_1(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                  csrVal.data(), weights.data(), doubleFlow.data());
         }
     }
 
@@ -177,12 +177,12 @@ public:
         std::copy(tmpWeights.begin(), tmpWeights.end(), weights.begin());
         // std::vector<double> tmpVal(csrVal.size());
         // std::vector<double> tmpWeights(weights.size());
-        // std::vector<double> tmpFlow(csrVal.size());
+        std::vector<double> tmpFlow(csrVal.size());
         // std::copy(csrVal.begin(),csrVal.end(),tmpVal.begin());
         // std::copy(weights.begin(),weights.end(),tmpWeights.begin());
         // doubleVal = tmpVal;
         // doubleWeights = tmpWeights;
-        // doubleFlow = tmpFlow;
+        doubleFlow = tmpFlow;
     }
 
     ~GraphCSR() { armpl_spmat_destroy(csrA); }
@@ -194,17 +194,11 @@ public:
         return (bytes / 1000) / time;
     }
 
-    // double bandWidthARM() {
-    //     double time = this -> measureARM();
-    //     double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
-    //     //Gigabyte per second
-    //     return (bytes / 1000) / time;
-    // }
-
     double getBandWidth(double time_s) override {
         double bytes = 4 * (weights.size() + csrVal.size() + 2 * flow.size());
         //Gigabyte per second
-        return bytes / 1000 / time_s;
+        return bytes * 1e-9 / time_s;
+
     }
 
     // float *getResult() override {

@@ -51,13 +51,12 @@ void sve_1(const int NOVertices, const int *csrRowPtr,
         for (uint32_t j = start; j < end; j += svcntd()) {
             pg = svwhilelt_b32(idx, end - start);
             svfloat32_t value = svld1_f32(pg, val + idx);
-            svint32_t column = svld1_s32(pg, col + idx); //32 bit load
+            svint32_t column = svld1_s32(pg, col + idx);
             svfloat32_t x_val = svld1_gather_index(pg, weights, column);
-            svsum = svmla_m(pg, svsum, value, x_val); //vegen horizontal add like avx
+            svsum = svmla_m(pg, svsum, value, x_val);
             idx += svcntd();
         }
         flow[i] = svaddv_f32(svptrue_b32(), svsum);
-        //svst1(svptrue_b64(), &flow[i], svsum);
     } 
 }
 
@@ -67,9 +66,7 @@ private:
     std::vector<int> csrColInd;
     std::vector<int> csrRowPtr;
     std::vector<float> weights;
-    std::vector<float> flow;
-    
-    std::vector<float> sveFlow;
+    std::vector<float> flow;    
     Type type;
     const int NOVertices;
     armpl_spmat_t csrA;
@@ -95,7 +92,7 @@ private:
                    csrVal.data(), weights.data(), flow.data());;
         } else if (type == SVE) {
             sve_1(NOVertices, csrRowPtr.data(), csrColInd.data(),
-                  csrVal.data(), weights.data(), sveFlow.data());
+                  csrVal.data(), weights.data(), flow.data());
         }
     }
 
@@ -104,8 +101,6 @@ public:
         std::vector<value> matrix = graph.getNeighbourMatrix();
         weights = graph.getWeights();
         flow.resize(weights.size());
-        sveFlow.resize(weights.size());
-        //weights.resize(tmpWeights.size());
         int actualRow = 0;
         csrRowPtr.push_back(0);
         for(value const &v : matrix){
@@ -128,9 +123,6 @@ public:
             0
         );
         assert( armMatrix == ARMPL_STATUS_SUCCESS );
-        //std::copy(tmpWeights.begin(), tmpWeights.end(), weights.begin());
-        //std::vector<double> tmpFlow(csrVal.size());
-        //doubleFlow = tmpFlow;
     }
 
     ~GraphCSR() { armpl_spmat_destroy(csrA); }

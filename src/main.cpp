@@ -119,8 +119,8 @@ int main(int argc, const char *argv[]) {
     }
   } else if (scaling_cmd->parsed()) {
     std::ofstream myfile(output_file);
-    myfile << "Vertices,Density,MyImplementation,CI w 0.95,BW,CI w 0.95\n";//,ARMPL,CI w 0.95,BW,CI w 0.95\n";
-    for (int i = 17; i <= 17; ++i) {
+    myfile << "Vertices,Density,MyImplementation,CI w 0.95,BW,CI w 0.95,ARM,CI w 0.95,BW,CI w 0.95\n";//,ARMPL,CI w 0.95,BW,CI w 0.95\n";
+    for (int i = 10; i <= 16; ++i) {
       for (float j = 1; j <= 30; j++) {
         GraphCOO graphCOO(static_cast<int>(std::pow(2, i)), j / 1000);
         GraphCSR graphCSR(graphCOO, t);
@@ -129,17 +129,17 @@ int main(int argc, const char *argv[]) {
         {
           auto [time, bw] = graphCSR.measure();
           myfile << time << ",";
-          myfile << bw << "\n";
+          myfile << bw << ",";
           // std::cout << "t: " << time << "\n";
           // std::cout << "bw: " << bw << "\n";
         }
-        // {
-        //   auto [time, bw] = graphCSR.measureARM_and_bw();
-        //   myfile << time << ",";
-        //   myfile << bw << "\n";
-        //   // std::cout << "arm t: " << time << "\n";
-        //   // std::cout << "arm bw: " << bw << "\n";
-        // }
+        {
+          auto [time, bw] = graphCSR.measureARM_and_bw();
+          myfile << time << ",";
+          myfile << bw << "\n";
+          // std::cout << "arm t: " << time << "\n";
+          // std::cout << "arm bw: " << bw << "\n";
+        }
       }
     }
   } else {

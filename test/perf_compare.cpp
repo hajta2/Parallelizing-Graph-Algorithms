@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
+#include <iterator>
+#include <ostream>
 #include <random>
 #include <tuple>
 #include <vector>
@@ -22,72 +24,100 @@ inline void csrMKL(const sparse_matrix_t &csrA, const float *v, float *flow) {
                   flow);
 }
 
+inline void csrMultiRow_avx_ideal(const int NOVertices, const int *csrRowPtr,
+                                  const int *csrColInd, const float *m,
+                                  const float *v, float *flow) {
+#pragma omp parallel for
+  for (int i = 0; i < NOVertices / 2; i++) {
+    // load 16 consecutive elemnets: 2x8 element--> two rows
+    // do add, and reduce the two half
+    int start = csrRowPtr[2 * i];
+    __m512 res = _mm512_setzero_ps();
+    __m512 row = _mm512_loadu_ps(m + start);
+    __m512i vidx = _mm512_loadu_epi32(csrColInd + start);
+    __m512 values = _mm512_i32gather_ps(vidx, v, sizeof(float));
+    res += values * row;
+    Vec16f res_vcl(res);
+    flow[2 * i] = horizontal_add(res_vcl.get_low());
+    flow[2 * i + 1] = horizontal_add(res_vcl.get_high());
+  }
+}
+
+inline void compute_single_row(int row_idx, int start, int end, const float *m,
+                               const int *csrColInd, const float *v,
+                               float *flow) {
+  int dataSize = end - start;
+  if (dataSize != 0) {
+    // rounding down to the nearest lower multiple of VECTOR_SIZE
+    int regularPart = dataSize & (-VECTOR_SIZE);
+    // initalize the vectors and the data
+    Vec16f row, weight, multiplication = 0;
+    Vec16i index = 0;
+    for (int j = 0; j < regularPart; j += VECTOR_SIZE) {
+      row.load(m + start + j);
+      index.load(csrColInd + start + j);
+      weight = lookup<std::numeric_limits<int>::max()>(index, v);
+      multiplication += row * weight;
+    }
+    row.load_partial(dataSize - regularPart, m + start + regularPart);
+    index.load_partial(dataSize - regularPart, csrColInd + start + regularPart);
+    weight = lookup<std::numeric_limits<int>::max()>(index, v);
+    multiplication += weight * row;
+    // add the multiplication to res[i]
+    flow[row_idx] += horizontal_add(multiplication);
+  }
+}
+
+void print(const __m512 p) {
+  for (int c = 0; c < 16; ++c) {
+    printf("%3.2g ", p[c]);
+  }
+  std::cout << "\n";
+}
+
+void print(const __m512i p) {
+  int arr[16] = {};
+  _mm512_store_epi32(arr, p);
+  for (int c = 0; c < 16; ++c) {
+    printf("%3d ", arr[c]);
+  }
+  std::cout << "\n";
+}
+
 inline void csrMultiRow_avx_v2(const int NOVertices, const int *csrRowPtr,
                                const int *csrColInd, const float *m,
                                const float *v, float *flow) {
 #pragma omp parallel for
-  for (int i = 0; i < NOVertices; i += 2) {
-    if (i + 1 == NOVertices) {
-      int start = csrRowPtr[i];
-      int end = csrRowPtr[i + 1];
-      // Number of elements in the row
-      int dataSize = end - start;
-      if (dataSize != 0) {
-        // rounding down to the nearest lower multiple of VECTOR_SIZE
-        int regularPart = dataSize & (-VECTOR_SIZE);
-        // initalize the vectors and the data
-        Vec16f row, weight, multiplication = 0;
-        Vec16i index = 0;
-        for (int j = 0; j < regularPart; j += VECTOR_SIZE) {
-          row.load(m + start + j);
-          index.load(csrColInd + start + j);
-          weight = lookup<std::numeric_limits<int>::max()>(index, v);
-          multiplication += row * weight;
-        }
-        row.load_partial(dataSize - regularPart, m + start + regularPart);
-        index.load_partial(dataSize - regularPart,
-                           csrColInd + start + regularPart);
-        weight = lookup<std::numeric_limits<int>::max()>(index, v);
-        multiplication += weight * row;
-        // add the multiplication to res[i]
-        flow[i] += horizontal_add(multiplication);
-      }
+  for (int i = 0; i < (NOVertices - 1) / 2 + 1; i++) {
+    if (2 * i + 1 == NOVertices) {
+      compute_single_row(2 * i, csrRowPtr[2 * i], csrRowPtr[2 * i + 1], m,
+                         csrColInd, v, flow);
     } else {
-      int start = csrRowPtr[i];
-      int start2 = csrRowPtr[i + 1];
-      int end = csrRowPtr[i + 2];
+      int start = csrRowPtr[2 * i];
+      int start2 = csrRowPtr[2 * i + 1];
+      int end = csrRowPtr[2 * i + 2];
 
+      int idx_start[16] = {
+          start,      start + 1,  start + 2,  start + 3,
+          start + 4,  start + 5,  start + 6,  start + 7,
+          start2,     start2 + 1, start2 + 2, start2 + 3,
+          start2 + 4, start2 + 5, start2 + 6, start2 + 7,
+      };
       int idx_end[16] = {
           start2, start2, start2, start2, start2, start2, start2, start2,
           end,    end,    end,    end,    end,    end,    end,    end,
       };
-      __m512i lim = _mm512_load_epi32(idx_end);
+      __m512i idx = _mm512_loadu_epi32(idx_start);
+      __m512i lim = _mm512_loadu_epi32(idx_end);
+      __m512i inc = _mm512_set1_epi32(8);
+      __m512 zeros = _mm512_setzero_ps();
+      __m512i zerosi = _mm512_setzero_epi32();
 
-      int idx_offs[16] = {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7};
-      __m512i offs = _mm512_load_epi32(idx_offs);
-
-      // Vec16f res = 0;
       __m512 res = _mm512_set1_ps(0.0f);
-      for (int j = 0; j + start < start2 || j + start2 < end; j += 8) {
-        int ind1 = start + j;
-        int ind2 = start2 + j;
-        // __m512i idx = _mm512_set_epi32(ind1 + 0, ind1 + 1, ind1 + 2, ind1 +
-        // 3,
-        //                                ind1 + 4, ind1 + 5, ind1 + 6, ind1 +
-        //                                7, ind2 + 0, ind2 + 1, ind2 + 2, ind2
-        //                                + 3, ind2 + 4, ind2 + 5, ind2 + 6,
-        //                                ind2 + 7);
-
-        int idx_reg[16] = {
-            ind1, ind1, ind1, ind1, ind1, ind1, ind1, ind1,
-            ind2, ind2, ind2, ind2, ind2, ind2, ind2, ind2,
-        };
-
-        __m512i idx = _mm512_load_epi32(idx_reg) + offs;
+      int numiter = std::max(start2 - start, end - start2);
+      for (int j = 0; j < numiter; j += 8, _mm512_add_epi32(idx, inc)) {
         __mmask16 mask = _mm512_cmplt_epi32_mask(idx, lim);
 
-        __m512 zeros = _mm512_set1_ps(0.0f);
-        __m512i zerosi = _mm512_set1_epi32(0);
         __m512 row =
             _mm512_mask_i32gather_ps(zeros, mask, idx, m, sizeof(float));
         __m512i vidx = _mm512_mask_i32gather_epi32(zerosi, mask, idx, csrColInd,
@@ -96,21 +126,107 @@ inline void csrMultiRow_avx_v2(const int NOVertices, const int *csrRowPtr,
             _mm512_mask_i32gather_ps(zeros, mask, vidx, v, sizeof(float));
         res += values * row;
       }
-      // unsigned mlo = 0b0000000011111111;
-      // __mmask16 mask_lo = _cvtu32_mask16(mlo);
-      // unsigned mhi = 0b1111111100000000;
-      // __mmask16 mask_hi = _cvtu32_mask16(mhi);
-      // flow[i] = _mm512_mask_reduce_add_ps(mask_lo, res);
-      // flow[i + 1] = _mm512_mask_reduce_add_ps(mask_hi, res);
-
-      // flow[i] = _mm512_reduce_add_ps(
-      //     _mm512_castps256_ps512(_mm512_castps512_ps256(res)));
-      // flow[i + 1] = _mm512_reduce_add_ps(
-      //     _mm512_castps256_ps512(_mm512_extractf32x8_ps(res, 1)));
       Vec16f res_vcl(res);
-      flow[i] = horizontal_add(res_vcl.get_low());
-      flow[i + 1] = horizontal_add(res_vcl.get_high());
+      flow[2 * i] = horizontal_add(res_vcl.get_low());
+      flow[2 * i + 1] = horizontal_add(res_vcl.get_high());
     }
+  }
+}
+
+inline void csrMultiRow_avx_v3(const int NOVertices, const int *csrRowPtr,
+                               const int *csrColInd, const float *m,
+                               const float *v, float *flow) {
+#pragma omp parallel for
+  for (int i = 0; i < (NOVertices - 1) / 2 + 1; i++) {
+    if (2 * i + 1 == NOVertices) {
+      compute_single_row(2 * i, csrRowPtr[2 * i], csrRowPtr[2 * i + 1], m,
+                         csrColInd, v, flow);
+    } else {
+      int start = csrRowPtr[2 * i];
+      int start2 = csrRowPtr[2 * i + 1];
+      int end = csrRowPtr[2 * i + 2];
+
+      __m512 zeros = _mm512_setzero_ps();
+
+      __m512 res = _mm512_setzero_ps();
+      int numiter = std::max(start2 - start, end - start2);
+      for (int j = 0; j < numiter; j += 8) {
+        int ind1 = start + j;
+        int ind2 = start2 + j;
+        __mmask8 masklo = __mmask8((1 << (start2 - ind1)) - 1);
+        __mmask8 maskhi = __mmask8((1 << (end - ind2)) - 1);
+        __mmask16 mask = __mmask16((maskhi << 8) + masklo);
+
+        __m256 rowlo = _mm256_maskz_loadu_ps(masklo, m + ind1);
+        __m256 rowhi = _mm256_maskz_loadu_ps(maskhi, m + ind2);
+        // __m256 rowlo = _mm256_loadu_ps(m + ind1);
+        // __m256 rowhi = _mm256_loadu_ps(m + ind2);
+        __m512 row =
+            _mm512_insertf32x8(_mm512_castps256_ps512(rowlo), rowhi, 1);
+
+        __m256i vidxlo = _mm256_maskz_loadu_epi32(masklo, csrColInd + ind1);
+        __m256i vidxhi = _mm256_maskz_loadu_epi32(maskhi, csrColInd + ind2);
+        // __m256i vidxlo = _mm256_loadu_epi32(csrColInd + ind1);
+        // __m256i vidxhi = _mm256_loadu_epi32(csrColInd + ind2);
+        __m512i vidx =
+            _mm512_inserti32x8(_mm512_castsi256_si512(vidxlo), vidxhi, 1);
+
+        __m512 values =
+            _mm512_mask_i32gather_ps(zeros, mask, vidx, v, sizeof(float));
+        // __m512 values = _mm512_i32gather_ps(vidx, v, sizeof(float));
+        res += values * row;
+      }
+      Vec16f res_vcl(res);
+      flow[2 * i] = horizontal_add(res_vcl.get_low());
+      flow[2 * i + 1] = horizontal_add(res_vcl.get_high());
+    }
+  }
+}
+
+inline void csrMultiRow_avx_nolast(const int NOVertices, const int *csrRowPtr,
+                                   const int *csrColInd, const float *m,
+                                   const float *v, float *flow) {
+#pragma omp parallel for
+  for (int i = 0; i < (NOVertices - 1) / 2 + 1; i++) {
+    int start = csrRowPtr[2 * i];
+    int start2 = csrRowPtr[2 * i + 1];
+    int end = csrRowPtr[2 * i + 2];
+
+    int idx_start[16] = {
+        start,      start + 1,  start + 2,  start + 3,  start + 4,  start + 5,
+        start + 6,  start + 7,  start2,     start2 + 1, start2 + 2, start2 + 3,
+        start2 + 4, start2 + 5, start2 + 6, start2 + 7,
+    };
+    int idx_end[16] = {
+        start2, start2, start2, start2, start2, start2, start2, start2,
+        end,    end,    end,    end,    end,    end,    end,    end,
+    };
+    __m512i idx = _mm512_loadu_epi32(idx_start);
+    __m512i lim = _mm512_loadu_epi32(idx_end);
+    __m512i inc = _mm512_set1_epi32(8);
+    __m512 zeros = _mm512_setzero_ps();
+    __m512i zerosi = _mm512_setzero_epi32();
+
+    __m512 res = _mm512_set1_ps(0.0f);
+    int numiter = std::max(start2 - start, end - start2);
+    for (int j = 0; j < numiter; j += 8, _mm512_add_epi32(idx, inc)) {
+      __mmask16 mask = _mm512_cmplt_epi32_mask(idx, lim);
+
+      __m512 row = _mm512_mask_i32gather_ps(zeros, mask, idx, m, sizeof(float));
+      __m512i vidx = _mm512_mask_i32gather_epi32(zerosi, mask, idx, csrColInd,
+                                                 sizeof(int));
+      __m512 values =
+          _mm512_mask_i32gather_ps(zeros, mask, vidx, v, sizeof(float));
+      res += values * row;
+    }
+    Vec16f res_vcl(res);
+    flow[2 * i] = horizontal_add(res_vcl.get_low());
+    flow[2 * i + 1] = horizontal_add(res_vcl.get_high());
+  }
+
+  if (NOVertices % 2) {
+    compute_single_row(NOVertices - 1, csrRowPtr[NOVertices - 1],
+                       csrRowPtr[NOVertices], m, csrColInd, v, flow);
   }
 }
 
@@ -120,30 +236,8 @@ inline void csrMultiRow_avx(const int NOVertices, const int *csrRowPtr,
 #pragma omp parallel for
   for (int i = 0; i < NOVertices; i += 2) {
     if (i + 1 == NOVertices) {
-      int start = csrRowPtr[i];
-      int end = csrRowPtr[i + 1];
-      // Number of elements in the row
-      int dataSize = end - start;
-      if (dataSize != 0) {
-        // rounding down to the nearest lower multiple of VECTOR_SIZE
-        int regularPart = dataSize & (-VECTOR_SIZE);
-        // initalize the vectors and the data
-        Vec16f row, weight, multiplication = 0;
-        Vec16i index = 0;
-        for (int j = 0; j < regularPart; j += VECTOR_SIZE) {
-          row.load(m + start + j);
-          index.load(csrColInd + start + j);
-          weight = lookup<std::numeric_limits<int>::max()>(index, v);
-          multiplication += row * weight;
-        }
-        row.load_partial(dataSize - regularPart, m + start + regularPart);
-        index.load_partial(dataSize - regularPart,
-                           csrColInd + start + regularPart);
-        weight = lookup<std::numeric_limits<int>::max()>(index, v);
-        multiplication += weight * row;
-        // add the multiplication to res[i]
-        flow[i] += horizontal_add(multiplication);
-      }
+      compute_single_row(2 * i, csrRowPtr[2 * i], csrRowPtr[2 * i + 1], m,
+                         csrColInd, v, flow);
     } else {
       int start = csrRowPtr[i];
       int start2 = csrRowPtr[i + 1];
@@ -540,9 +634,10 @@ void csr_vcl_16_row_ll_vec_end(const int NOVertices, const int *csrRowPtr,
       }
       // add the multiplication to flow[i]
       Vec16f row;
-      row.load_partial(dataSize - regularPart, csrVal + regularPart);
+      row.load_partial(dataSize - regularPart, csrVal + start + regularPart);
       Vec16i index;
-      index.load_partial(dataSize - regularPart, csrColInd + regularPart);
+      index.load_partial(dataSize - regularPart,
+                         csrColInd + start + +regularPart);
 
       multiplication +=
           row * lookup<std::numeric_limits<int>::max()>(index, weights);
@@ -555,6 +650,8 @@ template <typename F>
 double measure(const F &func) {
   constexpr int amortizationCount = 100;
   constexpr int runCount = 20;
+  // constexpr int amortizationCount = 1;
+  // constexpr int runCount = 1;
 
   double seconds = 0.0;
 
@@ -695,8 +792,8 @@ void compare_versions(int N, std::vector<int> &csrRowPtr,
                 weights.data(), flow.data());
   };
   auto f1 = [&]() {
-    csrMultiRow(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
-                weights.data(), flow.data());
+    csrMultiRow_no_branch(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
+                          weights.data(), flow.data());
   };
   auto f2 = [&]() {
     csr_vcl_16_row(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
@@ -710,9 +807,9 @@ void compare_versions(int N, std::vector<int> &csrRowPtr,
     csr_vcl_16_row_lookup(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
                           weights.data(), flow.data());
   };
-  auto f5 = [&]() {
-    csr_vcl_16_row_load_lookup(N, csrRowPtr.data(), csrColInd.data(),
-                               csrVal.data(), weights.data(), flow.data());
+  auto f51 = [&]() {
+    csr_vcl_16_row_ll_vec_end(N, csrRowPtr.data(), csrColInd.data(),
+                              csrVal.data(), weights.data(), flow.data());
   };
   auto f6 = [&]() {
     csrMultiRow_avx(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
@@ -722,24 +819,40 @@ void compare_versions(int N, std::vector<int> &csrRowPtr,
     csrMultiRow_avx_v2(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
                        weights.data(), flow.data());
   };
+
+  auto f71 = [&]() {
+    csrMultiRow_avx_nolast(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
+                           weights.data(), flow.data());
+  };
+  auto f72 = [&]() {
+    csrMultiRow_avx_v3(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
+                       weights.data(), flow.data());
+  };
+  auto f8 = [&]() {
+    csrMultiRow_avx_ideal(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
+                          weights.data(), flow.data());
+  };
   (void)measure(mkl);
   std::vector reference(flow);
   (void)measure(f);
   out << "MKL; " << measure(mkl) << "\n";
   out << "VCL_MULTIROW; " << measure(f) << "\n";
-  out << "VCL_MULTIROW_NO_LAST; " << measure(f1) << "\n";
-  out << "VCL_MULTIROW_AVX; " << measure(f6) << "\n";
+  // out << "VCL_MULTIROW_NO_LAST; " << measure(f1) << "\n";
+  // out << "VCL_MULTIROW_AVX; " << measure(f6) << "\n";
   out << "VCL_MULTIROW_AVX2; " << measure(f7) << "\n";
+  // out << "VCL_MULTIROW_AVX2_NOLAST; " << measure(f71) << "\n";
+  out << "VCL_MULTIROW_AVX3; " << measure(f72) << "\n";
+  out << "VCL_MULTIROW_AVX_fix8; " << measure(f8) << "\n";
   // out << "VCL_16_ROW; " << measure(f2) << "\n";
   // out << "VCL_16_ROW_LOAD; " << measure(f3) << "\n";
   // out << "VCL_16_ROW_LOOKUP; " << measure(f4) << "\n";
-  // out << "VCL_16_ROW_LL; " << measure(f5) << "\n";
+  out << "VCL_16_ROW_LLV; " << measure(f51) << "\n";
 
-  float err;
-  for (size_t i = 0; i < flow.size(); ++i) {
-    err = std::max(std::abs(flow[i] - reference[i]), err);
-  }
-  out << "err: " << err << "\n";
+  // float err;
+  // for (size_t i = 0; i < flow.size(); ++i) {
+  //   err = std::max(std::abs(flow[i] - reference[i]), err);
+  // }
+  // out << "err: " << err << "\n";
 }
 
 int main(int argc, const char *argv[]) {
@@ -765,6 +878,5 @@ int main(int argc, const char *argv[]) {
     compare_versions(static_cast<int>(weights.size()), csrRowPtr, csrColInd,
                      csrVal, weights, flow, output_file, ofile);
   }
-
   return 0;
 }

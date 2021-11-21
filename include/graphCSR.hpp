@@ -40,21 +40,17 @@ void sve_1(const int NOVertices, const int *csrRowPtr,
            const float *weights, float *flow) {
     #pragma omp parallel for
     for (int i = 0; i < NOVertices; ++i) {
-        uint32_t idx = 0;
         uint32_t start = csrRowPtr[i];
         uint32_t end = csrRowPtr[i + 1];
 
         svbool_t pg;
-        const float *val = &(csrVal[start]);
-        const int *col = &(csrColInd[start]);
         svfloat32_t svsum = svdup_f32(0.0);
-        for (uint32_t j = start; j < end; j += svcntd()) {
-            pg = svwhilelt_b32(idx, end - start);
-            svfloat32_t value = svld1_f32(pg, val + idx);
-            svint32_t column = svld1_s32(pg, col + idx);
+        for (uint32_t j = start; j < end; j += svcntw()) {
+            pg = svwhilelt_b32(j, end);
+            svfloat32_t value = svld1_f32(pg, &(csrVal[j]));
+            svint32_t column = svld1_s32(pg, &(csrColInd[j]));
             svfloat32_t x_val = svld1_gather_index(pg, weights, column);
             svsum = svmla_m(pg, svsum, value, x_val);
-            idx += svcntd();
         }
         flow[i] = svaddv_f32(svptrue_b32(), svsum);
     } 
@@ -160,7 +156,6 @@ public:
 
       return measure_func(measure, getbw, amortizationCount);
     }
-
 };
 
 

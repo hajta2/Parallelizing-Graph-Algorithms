@@ -17,6 +17,7 @@ enum Type {
     CONST_VCL16_ROW,
     CONST_VCL16_TRANSPOSE,
     VCL_16_ROW,
+    VCL_16_ROW_COMPARE,
     VCL_16_TRANSPOSE,
     VCL_MULTIROW
 };
@@ -27,6 +28,7 @@ std::string enumString[] = {
     "CONST_VCL16_ROW",
     "CONST_VCL16_TRANSPOSE",
     "VCL_16_ROW",
+    "VCL_16_ROW_COMPARE",
     "VCL_16_TRANSPOSE",
     "VCL_MULTIROW"
 };

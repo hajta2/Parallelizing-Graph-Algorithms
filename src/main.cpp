@@ -80,8 +80,7 @@ int main(int argc, const char *argv[]) {
       std::ofstream myfile(output_file, std::ios_base::app);
       GraphCOO graphCOO(N_x, matrix);
       GraphCSR graphCSR(graphCOO, t);
-      // Ellpack ellpack(graphCOO, t, false);
-      // Ellpack transposedEllpack(graphCOO, t, true);
+      GraphCSR graphCSR2(graphCOO, VCL_16_ROW_COMPARE);
       myfile << std::filesystem::path(input_file).stem().string() << ", ";
       {
         auto [time, bw] = graphCSR.measure();
@@ -95,9 +94,15 @@ int main(int argc, const char *argv[]) {
     } else {
       GraphCOO coo(N, rho);
       GraphCSR csr(coo, t);
+      GraphCSR csr2(coo, VCL_16_ROW_COMPARE);
       {
         auto [time, bw] = csr.measure();
         std::cout << t << "\n";
+        std::cout << "Runtime: " << time << "\n";
+        std::cout << "Bandwidth: " << bw << "\n";
+      }
+      {
+        auto [time, bw] = csr2.measure();
         std::cout << "Runtime: " << time << "\n";
         std::cout << "Bandwidth: " << bw << "\n";
       }

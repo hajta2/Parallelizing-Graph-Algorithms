@@ -234,11 +234,7 @@ void vcl_16_row_load(const int NOVertices, const int *csrRowPtr,
                     weightList[k] = weights[csrColInd[start + j + k]];
                 }
                 row.load(list);
-                // row.load(csrVal.data() + start + j);
                 weight.load(weightList);
-                // Vec16i index;
-                // index.load(csrColInd.data() + start + j);
-                // weight = lookup<std::numeric_limits<int>::max()>(index, weights.data());
                 multiplication += row * weight;
             }
             //add the multiplication to flow[i]
@@ -247,6 +243,59 @@ void vcl_16_row_load(const int NOVertices, const int *csrRowPtr,
                 flow[i] += csrVal[start + j] * weights[csrColInd[start + j]];
             }
         }
+    }
+}
+
+void vcl_16_row_partial_load(const int NOVertices, const int *csrRowPtr,
+                             const int *csrColInd, const float *csrVal,
+                             const float *weights, float *flow){
+    #pragma omp parallel for
+    for(int i = 0; i < NOVertices; ++i) {
+        int start = csrRowPtr[i];
+        int end = csrRowPtr[i + 1];
+        int dataSize = end - start;                                    
+        int regularPart = dataSize & (-VECTOR_SIZE);
+        Vec16f multiplication = 0;
+        Vec16f row, weight;
+        Vec16i index;
+        for(int j = 0; j < regularPart; j += VECTOR_SIZE) {
+            row.load(&(csrVal[start + j]));
+            index.load(&(csrColInd[start + j]));
+            weight = lookup<std::numeric_limits<int>::max()>(index, weights);
+            multiplication += row * weight;
+        }
+        row.load_partial(dataSize - regularPart, &(csrVal[start + regularPart]));
+        index.load_partial(dataSize - regularPart, &(csrColInd[start + regularPart]));
+        weight = lookup<std::numeric_limits<int>::max()>(index, weights);
+        multiplication += row * weight;
+        //add the multiplication to flow[i]
+        flow[i] = horizontal_add(multiplication);
+    }
+}
+
+void vcl_16_row_cutoff(const int NOVertices, const int *csrRowPtr,
+                       const int *csrColInd, const float *csrVal,
+                       const float *weights, float *flow){
+    #pragma omp parallel for
+    for(int i = 0; i < NOVertices; ++i) {
+        int start = csrRowPtr[i];
+        int end = csrRowPtr[i + 1];
+        int dataSize = end - start;                                    
+        Vec16f multiplication = 0;
+        Vec16f row, weight;
+        Vec16i index;
+        for(int j = 0; j < dataSize; j += VECTOR_SIZE) {
+            row.load(&(csrVal[start + j]));
+            index.load(&(csrColInd[start + j]));
+            weight = lookup<std::numeric_limits<int>::max()>(index, weights);
+            if (dataSize - j < VECTOR_SIZE) {
+                for(int k = j; k < dataSize; ++k) {
+                    flow[i] += csrVal[start + k] * weights[csrColInd[start + k]];
+                }
+            }
+            multiplication += row * weight;
+        }
+        flow[i] = horizontal_add(multiplication);
     }
 }
 
@@ -299,6 +348,9 @@ private:
         } else if (type == VCL_16_ROW) {
             vcl_16_row_load(NOVertices, csrRowPtr.data(), csrColInd.data(),
                             csrVal.data(), weights.data(), flow.data());
+        } else if (type == VCL_16_ROW_COMPARE) {
+            vcl_16_row_cutoff(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                                    csrVal.data(), weights.data(), flow.data()); 
         } else if (type == VCL_16_TRANSPOSE) {
             vcl_16_transpose(NOVertices, csrRowPtr.data(), csrColInd.data(),
                              csrVal.data(), weights.data(), flow.data());

@@ -354,17 +354,17 @@ void vcl_16_row_multiple_load(const int NOVertices, const int *csrRowPtr,
             index3.load(&(csrColInd[start + j + 2 * VECTOR_SIZE]));
             weight3 = lookup<std::numeric_limits<int>::max()>(index3, weights);
             multiplication3 += row3 * weight3;
-            row4.load(&(csrVal[start + j + 3*VECTOR_SIZE]));
-            index4.load(&(csrColInd[start + j + 3*VECTOR_SIZE]));
+            row4.load(&(csrVal[start + j + 3 * VECTOR_SIZE]));
+            index4.load(&(csrColInd[start + j + 3 * VECTOR_SIZE]));
             weight4 = lookup<std::numeric_limits<int>::max()>(index4, weights);
             multiplication4 += row4 * weight4;
         }
-        while (dataSize - j >= 16) {
+        while (dataSize - j >= VECTOR_SIZE) {
             row1.load(&(csrVal[start + j]));
             index1.load(&(csrColInd[start + j]));
             weight1 = lookup<std::numeric_limits<int>::max()>(index1, weights);
             multiplication1 += row1 * weight1;
-            j +=16;
+            j += VECTOR_SIZE;
         }
         row2.load_partial(dataSize - j, &(csrVal[start + j]));
         index2.load_partial(dataSize - j, &(csrColInd[start + j]));

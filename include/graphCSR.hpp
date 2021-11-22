@@ -210,6 +210,12 @@ void vcl_16_transpose(const int NOVertices, const int *csrRowPtr,
     }
 }
 
+void vcl_16_transpose_v2(const int NOVertices, const int *csrRowPtr,
+                         const int *csrColInd, const float *csrVal,
+                         const float *weights, float *flow){
+
+}
+
 void vcl_16_row_load(const int NOVertices, const int *csrRowPtr,
                      const int *csrColInd, const float *csrVal,
                      const float *weights, float *flow){
@@ -428,13 +434,16 @@ private:
             vcl_16_row_multiple_load(NOVertices, csrRowPtr.data(), csrColInd.data(),
                                      csrVal.data(), weights.data(), flow.data()); 
         } else if (type == VCL_16_TRANSPOSE) {
-            vcl_16_transpose(NOVertices, csrRowPtr.data(), csrColInd.data(),
-                             csrVal.data(), weights.data(), flow.data());
+            // vcl_16_transpose(NOVertices, csrRowPtr.data(), csrColInd.data(),
+            //                  csrVal.data(), weights.data(), flow.data());
+            vcl_16_row_load(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                            csrVal.data(), weights.data(), flow.data());
         }
     }
 
 public:
     explicit GraphCSR(GraphCOO& graph, Type t) : NOVertices(graph.getNOVertices()), type(t), flow(NOVertices) {
+        if (t == VCL_16_TRANSPOSE) graph.transpose();
         std::vector<value> matrix = graph.getNeighbourMatrix();
         weights = graph.getWeights();
         flow.resize(weights.size());
@@ -451,7 +460,11 @@ public:
             if (counter > maxLength) {
                 maxLength = counter;
             }
-            csrColInd.push_back(v.col);
+            if (t == VCL_16_TRANSPOSE) {
+                csrColInd.push_back(v.row);
+            } else {
+                csrColInd.push_back(v.col);
+            }
             csrVal.push_back(v.val);
         }
         // NONonZeroElements

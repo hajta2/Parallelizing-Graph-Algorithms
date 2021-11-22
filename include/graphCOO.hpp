@@ -106,6 +106,17 @@ public:
 
     }
 
+    void transpose() {
+        for (value &v : neighbourMatrix) {
+            value transpose = {v.col, v.row, v.val};
+            v = transpose;
+        }
+        std::sort(neighbourMatrix.begin(), neighbourMatrix.end(), [](const auto &lhs, const auto &rhs) {
+            if (lhs.row != rhs.row) return lhs.row < rhs.row;
+            return lhs.col < rhs.col;
+        });
+    }
+
     void convertToELLPACK() {
         //finding the max length
         int maxLength = 0;

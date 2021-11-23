@@ -59,7 +59,7 @@ int main(int argc, const char *argv[]) {
                          "matrix sizes and desinties");
 
   CLI11_PARSE(app, argc, argv);
-  if (t > SVE) {
+  if (t > SVE_MULTIROW) {
     return 1;
   }
 
@@ -104,10 +104,16 @@ int main(int argc, const char *argv[]) {
     } else {
       GraphCOO coo(N, rho);
       GraphCSR csr(coo, t);
+      GraphCSR csr2(coo, SVE_MULTIROW);
       std::cout<< t << "\n";
       std::cout<< N << "," << rho << "\n";
       {
         auto [time, bw] = csr.measure();
+        std::cout << "Time: " << time << "\n";
+        std::cout << "BW: " << bw << "\n";
+      }
+      {
+        auto [time, bw] = csr2.measure();
         std::cout << "Time: " << time << "\n";
         std::cout << "BW: " << bw << "\n";
       }

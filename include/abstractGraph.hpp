@@ -14,13 +14,17 @@
 enum Type {
     NAIVE,
     OPENMP,
-    SVE
+    SVE,
+    SVE4,
+    SVE_MULTIROW
 };
 
 std::string enumString[] = {
     "NAIVE",
     "OPENMP",
-    "SVE"
+    "SVE",
+    "SVE4",
+    "SVE_MULTIROW"
 };
 
 std::ostream &operator<<(std::ostream &o, const Type &t) {

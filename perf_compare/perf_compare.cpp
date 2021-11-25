@@ -142,8 +142,8 @@ inline void vcl_16_row_lookup(const int NOVertices, const int *csrRowPtr,
             Vec16f row, weight, multiplication = 0;
             Vec16i index;
             for(int j = 0; j < regularPart; j += VECTOR_SIZE) {
-                row.load(&(csrVal[start + j]));
-                index.load(&(csrColInd[start + j]));
+                row.load(csrVal + start + j);
+                index.load(csrColInd + start + j);
                 weight = lookup<std::numeric_limits<int>::max()>(index, weights);
                 multiplication += row * weight;
             }
@@ -168,13 +168,13 @@ inline void vcl_16_row_partial_load(const int NOVertices, const int *csrRowPtr,
         Vec16f row, weight;
         Vec16i index;
         for(int j = 0; j < regularPart; j += VECTOR_SIZE) {
-            row.load(&(csrVal[start + j]));
-            index.load(&(csrColInd[start + j]));
+            row.load(csrVal + start + j);
+            index.load(csrColInd + start + j);
             weight = lookup<std::numeric_limits<int>::max()>(index, weights);
             multiplication += row * weight;
         }
-        row.load_partial(dataSize - regularPart, &(csrVal[start + regularPart]));
-        index.load_partial(dataSize - regularPart, &(csrColInd[start + regularPart]));
+        row.load_partial(dataSize - regularPart, csrVal + start + regularPart);
+        index.load_partial(dataSize - regularPart, csrColInd + start + regularPart);
         weight = lookup<std::numeric_limits<int>::max()>(index, weights);
         multiplication += row * weight;
         //add the multiplication to flow[i]
@@ -194,8 +194,8 @@ inline void vcl_16_row_cutoff(const int NOVertices, const int *csrRowPtr,
         Vec16f row, weight;
         Vec16i index;
         for(int j = 0; j < dataSize; j += VECTOR_SIZE) {
-            row.load(&(csrVal[start + j]));
-            index.load(&(csrColInd[start + j]));
+            row.load(csrVal + start + j);
+            index.load(csrColInd + start + j);
             weight = lookup<std::numeric_limits<int>::max()>(index, weights);
             if (dataSize - j < VECTOR_SIZE) {
                 for(int k = j; k < dataSize; ++k) {
@@ -208,7 +208,7 @@ inline void vcl_16_row_cutoff(const int NOVertices, const int *csrRowPtr,
     }
 }
 
-inline void vcl_16_row_multiple_load(const int NOVertices, const int *csrRowPtr,
+inline void vcl_16_row_multiple_load_2(const int NOVertices, const int *csrRowPtr,
                               const int *csrColInd, const float *csrVal,
                               const float *weights, float *flow){
     #pragma omp parallel for
@@ -216,45 +216,102 @@ inline void vcl_16_row_multiple_load(const int NOVertices, const int *csrRowPtr,
         int start = csrRowPtr[i];
         int end = csrRowPtr[i + 1];
         int dataSize = end - start;                                    
-        int regularPart = dataSize & (-VECTOR_SIZE * 4);
+        int regularPart = dataSize & (-VECTOR_SIZE * 2);
         Vec16f multiplication1 = 0;
         Vec16f multiplication2 = 0;
-        Vec16f multiplication3 = 0;
-        Vec16f multiplication4 = 0;
-        Vec16f row1, weight1, row2, weight2, row3, weight3, row4, weight4;
-        Vec16i index1, index2, index3, index4;
+        //Vec16f multiplication3 = 0;
+        //Vec16f multiplication4 = 0;
+        Vec16f row1, weight1, row2, weight2; //row3, weight3, row4, weight4;
+        Vec16i index1, index2;  //, index3, index4;
         int j;
-        for(j = 0; j < regularPart; j += VECTOR_SIZE * 4) {
-            row1.load(&(csrVal[start + j]));
-            index1.load(&(csrColInd[start + j]));
+        for(j = 0; j < regularPart; j += VECTOR_SIZE * 2) {
+            row1.load(csrVal + start + j);
+            row2.load(csrVal + start + j + VECTOR_SIZE);
+            //row3.load(&(csrVal[start + j + 2 * VECTOR_SIZE]));
+            //row4.load(&(csrVal[start + j + 3 * VECTOR_SIZE]));
+            index1.load(csrColInd + start + j);
+            index2.load(csrColInd + start + j + VECTOR_SIZE);
+            //index3.load(&(csrColInd[start + j + 2 * VECTOR_SIZE]));
+            //index4.load(&(csrColInd[start + j + 3 * VECTOR_SIZE]));
             weight1 = lookup<std::numeric_limits<int>::max()>(index1, weights);
-            multiplication1 += row1 * weight1;
-            row2.load(&(csrVal[start + j + VECTOR_SIZE]));
-            index2.load(&(csrColInd[start + j + VECTOR_SIZE]));
             weight2 = lookup<std::numeric_limits<int>::max()>(index2, weights);
+            //weight3 = lookup<std::numeric_limits<int>::max()>(index3, weights);
+            //weight4 = lookup<std::numeric_limits<int>::max()>(index4, weights);
+            multiplication1 += row1 * weight1;
             multiplication2 += row2 * weight2;
-            row3.load(&(csrVal[start + j + 2 * VECTOR_SIZE]));
-            index3.load(&(csrColInd[start + j + 2 * VECTOR_SIZE]));
-            weight3 = lookup<std::numeric_limits<int>::max()>(index3, weights);
-            multiplication3 += row3 * weight3;
-            row4.load(&(csrVal[start + j + 3 * VECTOR_SIZE]));
-            index4.load(&(csrColInd[start + j + 3 * VECTOR_SIZE]));
-            weight4 = lookup<std::numeric_limits<int>::max()>(index4, weights);
-            multiplication4 += row4 * weight4;
+            //multiplication3 += row3 * weight3;
+            //multiplication4 += row4 * weight4;
         }
-        while (dataSize - j >= VECTOR_SIZE) {
-            row1.load(&(csrVal[start + j]));
-            index1.load(&(csrColInd[start + j]));
+        if (dataSize - j >= VECTOR_SIZE) {
+            row1.load(csrVal + start + j);
+            index1.load(csrColInd + start + j);
             weight1 = lookup<std::numeric_limits<int>::max()>(index1, weights);
             multiplication1 += row1 * weight1;
             j += VECTOR_SIZE;
         }
-        row2.load_partial(dataSize - j, &(csrVal[start + j]));
-        index2.load_partial(dataSize - j, &(csrColInd[start + j]));
+        row2.load_partial(dataSize - j, csrVal + start + j);
+        index2.load_partial(dataSize - j, csrColInd + start + j);
         weight2 = lookup<std::numeric_limits<int>::max()>(index2, weights);
         multiplication2 += row2 * weight2;
         //add the multiplication to flow[i]
-        flow[i] = horizontal_add(multiplication1 + multiplication2 + multiplication3 + multiplication4);
+        flow[i] = horizontal_add(multiplication1 + multiplication2); // + multiplication3 + multiplication4);
+    }
+}
+
+inline void vcl_16_row_multiple_load_3(const int NOVertices, const int *csrRowPtr,
+                              const int *csrColInd, const float *csrVal,
+                              const float *weights, float *flow){
+    #pragma omp parallel for
+    for(int i = 0; i < NOVertices; ++i) {
+        int start = csrRowPtr[i];
+        int end = csrRowPtr[i + 1];
+        int dataSize = end - start;                                    
+        int regularPart = dataSize & (-VECTOR_SIZE * 3);
+        Vec16f multiplication1 = 0;
+        Vec16f multiplication2 = 0;
+        Vec16f multiplication3 = 0;
+        //Vec16f multiplication4 = 0;
+        Vec16f row1, weight1, row2, weight2, row3, weight3; //row3, weight3, row4, weight4;
+        Vec16i index1, index2, index3;  //, index3, index4;
+        int j;
+        for(j = 0; j < regularPart; j += VECTOR_SIZE * 3) {
+            row1.load(csrVal + start + j);
+            row2.load(csrVal + start + j + VECTOR_SIZE);
+            row3.load(csrVal + start + j + 2 * VECTOR_SIZE);
+            //row4.load(&(csrVal[start + j + 3 * VECTOR_SIZE]));
+            index1.load(csrColInd + start + j);
+            index2.load(csrColInd + start + j + VECTOR_SIZE);
+            index3.load(csrColInd + start + j + 2 * VECTOR_SIZE);
+            //index4.load(&(csrColInd[start + j + 3 * VECTOR_SIZE]));
+            weight1 = lookup<std::numeric_limits<int>::max()>(index1, weights);
+            weight2 = lookup<std::numeric_limits<int>::max()>(index2, weights);
+            weight3 = lookup<std::numeric_limits<int>::max()>(index3, weights);
+            //weight4 = lookup<std::numeric_limits<int>::max()>(index4, weights);
+            multiplication1 += row1 * weight1;
+            multiplication2 += row2 * weight2;
+            multiplication3 += row3 * weight3;
+            //multiplication4 += row4 * weight4;
+        }
+        if (dataSize - j >= 2 * VECTOR_SIZE) {
+            row1.load(csrVal + start + j);
+            index1.load(csrColInd + start + j);
+            weight1 = lookup<std::numeric_limits<int>::max()>(index1, weights);
+            multiplication1 += row1 * weight1;
+            j += VECTOR_SIZE;
+        }
+        if (dataSize - j >= 1 * VECTOR_SIZE) {
+            row2.load(csrVal + start + j);
+            index2.load(csrColInd + start + j);
+            weight2 = lookup<std::numeric_limits<int>::max()>(index2, weights);
+            multiplication2 += row2 * weight2;
+            j += VECTOR_SIZE;
+        }
+        row3.load_partial(dataSize - j, csrVal + start + j);
+        index3.load_partial(dataSize - j, csrColInd + start + j);
+        weight3 = lookup<std::numeric_limits<int>::max()>(index3, weights);
+        multiplication3 += row3 * weight3;
+        //add the multiplication to flow[i]
+        flow[i] = horizontal_add(multiplication1 + multiplication2 + multiplication3); // + multiplication3 + multiplication4);
     }
 }
 
@@ -402,8 +459,13 @@ void compare_versions(int N, std::vector<int> &csrRowPtr,
     };
 
     auto f5 = [&]() {
-    vcl_16_row_multiple_load(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
-                            weights.data(), flow.data());
+    vcl_16_row_multiple_load_2(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
+                               weights.data(), flow.data());
+    };
+
+    auto f6 = [&]() {
+    vcl_16_row_multiple_load_3(N, csrRowPtr.data(), csrColInd.data(), csrVal.data(),
+                               weights.data(), flow.data());
     };
 
     (void)measure(mkl);
@@ -414,7 +476,8 @@ void compare_versions(int N, std::vector<int> &csrRowPtr,
     out << "LOOKUP;" << measure(f2) << "\n";
     out << "PARTIAL_LOAD;" << measure(f3) << "\n";
     out << "CUTOFF;" << measure(f4) << "\n";
-    out << "MULTIPLE_LOAD;" << measure(f5) << "\n";
+    out << "MULTIPLE_LOAD_2;" << measure(f5) << "\n";
+    out << "MULTIPLE_LOAD_3;" << measure(f6) << "\n";
 
 }
 

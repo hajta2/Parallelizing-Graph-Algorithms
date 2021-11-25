@@ -10,9 +10,9 @@
 #include <limits>
 #include "mkl_spblas.h"
 
-inline void csrMultiRow(const int NOVertices, const int *csrRowPtr,
-                        const int *csrColInd, const float *m, const float *v,
-                        float *flow) {
+void csrMultiRow(const int NOVertices, const int *csrRowPtr,
+                 const int *csrColInd, const float *m,
+                 const float *v, float *flow) { 
 #pragma omp parallel for
   for (int i = 0; i < NOVertices; i += 2) {
     if (i + 1 == NOVertices) {
@@ -37,6 +37,7 @@ inline void csrMultiRow(const int NOVertices, const int *csrRowPtr,
                            csrColInd + start + regularPart);
         weight = lookup<std::numeric_limits<int>::max()>(index, v);
         multiplication += weight * row;
+        // add the multiplication to res[i]
         flow[i] += horizontal_add(multiplication);
       }
     } else {
@@ -78,6 +79,7 @@ inline void csrMultiRow(const int NOVertices, const int *csrRowPtr,
     }
   }
 }
+
 
 void naive(const int NOVertices, const int *csrRowPtr,
            const int *csrColInd, const float *csrVal,
@@ -208,12 +210,6 @@ void vcl_16_transpose(const int NOVertices, const int *csrRowPtr,
             multiplication.store(flow + i);
         }
     }
-}
-
-void vcl_16_transpose_v2(const int NOVertices, const int *csrRowPtr,
-                         const int *csrColInd, const float *csrVal,
-                         const float *weights, float *flow){
-
 }
 
 void vcl_16_row_load(const int NOVertices, const int *csrRowPtr,
@@ -417,7 +413,6 @@ private:
         if (type == NAIVE) {
             naive(NOVertices, csrRowPtr.data(), csrColInd.data(),
                   csrVal.data(), weights.data(), flow.data());
-        //Calculating the matrix-vector multiplication w/ OMP 
         } else if (type == OPENMP){
             openmp(NOVertices, csrRowPtr.data(), csrColInd.data(),
                    csrVal.data(), weights.data(), flow.data());
@@ -430,12 +425,22 @@ private:
         } else if (type == VCL_16_ROW) {
             vcl_16_row_load(NOVertices, csrRowPtr.data(), csrColInd.data(),
                             csrVal.data(), weights.data(), flow.data());
-        } else if (type == VCL_16_ROW_COMPARE) {
+        } else if (type == VCL_16_ROW_LOOKUP) {
+            vcl_16_row_lookup(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                              csrVal.data(), weights.data(), flow.data()); 
+        } else if (type == VCL_16_ROW_PARTIAL_LOAD) {
+            vcl_16_row_partial_load(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                                    csrVal.data(), weights.data(), flow.data()); 
+        } else if (type == VCL_16_ROW_CUTOFF) {
+            vcl_16_row_cutoff(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                              csrVal.data(), weights.data(), flow.data()); 
+        } else if (type == VCL_16_ROW_MULTIPLE_LOAD) {
             vcl_16_row_multiple_load(NOVertices, csrRowPtr.data(), csrColInd.data(),
-                                     csrVal.data(), weights.data(), flow.data()); 
+                                     csrVal.data(), weights.data(), flow.data());
+        } else if (type == VCL_MULTIROW) {
+            csrMultiRow(NOVertices, csrRowPtr.data(), csrColInd.data(),
+                        csrVal.data(), weights.data(), flow.data());
         } else if (type == VCL_16_TRANSPOSE) {
-            // vcl_16_transpose(NOVertices, csrRowPtr.data(), csrColInd.data(),
-            //                  csrVal.data(), weights.data(), flow.data());
             vcl_16_row_load(NOVertices, csrRowPtr.data(), csrColInd.data(),
                             csrVal.data(), weights.data(), flow.data());
         }

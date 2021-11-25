@@ -17,9 +17,12 @@ enum Type {
     CONST_VCL16_ROW,
     CONST_VCL16_TRANSPOSE,
     VCL_16_ROW,
-    VCL_16_ROW_COMPARE,
-    VCL_16_TRANSPOSE,
-    VCL_MULTIROW
+    VCL_16_ROW_LOOKUP,
+    VCL_16_ROW_PARTIAL_LOAD,
+    VCL_16_ROW_CUTOFF,
+    VCL_16_ROW_MULTIPLE_LOAD,
+    VCL_MULTIROW,
+    VCL_16_TRANSPOSE
 };
 
 std::string enumString[] = {
@@ -28,9 +31,12 @@ std::string enumString[] = {
     "CONST_VCL16_ROW",
     "CONST_VCL16_TRANSPOSE",
     "VCL_16_ROW",
-    "VCL_16_ROW_COMPARE",
-    "VCL_16_TRANSPOSE",
-    "VCL_MULTIROW"
+    "VCL_16_ROW_LOOKUP",
+    "VCL_16_ROW_PARTIAL_LOAD",
+    "VCL_16_ROW_CUTOFF",
+    "VCL_16_ROW_MULTIPLE_LOAD",
+    "VCL_MULTIROW",
+    "VCL_16_TRANSPOSE"
 };
 
 std::ostream &operator<<(std::ostream &o, const Type &t) {

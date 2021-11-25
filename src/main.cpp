@@ -37,6 +37,7 @@ int main(int argc, const char *argv[]) {
       "/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/matrices.csv";
   int N = 8192;
   float rho = 3e-2f;
+  int rowLength = 8;
   Type t = VCL_16_ROW;
 
   CLI::App app;
@@ -63,6 +64,21 @@ int main(int argc, const char *argv[]) {
                          "Run measurements on a single format with different "
                          "matrix sizes and desinties");
 
+  CLI::App *perf_compare_cmd =
+      app.add_subcommand("compare",
+                         "Run measurments on multiple formats with same matrix");
+  auto opt_cn = perf_compare_cmd->add_option(
+      "-c,--size", N, "Input matrix size for generated matrices" 
+  );
+  auto opt_cl = perf_compare_cmd->add_option(
+      "-l,--length", rowLength, "Input matrix row lenght for generated matrices"
+  );
+
+  opt_if->excludes(opt_cn);
+  opt_if->excludes(opt_cl);
+  opt_cn->excludes(opt_if);
+  opt_cl->excludes(opt_if);
+
   CLI11_PARSE(app, argc, argv);
   if (t > VCL_MULTIROW) {
     return 1;
@@ -80,7 +96,6 @@ int main(int argc, const char *argv[]) {
       std::ofstream myfile(output_file, std::ios_base::app);
       GraphCOO graphCOO(N_x, matrix);
       GraphCSR graphCSR(graphCOO, t);
-      GraphCSR graphCSR2(graphCOO, VCL_16_ROW_COMPARE);
       myfile << std::filesystem::path(input_file).stem().string() << ", ";
       {
         auto [time, bw] = graphCSR.measure();
@@ -94,15 +109,9 @@ int main(int argc, const char *argv[]) {
     } else {
       GraphCOO coo(N, rho);
       GraphCSR csr(coo, t);
-      GraphCSR csr2(coo, VCL_16_ROW_COMPARE);
       {
         auto [time, bw] = csr.measure();
         std::cout << t << "\n";
-        std::cout << "Runtime: " << time << "\n";
-        std::cout << "Bandwidth: " << bw << "\n";
-      }
-      {
-        auto [time, bw] = csr2.measure();
         std::cout << "Runtime: " << time << "\n";
         std::cout << "Bandwidth: " << bw << "\n";
       }
@@ -119,19 +128,16 @@ int main(int argc, const char *argv[]) {
       for (int i = 10; i <= 17; ++i) {
         GraphCOO graphCOO(static_cast<int>(std::pow(2, i)));
         GraphCSR graphCSR(graphCOO, t);
-        auto [time, bw] = graphCSR.measure();
-        myfile << std::pow(2, i) << ", " << time << ", " << bw << ", "
-               << graphCSR.measureMKL() << "\n";
       }
     } else {
       myfile << "Vertices,Density,CSR w/o MKL,CI w 0.95,BW,CI w 0.95,CSR w/ MKL,CI w 0.95,BW,CI w 0.95," <<
                 "ELLPACK,CI w 0.95,BW,CI w 0.95,T-ELLPACK,CI w 0.95,BW,CI w 0.95,\n";
-      for (int i = 10; i <= 17; ++i) {
+      for (int i = 17; i <= 17; ++i) {
         for (float j = 1; j <= 30; j++) {
           GraphCOO graphCOO(static_cast<int>(std::pow(2, i)), j / 1000);
           GraphCSR graphCSR(graphCOO, t);
-          Ellpack ellpack(graphCOO, t, false);
-          Ellpack transposedEllpack(graphCOO, t, true);
+          // Ellpack ellpack(graphCOO, t, false);
+          // Ellpack transposedEllpack(graphCOO, t, true);
           std::cout << std::pow(2, i) << " " << j / 10 << "\n";
           myfile << std::pow(2, i) << "," << j / 10 << ",";
           {
@@ -142,18 +148,58 @@ int main(int argc, const char *argv[]) {
             auto [time, bw] = graphCSR.measureMKL_and_bw();
             myfile << time << ", " << bw << ", ";
           }
-          {
-            auto [time, bw] = ellpack.measure();
-            myfile << time << ", " << bw << ", ";
-          }
-          {
-            auto [time, bw] = transposedEllpack.measure();
-            myfile << time << ", " << bw << ", ";
-          }
+          // {
+          //   auto [time, bw] = ellpack.measure();
+          //   myfile << time << ", " << bw << ", ";
+          // }
+          // {
+          //   auto [time, bw] = transposedEllpack.measure();
+          //   myfile << time << ", " << bw << ", ";
+          // }
           myfile << "\n";
         }
       }
     }
+  } else if (perf_compare_cmd->parsed()) {
+    std::ofstream myfile("/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/compare.csv", std::ios_base::app);
+    GraphCOO coo(N, rowLength);
+    GraphCSR csr_row_ld(coo, VCL_16_ROW);
+    GraphCSR csr_row_lu(coo, VCL_16_ROW_LOOKUP);
+    GraphCSR csr_row_pl(coo, VCL_16_ROW_PARTIAL_LOAD);
+    GraphCSR csr_row_co(coo, VCL_16_ROW_CUTOFF);
+    GraphCSR csr_row_ml(coo, VCL_16_ROW_MULTIPLE_LOAD);
+    GraphCSR csr_row_mr(coo, VCL_MULTIROW);
+    myfile << N << "," << rowLength << ",";
+    {
+            auto [time, bw] = csr_row_ld.measureMKL_and_bw();
+            myfile << time << ",";
+    }
+
+    {
+            auto [time, bw] = csr_row_ld.measure();
+            myfile << time << ",";
+    }
+    {
+            auto [time, bw] = csr_row_lu.measure();
+            myfile << time << ",";
+    }
+    {
+            auto [time, bw] = csr_row_pl.measure();
+            myfile << time << ",";
+    }
+    {
+            auto [time, bw] = csr_row_co.measure();
+            myfile << time << ",";
+    }
+    {
+            auto [time, bw] = csr_row_ml.measure();
+            myfile << time << ",";
+    }
+    {
+            auto [time, bw] = csr_row_mr.measure();
+            myfile << time << "\n";
+    }
+    std::cout << "\n";
   } else {
     assert(false);
     return 1;

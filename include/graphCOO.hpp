@@ -105,6 +105,38 @@ public:
         weights = tmpWeights;
 
     }
+    //generate COO with cons row lenght
+    GraphCOO (int vertices, int rowLength) : NOVertices(vertices) {
+        std::random_device rd;
+        std::mt19937_64 gen(rd());
+        std::uniform_real_distribution<float> dis(0.0,1.0);
+        std::uniform_int_distribution<int> disInd(0, vertices - 1);
+
+        weights.resize(vertices);
+
+        for (int i = 0; i < vertices; ++i) {
+            for (int j = 0; j < rowLength; ++j) {
+                std::vector<int> colIndices;
+                int col = disInd(gen);
+                while (std::find(colIndices.begin(), colIndices.end(), col) != colIndices.end()) {
+                    col = disInd(gen);
+                }
+                float weight = dis(gen);
+                value val = {i, col, weight};
+                neighbourMatrix.push_back(val);
+                colIndices.push_back(col);
+            }
+        }
+
+        std::sort(neighbourMatrix.begin(), neighbourMatrix.end(), [](const auto &lhs, const auto &rhs) {
+            if (lhs.row != rhs.row) return lhs.row < rhs.row;
+            return lhs.col < rhs.col;
+        });
+
+        for (int i = 0; i < vertices; ++i) {
+            weights[i] = dis(gen);
+        }
+    }
 
     void transpose() {
         for (value &v : neighbourMatrix) {
@@ -232,7 +264,7 @@ public:
                 std::cout << "\n";
                 row = neighbourMatrix[i].row;
             }
-            std::cout << neighbourMatrix[i].col << " " << neighbourMatrix[i].val << " ";
+            std::cout << neighbourMatrix[i].row << " " << neighbourMatrix[i].col << " " << neighbourMatrix[i].val << " ";
         }
         std::cout << "\nWeights: ";
         for(int i = 0; i < weights.size(); ++i) {

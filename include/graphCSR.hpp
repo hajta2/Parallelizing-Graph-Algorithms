@@ -261,8 +261,8 @@ void vcl_16_row_lookup(const int NOVertices, const int *csrRowPtr,
             Vec16f row, weight, multiplication = 0;
             Vec16i index;
             for(int j = 0; j < regularPart; j += VECTOR_SIZE) {
-                row.load(&(csrVal[start + j]));
-                index.load(&(csrColInd[start + j]));
+                row.load(csrVal + start + j);
+                index.load(csrColInd + start + j);
                 weight = lookup<std::numeric_limits<int>::max()>(index, weights);
                 multiplication += row * weight;
             }
@@ -500,22 +500,6 @@ public:
         return sum / res.size();
     }
 
-    double bandWidth() {
-      double time = this->measure().first.mean;
-      double bytes = static_cast<double>(
-          sizeof(float) * (weights.size() + csrVal.size() + 2 * flow.size()));
-      // Gigabyte per second
-      return (bytes / 1000) / time;
-    }
-
-    double bandWidthMKL() {
-      double time = this->measureMKL();
-      double bytes = static_cast<double>(
-          sizeof(float) * (weights.size() + csrVal.size() + 2 * flow.size()));
-      // Gigabyte per second
-      return (bytes / 1000) / time;
-    }
-
     double getBandWidth(double time_s) override {
       double bytes = static_cast<double>(
           sizeof(float) * (weights.size() + csrVal.size() + 2 * flow.size()));
@@ -523,21 +507,10 @@ public:
       return bytes * 1e-9 / time_s;
     }
 
-    float *getResult() override {
-      return flow.data();
-    }
-
-    std::pair<measurement_result, measurement_result> measureMKL_and_bw() {
-      constexpr int amortizationCount = 10;
-      auto measure = [&]() {
-        for (int n = 0; n < amortizationCount; ++n) {
-          getWeightedFlowMKL();
-        }
-      };
-
-      auto getbw = [&](double time_s) { return getBandWidth(time_s); };
-
-      return measure_func(measure, getbw, amortizationCount);
+    double measureMKL_result() {
+        auto func = [&]() {getWeightedFlowMKL();};
+        (void)measure(func);
+        return measure(func);
     }
 
 };

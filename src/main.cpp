@@ -94,31 +94,32 @@ int main(int argc, const char *argv[]) {
       assert(N_x == N_y && "graph class handles squeare matrices only");
       std::vector<value> matrix = pack_coo<double>(row, col, vals);
       std::ofstream myfile(output_file, std::ios_base::app);
-      GraphCOO graphCOO(N_x, matrix);
-      GraphCSR graphCSR(graphCOO, t);
-      myfile << std::filesystem::path(input_file).stem().string() << ", ";
-      {
-        auto [time, bw] = graphCSR.measure();
-        myfile << t << ", " << time << ", " << bw << ", ";
-      }
-      {
-        auto [time, bw] = graphCSR.measureMKL_and_bw();
-        myfile <<  time << ", " << bw << ", ";
-      }
-      myfile << "\n";
+      GraphCOO coo(N_x, matrix);
+      GraphCSR csr(coo, VCL_MULTIROW);
+      Ellpack ellpack(coo, VCL_16_ROW, false);
+      Ellpack transEllpack(coo, VCL_16_ROW, true);
+      myfile << std::filesystem::path(input_file).stem().string() << ",";
+      double mkl = csr.measureMKL_result();
+      double multirow = csr.measure_result();
+      double ellp = ellpack.measure_result();
+      double tellp = transEllpack.measure_result();
+      myfile << mkl << "," << csr.getBandWidth(mkl) << ","
+             << multirow << "," << csr.getBandWidth(multirow) << ","
+             << ellp << "," << ellpack.getBandWidth(ellp) << ","
+             << tellp << "," << transEllpack.getBandWidth(tellp) << "\n";
+
     } else {
       GraphCOO coo(N, rho);
       GraphCSR csr(coo, t);
       {
-        auto [time, bw] = csr.measure();
-        std::cout << t << "\n";
+        double time = csr.measure_result();
         std::cout << "Runtime: " << time << "\n";
-        std::cout << "Bandwidth: " << bw << "\n";
+        std::cout << "Bandwidth: " << csr.getBandWidth(time) << "\n";
       }
       {
-        auto [time, bw] = csr.measureMKL_and_bw();
-        std::cout << "MKL t: " << time << "\n";
-        std::cout << "MKL b: " << bw << "\n";
+        double time = csr.measureMKL_result();
+        std::cout << "Runtime: " << time << "\n";
+        std::cout << "Bandwidth: " << csr.getBandWidth(time) << "\n";
       }
     }
   } else if (scaling_cmd->parsed()) {
@@ -130,76 +131,67 @@ int main(int argc, const char *argv[]) {
         GraphCSR graphCSR(graphCOO, t);
       }
     } else {
-      myfile << "Vertices,Density,CSR w/o MKL,CI w 0.95,BW,CI w 0.95,CSR w/ MKL,CI w 0.95,BW,CI w 0.95," <<
-                "ELLPACK,CI w 0.95,BW,CI w 0.95,T-ELLPACK,CI w 0.95,BW,CI w 0.95,\n";
-      for (int i = 17; i <= 17; ++i) {
+      myfile << "Vertices,Density,MKL,MKL_BW,MULTIROW,MULTIROW_BW,ELLPACK,ELLPACK_BW," 
+             << "TRANSPOSED_ELLPACK,TRANSPOSED_ELLPACK_BW\n";
+      for (int i = 10; i <= 17; ++i) {
         for (float j = 1; j <= 30; j++) {
-          GraphCOO graphCOO(static_cast<int>(std::pow(2, i)), j / 1000);
-          GraphCSR graphCSR(graphCOO, t);
-          // Ellpack ellpack(graphCOO, t, false);
-          // Ellpack transposedEllpack(graphCOO, t, true);
+          GraphCOO coo(static_cast<int>(std::pow(2, i)), j / 1000);
+          GraphCSR csr(coo, VCL_MULTIROW);
+          Ellpack ellpack(coo, VCL_16_ROW, false);
+          Ellpack transEllpack(coo, VCL_16_ROW, true);
           std::cout << std::pow(2, i) << " " << j / 10 << "\n";
           myfile << std::pow(2, i) << "," << j / 10 << ",";
-          {
-            auto [time, bw] = graphCSR.measure();
-            myfile << time << ", " << bw << ", ";
-          }
-          {
-            auto [time, bw] = graphCSR.measureMKL_and_bw();
-            myfile << time << ", " << bw << ", ";
-          }
-          // {
-          //   auto [time, bw] = ellpack.measure();
-          //   myfile << time << ", " << bw << ", ";
-          // }
-          // {
-          //   auto [time, bw] = transposedEllpack.measure();
-          //   myfile << time << ", " << bw << ", ";
-          // }
-          myfile << "\n";
+          double mkl = csr.measureMKL_result();
+          double multirow = csr.measure_result();
+          double ellp = ellpack.measure_result();
+          double tellp = transEllpack.measure_result();
+          myfile << mkl << "," << csr.getBandWidth(mkl) << ","
+                 << multirow << "," << csr.getBandWidth(multirow) << ","
+                 << ellp << "," << ellpack.getBandWidth(ellp) << ","
+                 << tellp << "," << transEllpack.getBandWidth(tellp) << "\n";
         }
       }
     }
   } else if (perf_compare_cmd->parsed()) {
-    std::ofstream myfile("/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/compare.csv", std::ios_base::app);
-    GraphCOO coo(N, rowLength);
-    GraphCSR csr_row_ld(coo, VCL_16_ROW);
-    GraphCSR csr_row_lu(coo, VCL_16_ROW_LOOKUP);
-    GraphCSR csr_row_pl(coo, VCL_16_ROW_PARTIAL_LOAD);
-    GraphCSR csr_row_co(coo, VCL_16_ROW_CUTOFF);
-    GraphCSR csr_row_ml(coo, VCL_16_ROW_MULTIPLE_LOAD);
-    GraphCSR csr_row_mr(coo, VCL_MULTIROW);
-    myfile << N << "," << rowLength << ",";
-    {
-            auto [time, bw] = csr_row_ld.measureMKL_and_bw();
-            myfile << time << ",";
-    }
+    // std::ofstream myfile("/home/hajta2/Parallelizing-Graph-Algorithms/runtimes/compare.csv", std::ios_base::app);
+    // GraphCOO coo(N, rowLength);
+    // GraphCSR csr_row_ld(coo, VCL_16_ROW);
+    // GraphCSR csr_row_lu(coo, VCL_16_ROW_LOOKUP);
+    // GraphCSR csr_row_pl(coo, VCL_16_ROW_PARTIAL_LOAD);
+    // GraphCSR csr_row_co(coo, VCL_16_ROW_CUTOFF);
+    // GraphCSR csr_row_ml(coo, VCL_16_ROW_MULTIPLE_LOAD);
+    // GraphCSR csr_row_mr(coo, VCL_MULTIROW);
+    // myfile << N << "," << rowLength << ",";
+    // {
+    //         auto [time, bw] = csr_row_ld.measureMKL_and_bw();
+    //         myfile << time << ",";
+    // }
 
-    {
-            auto [time, bw] = csr_row_ld.measure();
-            myfile << time << ",";
-    }
-    {
-            auto [time, bw] = csr_row_lu.measure();
-            myfile << time << ",";
-    }
-    {
-            auto [time, bw] = csr_row_pl.measure();
-            myfile << time << ",";
-    }
-    {
-            auto [time, bw] = csr_row_co.measure();
-            myfile << time << ",";
-    }
-    {
-            auto [time, bw] = csr_row_ml.measure();
-            myfile << time << ",";
-    }
-    {
-            auto [time, bw] = csr_row_mr.measure();
-            myfile << time << "\n";
-    }
-    std::cout << "\n";
+    // {
+    //         auto [time, bw] = csr_row_ld.measure();
+    //         myfile << time << ",";
+    // }
+    // {
+    //         auto [time, bw] = csr_row_lu.measure();
+    //         myfile << time << ",";
+    // }
+    // {
+    //         auto [time, bw] = csr_row_pl.measure();
+    //         myfile << time << ",";
+    // }
+    // {
+    //         auto [time, bw] = csr_row_co.measure();
+    //         myfile << time << ",";
+    // }
+    // {
+    //         auto [time, bw] = csr_row_ml.measure();
+    //         myfile << time << ",";
+    // }
+    // {
+    //         auto [time, bw] = csr_row_mr.measure();
+    //         myfile << time << "\n";
+    // }
+    std::cout << "Not implemented";
   } else {
     assert(false);
     return 1;

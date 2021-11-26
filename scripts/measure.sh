@@ -10,6 +10,6 @@ do
     for i in "${file_names[@]}"
     do
         echo $i
-        OMP_PROC_BIND=TRUE OMP_NUM_THREADS=32 numactl --cpunodebind=1 $absolute_path/bin/Parallelizing_Graph_Algorithms $i
+        OMP_PROC_BIND=TRUE OMP_NUM_THREADS=32 numactl --cpunodebind=1 $absolute_path'bin/Parallelizing_Graph_Algorithms' -o $absolute_path'/runtimes/matrices.csv' single -i $i
     done
 done

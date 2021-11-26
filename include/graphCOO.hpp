@@ -249,7 +249,7 @@ public:
             return neighbourMatrix;
     }
 
-    [[nodiscard]] int getNOVertices() const{
+    int getNOVertices() const{
         return NOVertices;
     }
 
@@ -287,10 +287,6 @@ public:
             res[v.row] = v.val * weights[v.col];
         }
         flow = res;
-    }
-
-    float *getResult() override {
-      return flow.data();
     }
 };
 

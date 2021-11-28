@@ -107,45 +107,39 @@ int main(int argc, const char *argv[]) {
       GraphCSR csr2(coo, SVE_MULTIROW);
       std::cout<< t << "\n";
       std::cout<< N << "," << rho << "\n";
-      {
-        auto [time, bw] = csr.measure();
-        std::cout << "Time: " << time << "\n";
-        std::cout << "BW: " << bw << "\n";
-      }
-      {
-        auto [time, bw] = csr2.measure();
-        std::cout << "Time: " << time << "\n";
-        std::cout << "BW: " << bw << "\n";
-      }
-      {
-        auto [time, bw] = csr.measureARM_and_bw();
-        std::cout << "ARM Time: " << time << "\n";
-        std::cout << "ARM BW: " << bw << "\n";
-      }
+      std::cout << csr.measure_result() << " " << csr2.measure_result() << " " 
+                << csr.measureARM_result() << "\n";
     }
   } else if (scaling_cmd->parsed()) {
     std::ofstream myfile(output_file);
-    myfile << "Vertices,Density,MyImplementation,CI w 0.95,BW,CI w 0.95,ARM,CI w 0.95,BW,CI w 0.95\n";//,ARMPL,CI w 0.95,BW,CI w 0.95\n";
+    myfile << "Vertices,Density,SVE,SVE_BW,ARMPL,ARMPL_BW\n";
     for (int i = 10; i <= 16; ++i) {
       for (float j = 1; j <= 30; j++) {
-        GraphCOO graphCOO(static_cast<int>(std::pow(2, i)), j / 1000);
-        GraphCSR graphCSR(graphCOO, t);
+        GraphCOO coo(static_cast<int>(std::pow(2, i)), j / 1000);
+        GraphCSR sve1(coo, SVE);
+        //GraphCSR sve2(coo, SVE2);
         std::cout << std::pow(2, i) << " " << j / 10 << "\n";
         myfile << std::pow(2, i) << "," << j / 10 << ",";
-        {
-          auto [time, bw] = graphCSR.measure();
-          myfile << time << ",";
-          myfile << bw << ",";
-          // std::cout << "t: " << time << "\n";
-          // std::cout << "bw: " << bw << "\n";
-        }
-        {
-          auto [time, bw] = graphCSR.measureARM_and_bw();
-          myfile << time << ",";
-          myfile << bw << "\n";
-          // std::cout << "arm t: " << time << "\n";
-          // std::cout << "arm bw: " << bw << "\n";
-        }
+        double arm_res = sve1.measureARM_result();
+        double sve1_res = sve1.measure_result();
+        //double sve2_res = sve2.measure_result();
+        myfile << sve1_res << "," << sve1.getBandWidth(sve1_res) << ","
+               //<< sve2_res << "," << sve2.getBandWidth(sve2_res) << ","
+               << arm_res << "," << sve1.getBandWidth(arm_res) << "\n";
+        // {
+        //   auto [time, bw] = graphCSR.measure();
+        //   myfile << time << ",";
+        //   myfile << bw << ",";
+        //   // std::cout << "t: " << time << "\n";
+        //   // std::cout << "bw: " << bw << "\n";
+        // }
+        // {
+        //   auto [time, bw] = graphCSR.measureARM_and_bw();
+        //   myfile << time << ",";
+        //   myfile << bw << "\n";
+        //   // std::cout << "arm t: " << time << "\n";
+        //   // std::cout << "arm bw: " << bw << "\n";
+        // }
       }
     }
   } else {

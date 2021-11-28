@@ -15,19 +15,10 @@ set(ARMPL_DIR
 set(CMAKE_CXX_FLAGS
     "${CMAKE_CXX_FLAGS} -I$ARMPL_INCLUDES -L$ARMPL_DIR/lib -larmpl_mp -lamath -lm"
 )
-#set(CMAKE_CXX_FLAGS
-#    "${CMAKE_CXX_FLAGS} -march=native"
-#)
 
 set(CMAKE_CXX_FLAGS
-    "${CMAKE_CXX_FLAGS} -march=armv8.6-a+sve2"
+    "${CMAKE_CXX_FLAGS} -march=armv8.6-a+sve"
 )
-
-#add_library(project_options INTERFACE)
-
-# sanitizer options if supported by compiler
-# include(cmake/Sanitizers.cmake)
-# enable_sanitizers(project_options)
 
 # Link this 'library' to use the warnings specified in CompilerWarnings.cmake
 add_library(project_warnings INTERFACE)
@@ -36,7 +27,6 @@ add_library(project_warnings INTERFACE)
 include(cmake/CompilerWarnings.cmake)
 set_project_warnings(project_warnings)
 
-# add_subdirectory(lib/MMIO)
 add_subdirectory(lib/CLI11)
 file(GLOB SOURCES "src/*.cpp")
 add_executable(Parallelizing_Graph_Algorithms ${SOURCES})
@@ -46,10 +36,9 @@ target_link_libraries(
     OpenMP::OpenMP_CXX
     Boost::boost
     CLI11
-    # MMIO
-    #project_options
     project_warnings)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/)
+add_subdirectory(perf_compare)
 
 include_directories(include)
 include_directories(SYSTEM lib)

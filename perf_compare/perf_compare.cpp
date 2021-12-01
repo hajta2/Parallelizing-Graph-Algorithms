@@ -249,10 +249,13 @@ inline void vcl_16_row_multiple_load_2(const int NOVertices, const int *csrRowPt
             multiplication1 += row1 * weight1;
             j += VECTOR_SIZE;
         }
-        row2.load_partial(dataSize - j, csrVal + start + j);
-        index2.load_partial(dataSize - j, csrColInd + start + j);
-        weight2 = lookup<std::numeric_limits<int>::max()>(index2, weights);
-        multiplication2 += row2 * weight2;
+        // row2.load_partial(dataSize - j, csrVal + start + j);
+        // index2.load_partial(dataSize - j, csrColInd + start + j);
+        // weight2 = lookup<std::numeric_limits<int>::max()>(index2, weights);
+        // multiplication2 += row2 * weight2;
+        for(int k = dataSize - j; k < dataSize; ++k) {
+                flow[i] += csrVal[start + k] * weights[csrColInd[start + k]];
+        }
         //add the multiplication to flow[i]
         flow[i] = horizontal_add(multiplication1 + multiplication2); // + multiplication3 + multiplication4);
     }
@@ -306,10 +309,13 @@ inline void vcl_16_row_multiple_load_3(const int NOVertices, const int *csrRowPt
             multiplication2 += row2 * weight2;
             j += VECTOR_SIZE;
         }
-        row3.load_partial(dataSize - j, csrVal + start + j);
-        index3.load_partial(dataSize - j, csrColInd + start + j);
-        weight3 = lookup<std::numeric_limits<int>::max()>(index3, weights);
-        multiplication3 += row3 * weight3;
+        // row3.load_partial(dataSize - j, csrVal + start + j);
+        // index3.load_partial(dataSize - j, csrColInd + start + j);
+        // weight3 = lookup<std::numeric_limits<int>::max()>(index3, weights);
+        // multiplication3 += row3 * weight3;
+        for(int k = dataSize - j; k < dataSize; ++k) {
+                flow[i] += csrVal[start + k] * weights[csrColInd[start + k]];
+        }
         //add the multiplication to flow[i]
         flow[i] = horizontal_add(multiplication1 + multiplication2 + multiplication3); // + multiplication3 + multiplication4);
     }
